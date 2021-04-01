@@ -69,6 +69,8 @@ def process_sub_packet(pgn: int, address: int, data: bytearray):
         del BUCKET[hashed_id]  # Clean up
         return final_payload
 
+    raise MultiPacketInProcessError
+
 
 def packet_type(pgn: int) -> str:
     return PGN_DB[pgn]["Type"]

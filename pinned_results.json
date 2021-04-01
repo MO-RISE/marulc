@@ -1,5 +1,177 @@
 {
-    "tests/test_unpack.py::test_unpack_single_known_message_1": {
+    "tests/test_unpack.py::test_unpack_known_multi_packet_nmea2k_message_1": {
+        "Address": 56,
+        "Description": "Engine Parameters, Dynamic",
+        "Fields": {
+            "alternatorPotential": {
+                "Name": "Alternator Potential",
+                "Units": "V",
+                "Value": 26.2
+            },
+            "coolantPressure": {
+                "Name": "Coolant Pressure",
+                "Type": "Pressure",
+                "Units": "hPa",
+                "Value": 65535
+            },
+            "discreteStatus1": {
+                "EnumBitValues": [
+                    {
+                        "0": "Check Engine"
+                    },
+                    {
+                        "1": "Over Temperature"
+                    },
+                    {
+                        "2": "Low Oil Pressure"
+                    },
+                    {
+                        "3": "Low Oil Level"
+                    },
+                    {
+                        "4": "Low Fuel Pressure"
+                    },
+                    {
+                        "5": "Low System Voltage"
+                    },
+                    {
+                        "6": "Low Coolant Level"
+                    },
+                    {
+                        "7": "Water Flow"
+                    },
+                    {
+                        "8": "Water In Fuel"
+                    },
+                    {
+                        "9": "Charge Indicator"
+                    },
+                    {
+                        "10": "Preheat Indicator"
+                    },
+                    {
+                        "11": "High Boost Pressure"
+                    },
+                    {
+                        "12": "Rev Limit Exceeded"
+                    },
+                    {
+                        "13": "EGR System"
+                    },
+                    {
+                        "14": "Throttle Position Sensor"
+                    },
+                    {
+                        "15": "Emergency Stop"
+                    }
+                ],
+                "Name": "Discrete Status 1",
+                "Type": "Bitfield",
+                "Value": 0
+            },
+            "discreteStatus2": {
+                "EnumBitValues": [
+                    {
+                        "0": "Warning Level 1"
+                    },
+                    {
+                        "1": "Warning Level 2"
+                    },
+                    {
+                        "2": "Power Reduction"
+                    },
+                    {
+                        "3": "Maintenance Needed"
+                    },
+                    {
+                        "4": "Engine Comm Error"
+                    },
+                    {
+                        "5": "Sub or Secondary Throttle"
+                    },
+                    {
+                        "6": "Neutral Start Protect"
+                    },
+                    {
+                        "7": "Engine Shutting Down"
+                    }
+                ],
+                "Name": "Discrete Status 2",
+                "Type": "Bitfield",
+                "Value": 0
+            },
+            "fuelPressure": {
+                "Name": "Fuel Pressure",
+                "Units": "kPa",
+                "Value": 48
+            },
+            "fuelRate": {
+                "Name": "Fuel Rate",
+                "Units": "L/h",
+                "Value": 4.5
+            },
+            "instance": {
+                "EnumValues": [
+                    {
+                        "name": "Single Engine or Dual Engine Port",
+                        "value": "0"
+                    },
+                    {
+                        "name": "Dual Engine Starboard",
+                        "value": "1"
+                    }
+                ],
+                "Name": "Instance",
+                "Type": "Lookup table",
+                "Value": 0
+            },
+            "oilPressure": {
+                "Name": "Oil pressure",
+                "Type": "Pressure",
+                "Units": "hPa",
+                "Value": 3920
+            },
+            "oilTemperature": {
+                "Name": "Oil temperature",
+                "Type": "Temperature",
+                "Units": "K",
+                "Value": 343.1
+            },
+            "percentEngineLoad": {
+                "Name": "Percent Engine Load",
+                "Type": "Integer",
+                "Units": "%",
+                "Value": 8.0
+            },
+            "percentEngineTorque": {
+                "Name": "Percent Engine Torque",
+                "Type": "Integer",
+                "Units": "%",
+                "Value": 9.0
+            },
+            "reserved": {
+                "Name": "Reserved",
+                "Type": "Binary data",
+                "Value": 127
+            },
+            "temperature": {
+                "Name": "Temperature",
+                "Type": "Temperature",
+                "Units": "K",
+                "Value": 349.15000000000003
+            },
+            "totalEngineHours": {
+                "Name": "Total Engine hours",
+                "Units": "s",
+                "Value": 4294967295
+            }
+        },
+        "Id": "engineParametersDynamic",
+        "PGN": 127489,
+        "Priority": 2,
+        "Talker": "MXPGN"
+    },
+    "tests/test_unpack.py::test_unpack_known_regular_nmea_message_1": {
         "Description": "",
         "Fields": {
             "age_gps_data": {
@@ -60,5 +232,51 @@
             }
         },
         "Talker": "GNGGA"
+    },
+    "tests/test_unpack.py::test_unpack_known_single_packet_nmea2k_message_1": {
+        "Address": 86,
+        "Description": "Engine Parameters, Rapid Update",
+        "Fields": {
+            "boostPressure": {
+                "Name": "Boost Pressure",
+                "Type": "Pressure",
+                "Units": "hPa",
+                "Value": 0
+            },
+            "instance": {
+                "EnumValues": [
+                    {
+                        "name": "Single Engine or Dual Engine Port",
+                        "value": "0"
+                    },
+                    {
+                        "name": "Dual Engine Starboard",
+                        "value": "1"
+                    }
+                ],
+                "Name": "Instance",
+                "Type": "Lookup table",
+                "Value": 1
+            },
+            "reserved": {
+                "Name": "Reserved",
+                "Type": "Binary data",
+                "Value": 65535
+            },
+            "speed": {
+                "Name": "Speed",
+                "Units": "rpm",
+                "Value": 812.5
+            },
+            "tiltTrim": {
+                "Name": "Tilt/Trim",
+                "Units": null,
+                "Value": 127
+            }
+        },
+        "Id": "engineParametersRapidUpdate",
+        "PGN": 127488,
+        "Priority": 2,
+        "Talker": "MXPGN"
     }
 }
