@@ -1,23 +1,31 @@
 import io
 import os
 import sys
+import codecs
 
 from setuptools import find_packages, setup, Command
 
 # Package meta-data.
-NAME = 'TODO'
-DESCRIPTION = 'TODO'
+NAME = 'jasmine'
+DESCRIPTION = 'NMEA 0183 and 2000 parser'
 
-URL = 'https://github.com/rise-mo/TODO'
-EMAIL = 'TODO'
+URL = 'https://github.com/rise-mo/jasmine'
+EMAIL = 'fredrik.x.olsson@ri.se'
 AUTHOR = 'Rise Maritime Operations'
 REQUIRES_PYTHON = '>=3.7.0'
 VERSION = '0.1.0'
 
+# Long description
+def read(fname):
+    file_path = os.path.join(os.path.dirname(__file__), fname)
+    return codecs.open(file_path, encoding='utf-8').read()
+
+LONG_DESCRIPTION = read("README.md")
+
 # What packages are required for this module to be executed?
-REQUIRED = [
-    # 'numpy', 'pandas',
-]
+# Parse the requirements-txt file and use for install_requires in pip
+with open('requirements.txt') as f:
+    REQUIRED = f.read().splitlines()
 
 # What packages are optional?
 EXTRAS = {
@@ -39,7 +47,7 @@ setup(
     name=NAME,
     version=VERSION,
     description=DESCRIPTION,
-    long_description=long_description,
+    long_description=LONG_DESCRIPTION,
     long_description_content_type='text/markdown',
     author=AUTHOR,
     python_requires=REQUIRES_PYTHON,

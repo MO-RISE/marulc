@@ -1,0 +1,5 @@
+black
+pylint
+pytest
+pytest-pinned
+-e .

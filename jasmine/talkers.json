@@ -1,0 +1,3414 @@
+{
+    "Talkers": {
+        "AAM": {
+            "Fields": [
+                {
+                    "Id": "arrival_circ_entered",
+                    "Description": "Arrival Circle Entered"
+                },
+                {
+                    "Id": "perp_passed",
+                    "Description": "Perpendicular Passed"
+                },
+                {
+                    "Id": "circle_rad",
+                    "Description": "Circle Radius"
+                },
+                {
+                    "Id": "circle_rad_unit",
+                    "Description": "Nautical Miles"
+                },
+                {
+                    "Id": "waypoint_id",
+                    "Description": "Waypoint ID"
+                }
+            ],
+            "Description": "Waypoint Arrival Alarm"
+        },
+        "ALM": {
+            "Fields": [
+                {
+                    "Id": "total_num_msgs",
+                    "Description": "Total number of messages"
+                },
+                {
+                    "Id": "msg_num",
+                    "Description": "Message number"
+                },
+                {
+                    "Id": "sat_prn_num",
+                    "Description": "Satellite PRN number"
+                },
+                {
+                    "Id": "gps_week_num",
+                    "Description": "GPS week number"
+                },
+                {
+                    "Id": "sv_health",
+                    "Description": "SV Health, bits 17-24 of each almanac page"
+                },
+                {
+                    "Id": "eccentricity",
+                    "Description": "Eccentricity"
+                },
+                {
+                    "Id": "alamanac_ref_time",
+                    "Description": "Almanac Reference Time"
+                },
+                {
+                    "Id": "inc_angle",
+                    "Description": "Inclination Angle"
+                },
+                {
+                    "Id": "rate_right_asc",
+                    "Description": "Rate of right ascension"
+                },
+                {
+                    "Id": "root_semi_major_axis",
+                    "Description": "Root of semi-major axis"
+                },
+                {
+                    "Id": "arg_perigee",
+                    "Description": "Argument of perigee"
+                },
+                {
+                    "Id": "lat_asc_node",
+                    "Description": "Longitude of ascension node"
+                },
+                {
+                    "Id": "mean_anom",
+                    "Description": "Mean anomaly"
+                },
+                {
+                    "Id": "f0_clock_param",
+                    "Description": "F0 Clock parameter"
+                },
+                {
+                    "Id": "f1_clock_param",
+                    "Description": "F1 Clock parameter"
+                }
+            ],
+            "Description": "GPS Almanac data"
+        },
+        "APA": {
+            "Fields": [
+                {
+                    "Id": "status_gen",
+                    "Description": "General Status"
+                },
+                {
+                    "Id": "status_cycle_lock",
+                    "Description": "Cycle lock Status"
+                },
+                {
+                    "Id": "cross_track_err_mag",
+                    "Description": "Cross Track Error Magnitude"
+                },
+                {
+                    "Id": "dir_steer",
+                    "Description": "Direction to Steer (L or R)"
+                },
+                {
+                    "Id": "cross_track_unit",
+                    "Description": "Cross Track Units (Nautical Miles or KM)"
+                },
+                {
+                    "Id": "arr_circle_entered",
+                    "Description": "Arrival Circle Entered"
+                },
+                {
+                    "Id": "perp_passed",
+                    "Description": "Perpendicular passed at waypoint"
+                },
+                {
+                    "Id": "bearing_to_dest",
+                    "Description": "Bearing origin to destination"
+                },
+                {
+                    "Id": "bearing_type",
+                    "Description": "Bearing type"
+                },
+                {
+                    "Id": "dest_waypoint_id",
+                    "Description": "Destination waypoint ID"
+                }
+            ],
+            "Description": "Autopilot Sentence \"A\""
+        },
+        "APB": {
+            "Fields": [
+                {
+                    "Id": "status_gen",
+                    "Description": "General Status"
+                },
+                {
+                    "Id": "status_cycle_lock",
+                    "Description": "Cycle lock Status"
+                },
+                {
+                    "Id": "cross_track_err_mag",
+                    "Description": "Cross Track Error Magnitude"
+                },
+                {
+                    "Id": "dir_steer",
+                    "Description": "Direction to Steer (L or R)"
+                },
+                {
+                    "Id": "cross_track_unit",
+                    "Description": "Cross Track Units (Nautical Miles or KM)"
+                },
+                {
+                    "Id": "arr_circle_entered",
+                    "Description": "Arrival Circle Entered"
+                },
+                {
+                    "Id": "perp_passed",
+                    "Description": "Perpendicular passed at waypoint"
+                },
+                {
+                    "Id": "bearing_to_dest",
+                    "Description": "Bearing origin to destination"
+                },
+                {
+                    "Id": "bearing_type",
+                    "Description": "Bearing type"
+                },
+                {
+                    "Id": "dest_waypoint_id",
+                    "Description": "Destination waypoint ID"
+                },
+                {
+                    "Id": "bearing_pres_dest",
+                    "Description": "Bearing, present position to dest"
+                },
+                {
+                    "Id": "bearing_pres_dest_type",
+                    "Description": "Bearing to destination, type"
+                },
+                {
+                    "Id": "heading_to_dest",
+                    "Description": "Heading to steer to destination"
+                },
+                {
+                    "Id": "heading_to_dest_type",
+                    "Description": "Heading to steer to destination type"
+                }
+            ],
+            "Description": "Autopilot Sentence \"B\""
+        },
+        "BEC": {
+            "Fields": [
+                {
+                    "Id": "timestamp",
+                    "Description": "Timestamp"
+                },
+                {
+                    "Id": "waypoint_lat",
+                    "Description": "Waypoint Latitude"
+                },
+                {
+                    "Id": "waypoint_lat_dir",
+                    "Description": "Waypoint Latitude direction"
+                },
+                {
+                    "Id": "waypoint_lon",
+                    "Description": "Waypoint Longitude"
+                },
+                {
+                    "Id": "waypoint_lon_dir",
+                    "Description": "Waypoint Longitude direction"
+                },
+                {
+                    "Id": "bearing_true",
+                    "Description": "Bearing, true"
+                },
+                {
+                    "Id": "bearing_true_sym",
+                    "Description": "Bearing True symbol"
+                },
+                {
+                    "Id": "bearing_mag",
+                    "Description": "Bearing Magnetic"
+                },
+                {
+                    "Id": "bearing_mag_sym",
+                    "Description": "Bearing Magnetic symbol"
+                },
+                {
+                    "Id": "nautical_miles",
+                    "Description": "Nautical Miles"
+                },
+                {
+                    "Id": "nautical_miles_sym",
+                    "Description": "Nautical Miles symbol"
+                },
+                {
+                    "Id": "waypoint_id",
+                    "Description": "Waypoint ID"
+                },
+                {
+                    "Id": "faa_mode",
+                    "Description": "FAA mode indicator"
+                }
+            ],
+            "Description": "Bearing & Distance to Waypoint, Dead Reckoning"
+        },
+        "BOD": {
+            "Fields": [
+                {
+                    "Id": "bearing_t",
+                    "Description": "Bearing True"
+                },
+                {
+                    "Id": "bearing_t_type",
+                    "Description": "Bearing True Type"
+                },
+                {
+                    "Id": "bearing_mag",
+                    "Description": "Bearing Magnetic"
+                },
+                {
+                    "Id": "bearing_mag_type",
+                    "Description": "Bearing Magnetic Type"
+                },
+                {
+                    "Id": "dest",
+                    "Description": "Destination"
+                },
+                {
+                    "Id": "start",
+                    "Description": "Start"
+                }
+            ],
+            "Description": ""
+        },
+        "BWC": {
+            "Fields": [
+                {
+                    "Id": "timestamp",
+                    "Description": "Timestamp"
+                },
+                {
+                    "Id": "lat_next",
+                    "Description": "Latitude of next Waypoint"
+                },
+                {
+                    "Id": "lat_next_direction",
+                    "Description": "Latitude of next Waypoint Direction"
+                },
+                {
+                    "Id": "lon_next",
+                    "Description": "Longitude of next Waypoint"
+                },
+                {
+                    "Id": "lon_next_direction",
+                    "Description": "Longitude of next Waypoint Direction"
+                },
+                {
+                    "Id": "true_track",
+                    "Description": "True track to waypoint"
+                },
+                {
+                    "Id": "true_track_sym",
+                    "Description": "True Track Symbol"
+                },
+                {
+                    "Id": "mag_track",
+                    "Description": "Magnetic track to waypoint"
+                },
+                {
+                    "Id": "mag_sym",
+                    "Description": "Magnetic Symbol"
+                },
+                {
+                    "Id": "range_next",
+                    "Description": "Range to waypoint"
+                },
+                {
+                    "Id": "range_unit",
+                    "Description": "Unit of range"
+                },
+                {
+                    "Id": "waypoint_name",
+                    "Description": "Waypoint Name"
+                }
+            ],
+            "Description": ""
+        },
+        "BWR": {
+            "Fields": [
+                {
+                    "Id": "timestamp",
+                    "Description": "Timestamp"
+                },
+                {
+                    "Id": "lat_next",
+                    "Description": "Latitude of next Waypoint"
+                },
+                {
+                    "Id": "lat_next_direction",
+                    "Description": "Latitude of next Waypoint Direction"
+                },
+                {
+                    "Id": "lon_next",
+                    "Description": "Longitude of next Waypoint"
+                },
+                {
+                    "Id": "lon_next_direction",
+                    "Description": "Longitude of next Waypoint Direction"
+                },
+                {
+                    "Id": "true_track",
+                    "Description": "True track to waypoint"
+                },
+                {
+                    "Id": "true_track_sym",
+                    "Description": "True Track Symbol"
+                },
+                {
+                    "Id": "mag_track",
+                    "Description": "Magnetic track to waypoint"
+                },
+                {
+                    "Id": "mag_sym",
+                    "Description": "Magnetic Symbol"
+                },
+                {
+                    "Id": "range_next",
+                    "Description": "Range to waypoint"
+                },
+                {
+                    "Id": "range_unit",
+                    "Description": "Unit of range"
+                },
+                {
+                    "Id": "waypoint_name",
+                    "Description": "Waypoint Name"
+                }
+            ],
+            "Description": ""
+        },
+        "GGA": {
+            "Fields": [
+                {
+                    "Id": "timestamp",
+                    "Description": "Timestamp"
+                },
+                {
+                    "Id": "lat",
+                    "Description": "Latitude"
+                },
+                {
+                    "Id": "lat_dir",
+                    "Description": "Latitude Direction"
+                },
+                {
+                    "Id": "lon",
+                    "Description": "Longitude"
+                },
+                {
+                    "Id": "lon_dir",
+                    "Description": "Longitude Direction"
+                },
+                {
+                    "Id": "gps_qual",
+                    "Description": "GPS Quality Indicator"
+                },
+                {
+                    "Id": "num_sats",
+                    "Description": "Number of Satellites in use"
+                },
+                {
+                    "Id": "horizontal_dil",
+                    "Description": "Horizontal Dilution of Precision"
+                },
+                {
+                    "Id": "altitude",
+                    "Description": "Antenna Alt above sea level (mean)"
+                },
+                {
+                    "Id": "altitude_units",
+                    "Description": "Units of altitude (meters)"
+                },
+                {
+                    "Id": "geo_sep",
+                    "Description": "Geoidal Separation"
+                },
+                {
+                    "Id": "geo_sep_units",
+                    "Description": "Units of Geoidal Separation (meters)"
+                },
+                {
+                    "Id": "age_gps_data",
+                    "Description": "Age of Differential GPS Data (secs)"
+                },
+                {
+                    "Id": "ref_station_id",
+                    "Description": "Differential Reference Station ID"
+                }
+            ],
+            "Description": ""
+        },
+        "GNS": {
+            "Fields": [
+                {
+                    "Id": "timestamp",
+                    "Description": "Timestamp"
+                },
+                {
+                    "Id": "lat",
+                    "Description": "Latitude"
+                },
+                {
+                    "Id": "lat_dir",
+                    "Description": "Latitude Direction"
+                },
+                {
+                    "Id": "lon",
+                    "Description": "Longitude"
+                },
+                {
+                    "Id": "lon_dir",
+                    "Description": "Longitude Direction"
+                },
+                {
+                    "Id": "mode_indicator",
+                    "Description": "Mode indicator"
+                },
+                {
+                    "Id": "num_sats",
+                    "Description": "Total number of satelites in use"
+                },
+                {
+                    "Id": "hdop",
+                    "Description": "HDROP"
+                },
+                {
+                    "Id": "altitude",
+                    "Description": "Antenna altitude, meters"
+                },
+                {
+                    "Id": "geo_sep",
+                    "Description": "Goeidal separation meters"
+                },
+                {
+                    "Id": "age_gps_data",
+                    "Description": "Age of diferential data"
+                },
+                {
+                    "Id": "diferential",
+                    "Description": "Differential reference station ID"
+                }
+            ],
+            "Description": ""
+        },
+        "GRS": {
+            "Fields": [
+                {
+                    "Id": "timestamp",
+                    "Description": "Timestamp"
+                },
+                {
+                    "Id": "residuals_mode",
+                    "Description": "Residuals mode"
+                },
+                {
+                    "Id": "sv_res_01",
+                    "Description": "SV 01 Residual (m)"
+                },
+                {
+                    "Id": "sv_res_02",
+                    "Description": "SV 02 Residual (m)"
+                },
+                {
+                    "Id": "sv_res_03",
+                    "Description": "SV 03 Residual (m)"
+                },
+                {
+                    "Id": "sv_res_04",
+                    "Description": "SV 04 Residual (m)"
+                },
+                {
+                    "Id": "sv_res_05",
+                    "Description": "SV 05 Residual (m)"
+                },
+                {
+                    "Id": "sv_res_06",
+                    "Description": "SV 06 Residual (m)"
+                },
+                {
+                    "Id": "sv_res_07",
+                    "Description": "SV 07 Residual (m)"
+                },
+                {
+                    "Id": "sv_res_08",
+                    "Description": "SV 08 Residual (m)"
+                },
+                {
+                    "Id": "sv_res_09",
+                    "Description": "SV 09 Residual (m)"
+                },
+                {
+                    "Id": "sv_res_10",
+                    "Description": "SV 10 Residual (m)"
+                },
+                {
+                    "Id": "sv_res_11",
+                    "Description": "SV 11 Residual (m)"
+                },
+                {
+                    "Id": "sv_res_12",
+                    "Description": "SV 12 Residual (m)"
+                }
+            ],
+            "Description": "Order of satellites will match those in the last GSA"
+        },
+        "BWW": {
+            "Fields": [
+                {
+                    "Id": "bearing_deg_true",
+                    "Description": "Bearing degrees True"
+                },
+                {
+                    "Id": "bearing_deg_true_sym",
+                    "Description": "Bearing degrees True Symbol"
+                },
+                {
+                    "Id": "bearing_deg_mag",
+                    "Description": "Bearing degrees Magnitude"
+                },
+                {
+                    "Id": "bearing_deg_mag_sym",
+                    "Description": "Bearing degrees Magnitude Symbol"
+                },
+                {
+                    "Id": "waypoint_id_dest",
+                    "Description": "Destination Waypoint ID"
+                },
+                {
+                    "Id": "waypoint_id_orig",
+                    "Description": "Origin Waypoint ID"
+                }
+            ],
+            "Description": "Bearing, Waypoint to Waypoint"
+        },
+        "GLL": {
+            "Fields": [
+                {
+                    "Id": "lat",
+                    "Description": "Latitude"
+                },
+                {
+                    "Id": "lat_dir",
+                    "Description": "Latitude Direction"
+                },
+                {
+                    "Id": "lon",
+                    "Description": "Longitude"
+                },
+                {
+                    "Id": "lon_dir",
+                    "Description": "Longitude Direction"
+                },
+                {
+                    "Id": "timestamp",
+                    "Description": "Timestamp"
+                },
+                {
+                    "Id": "status",
+                    "Description": "Status"
+                },
+                {
+                    "Id": "faa_mode",
+                    "Description": "FAA mode indicator"
+                }
+            ],
+            "Description": ""
+        },
+        "GSA": {
+            "Fields": [
+                {
+                    "Id": "mode",
+                    "Description": "Mode"
+                },
+                {
+                    "Id": "mode_fix_type",
+                    "Description": "Mode fix type"
+                },
+                {
+                    "Id": "sv_id01",
+                    "Description": "SV ID01"
+                },
+                {
+                    "Id": "sv_id02",
+                    "Description": "SV ID02"
+                },
+                {
+                    "Id": "sv_id03",
+                    "Description": "SV ID03"
+                },
+                {
+                    "Id": "sv_id04",
+                    "Description": "SV ID04"
+                },
+                {
+                    "Id": "sv_id05",
+                    "Description": "SV ID05"
+                },
+                {
+                    "Id": "sv_id06",
+                    "Description": "SV ID06"
+                },
+                {
+                    "Id": "sv_id07",
+                    "Description": "SV ID07"
+                },
+                {
+                    "Id": "sv_id08",
+                    "Description": "SV ID08"
+                },
+                {
+                    "Id": "sv_id09",
+                    "Description": "SV ID09"
+                },
+                {
+                    "Id": "sv_id10",
+                    "Description": "SV ID10"
+                },
+                {
+                    "Id": "sv_id11",
+                    "Description": "SV ID11"
+                },
+                {
+                    "Id": "sv_id12",
+                    "Description": "SV ID12"
+                },
+                {
+                    "Id": "pdop",
+                    "Description": "PDOP (Dilution of precision)"
+                },
+                {
+                    "Id": "hdop",
+                    "Description": "HDOP (Horizontal DOP)"
+                },
+                {
+                    "Id": "vdop",
+                    "Description": "VDOP (Vertical DOP)"
+                }
+            ],
+            "Description": ""
+        },
+        "GST": {
+            "Fields": [
+                {
+                    "Id": "timestamp",
+                    "Description": "UTC time of the GGA or GNS fix associated with this sentence."
+                },
+                {
+                    "Id": "rms",
+                    "Description": "RMS value of the standard deviation of the range inputs to the navigation process. Range inputs include preudoranges & DGNSS corrections."
+                },
+                {
+                    "Id": "std_dev_major",
+                    "Description": "Standard deviation of semi-major axis of error ellipse (meters)"
+                },
+                {
+                    "Id": "std_dev_minor",
+                    "Description": "Standard deviation of semi-minor axis of error ellipse (meters)"
+                },
+                {
+                    "Id": "orientation",
+                    "Description": "Orientation of semi-major axis of error ellipse (degrees from true north)"
+                },
+                {
+                    "Id": "std_dev_latitude",
+                    "Description": "Standard deviation of latitude error (meters)"
+                },
+                {
+                    "Id": "std_dev_longitude",
+                    "Description": "Standard deviation of longitude error (meters)"
+                },
+                {
+                    "Id": "std_dev_altitude",
+                    "Description": "Standard deviation of altitude error (meters)"
+                }
+            ],
+            "Description": ""
+        },
+        "GSV": {
+            "Fields": [
+                {
+                    "Id": "num_messages",
+                    "Description": "Number of messages of type in cycle"
+                },
+                {
+                    "Id": "msg_num",
+                    "Description": "Message Number"
+                },
+                {
+                    "Id": "num_sv_in_view",
+                    "Description": "Total number of SVs in view"
+                },
+                {
+                    "Id": "sv_prn_num_1",
+                    "Description": "SV PRN number 1"
+                },
+                {
+                    "Id": "elevation_deg_1",
+                    "Description": "Elevation in degrees 1"
+                },
+                {
+                    "Id": "azimuth_1",
+                    "Description": "Azimuth, deg from true north 1"
+                },
+                {
+                    "Id": "snr_1",
+                    "Description": "SNR 1"
+                },
+                {
+                    "Id": "sv_prn_num_2",
+                    "Description": "SV PRN number 2"
+                },
+                {
+                    "Id": "elevation_deg_2",
+                    "Description": "Elevation in degrees 2"
+                },
+                {
+                    "Id": "azimuth_2",
+                    "Description": "Azimuth, deg from true north 2"
+                },
+                {
+                    "Id": "snr_2",
+                    "Description": "SNR 2"
+                },
+                {
+                    "Id": "sv_prn_num_3",
+                    "Description": "SV PRN number 3"
+                },
+                {
+                    "Id": "elevation_deg_3",
+                    "Description": "Elevation in degrees 3"
+                },
+                {
+                    "Id": "azimuth_3",
+                    "Description": "Azimuth, deg from true north 3"
+                },
+                {
+                    "Id": "snr_3",
+                    "Description": "SNR 3"
+                },
+                {
+                    "Id": "sv_prn_num_4",
+                    "Description": "SV PRN number 4"
+                },
+                {
+                    "Id": "elevation_deg_4",
+                    "Description": "Elevation in degrees 4"
+                },
+                {
+                    "Id": "azimuth_4",
+                    "Description": "Azimuth, deg from true north 4"
+                },
+                {
+                    "Id": "snr_4",
+                    "Description": "SNR 4"
+                }
+            ],
+            "Description": ""
+        },
+        "HDG": {
+            "Fields": [
+                {
+                    "Id": "heading",
+                    "Description": "Heading"
+                },
+                {
+                    "Id": "deviation",
+                    "Description": "Deviation"
+                },
+                {
+                    "Id": "dev_dir",
+                    "Description": "Deviation Direction"
+                },
+                {
+                    "Id": "variation",
+                    "Description": "Variation"
+                },
+                {
+                    "Id": "var_dir",
+                    "Description": "Variation Direction"
+                }
+            ],
+            "Description": "NMEA 0183 standard Heading, Deviation and Variation\n        Format: $HCHDG,<1>,<2>,<3>,<4>,<5>*hh<CR><LF>\n    <1> Magnetic sensor heading, degrees, to the nearest 0.1 degree.\n    <2> Magnetic deviation, degrees east or west, to the nearest 0.1 degree.\n    <3> E if field <2> is degrees East\n        W if field <2> is degrees West\n    <4> Magnetic variation, degrees east or west, to the nearest 0.1 degree.\n    <5> E if field <4> is degrees East\n        W if field <4> is degrees West"
+        },
+        "HDT": {
+            "Fields": [
+                {
+                    "Id": "heading",
+                    "Description": "Heading"
+                },
+                {
+                    "Id": "hdg_true",
+                    "Description": "True"
+                }
+            ],
+            "Description": ""
+        },
+        "RMA": {
+            "Fields": [
+                {
+                    "Id": "data_status",
+                    "Description": "Data status"
+                },
+                {
+                    "Id": "lat",
+                    "Description": "Latitude"
+                },
+                {
+                    "Id": "lat_dir",
+                    "Description": "Latitude Direction"
+                },
+                {
+                    "Id": "lon",
+                    "Description": "Longitude"
+                },
+                {
+                    "Id": "lon_dir",
+                    "Description": "Longitude Direction"
+                },
+                {
+                    "Id": "not_used_1",
+                    "Description": "Not Used 1"
+                },
+                {
+                    "Id": "not_used_2",
+                    "Description": "Not Used 2"
+                },
+                {
+                    "Id": "spd_over_grnd",
+                    "Description": "Speed over ground"
+                },
+                {
+                    "Id": "crse_over_grnd",
+                    "Description": "Course over ground"
+                },
+                {
+                    "Id": "variation",
+                    "Description": "Variation"
+                },
+                {
+                    "Id": "var_dir",
+                    "Description": "Variation Direction"
+                }
+            ],
+            "Description": ""
+        },
+        "RMB": {
+            "Fields": [
+                {
+                    "Id": "status",
+                    "Description": "Status"
+                },
+                {
+                    "Id": "cross_track_error",
+                    "Description": "Cross Track Error"
+                },
+                {
+                    "Id": "cte_correction_dir",
+                    "Description": "Cross Track Error, direction to corrent"
+                },
+                {
+                    "Id": "origin_waypoint_id",
+                    "Description": "Origin Waypoint ID"
+                },
+                {
+                    "Id": "dest_waypoint_id",
+                    "Description": "Destination Waypoint ID"
+                },
+                {
+                    "Id": "dest_lat",
+                    "Description": "Destination Waypoint Latitude"
+                },
+                {
+                    "Id": "dest_lat_dir",
+                    "Description": "Destination Waypoint Lat Direction"
+                },
+                {
+                    "Id": "dest_lon",
+                    "Description": "Destination Waypoint Longitude"
+                },
+                {
+                    "Id": "dest_lon_dir",
+                    "Description": "Destination Waypoint Lon Direction"
+                },
+                {
+                    "Id": "dest_range",
+                    "Description": "Range to Destination"
+                },
+                {
+                    "Id": "dest_true_bearing",
+                    "Description": "True Bearing to Destination"
+                },
+                {
+                    "Id": "dest_velocity",
+                    "Description": "Velocity Towards Destination"
+                },
+                {
+                    "Id": "arrival_alarm",
+                    "Description": "Arrival Alarm"
+                }
+            ],
+            "Description": "Recommended Minimum Navigation Information"
+        },
+        "RMC": {
+            "Fields": [
+                {
+                    "Id": "timestamp",
+                    "Description": "Timestamp"
+                },
+                {
+                    "Id": "status",
+                    "Description": "Status"
+                },
+                {
+                    "Id": "lat",
+                    "Description": "Latitude"
+                },
+                {
+                    "Id": "lat_dir",
+                    "Description": "Latitude Direction"
+                },
+                {
+                    "Id": "lon",
+                    "Description": "Longitude"
+                },
+                {
+                    "Id": "lon_dir",
+                    "Description": "Longitude Direction"
+                },
+                {
+                    "Id": "spd_over_grnd",
+                    "Description": "Speed Over Ground"
+                },
+                {
+                    "Id": "true_course",
+                    "Description": "True Course"
+                },
+                {
+                    "Id": "datestamp",
+                    "Description": "Datestamp"
+                },
+                {
+                    "Id": "mag_variation",
+                    "Description": "Magnetic Variation"
+                },
+                {
+                    "Id": "mag_var_dir",
+                    "Description": "Magnetic Variation Direction"
+                }
+            ],
+            "Description": "Recommended Minimum Specific GPS/TRANSIT Data"
+        },
+        "RTE": {
+            "Fields": [
+                {
+                    "Id": "num_in_seq",
+                    "Description": "Number of sentences in sequence"
+                },
+                {
+                    "Id": "sen_num",
+                    "Description": "Sentence Number"
+                },
+                {
+                    "Id": "start_type",
+                    "Description": "Start Type"
+                },
+                {
+                    "Id": "active_route_id",
+                    "Description": "Name or Number of Active Route"
+                }
+            ],
+            "Description": "Routes"
+        },
+        "R00": {
+            "Fields": [],
+            "Description": ""
+        },
+        "STN": {
+            "Fields": [
+                {
+                    "Id": "talker_id_num",
+                    "Description": "Talker ID Number"
+                }
+            ],
+            "Description": "NOTE: No real data could be found for examples of the actual spec so\n            it is a guess that there may be a checksum on the end"
+        },
+        "TRF": {
+            "Fields": [
+                {
+                    "Id": "timestamp",
+                    "Description": "Timestamp (UTC)"
+                },
+                {
+                    "Id": "date",
+                    "Description": "Date (DD/MM/YY"
+                },
+                {
+                    "Id": "lat",
+                    "Description": "Latitude"
+                },
+                {
+                    "Id": "lat_dir",
+                    "Description": "Latitude Direction"
+                },
+                {
+                    "Id": "lon",
+                    "Description": "Longitude"
+                },
+                {
+                    "Id": "lon_dir",
+                    "Description": "Longitude Direction"
+                },
+                {
+                    "Id": "ele_angle",
+                    "Description": "Elevation Angle"
+                },
+                {
+                    "Id": "num_iterations",
+                    "Description": "Number of Iterations"
+                },
+                {
+                    "Id": "num_doppler_intervals",
+                    "Description": "Number of Doppler Intervals"
+                },
+                {
+                    "Id": "update_dist",
+                    "Description": "Update Distance"
+                },
+                {
+                    "Id": "sat_id",
+                    "Description": "Satellite ID"
+                }
+            ],
+            "Description": "Transit Fix Data"
+        },
+        "TXT": {
+            "Fields": [
+                {
+                    "Id": "num_msg",
+                    "Description": "Number of Messages"
+                },
+                {
+                    "Id": "msg_num",
+                    "Description": "Message Number"
+                },
+                {
+                    "Id": "msg_type",
+                    "Description": "Type of Message"
+                },
+                {
+                    "Id": "text",
+                    "Description": "Text"
+                }
+            ],
+            "Description": "Text Transmission"
+        },
+        "VBW": {
+            "Fields": [
+                {
+                    "Id": "lon_water_spd",
+                    "Description": "Longitudinal Water Speed"
+                },
+                {
+                    "Id": "trans_water_spd",
+                    "Description": "Transverse Water Speed"
+                },
+                {
+                    "Id": "data_validity_water_spd",
+                    "Description": "Water Speed Data Validity"
+                },
+                {
+                    "Id": "lon_grnd_spd",
+                    "Description": "Longitudinal Ground Speed"
+                },
+                {
+                    "Id": "trans_grnd_spd",
+                    "Description": "Transverse Ground Speed"
+                },
+                {
+                    "Id": "data_validity_grnd_spd",
+                    "Description": "Ground Speed Data Validity"
+                }
+            ],
+            "Description": "Dual Ground/Water Speed"
+        },
+        "VTG": {
+            "Fields": [
+                {
+                    "Id": "true_track",
+                    "Description": "True Track made good"
+                },
+                {
+                    "Id": "true_track_sym",
+                    "Description": "True Track made good symbol"
+                },
+                {
+                    "Id": "mag_track",
+                    "Description": "Magnetic Track made good"
+                },
+                {
+                    "Id": "mag_track_sym",
+                    "Description": "Magnetic Track symbol"
+                },
+                {
+                    "Id": "spd_over_grnd_kts",
+                    "Description": "Speed over ground knots"
+                },
+                {
+                    "Id": "spd_over_grnd_kts_sym",
+                    "Description": "Speed over ground symbol"
+                },
+                {
+                    "Id": "spd_over_grnd_kmph",
+                    "Description": "Speed over ground kmph"
+                },
+                {
+                    "Id": "spd_over_grnd_kmph_sym",
+                    "Description": "Speed over ground kmph symbol"
+                },
+                {
+                    "Id": "faa_mode",
+                    "Description": "FAA mode indicator"
+                }
+            ],
+            "Description": "Track Made Good and Ground Speed"
+        },
+        "WCV": {
+            "Fields": [
+                {
+                    "Id": "velocity",
+                    "Description": "Velocity"
+                },
+                {
+                    "Id": "vel_units",
+                    "Description": "Velocity Units"
+                },
+                {
+                    "Id": "waypoint_id",
+                    "Description": "Waypoint ID"
+                }
+            ],
+            "Description": "Waypoint Closure Velocity"
+        },
+        "WNC": {
+            "Fields": [
+                {
+                    "Id": "dist_nautical_miles",
+                    "Description": "Distance, Nautical Miles"
+                },
+                {
+                    "Id": "dist_naut_unit",
+                    "Description": "Distance Nautical Miles Unit"
+                },
+                {
+                    "Id": "dist_km",
+                    "Description": "Distance, Kilometers"
+                },
+                {
+                    "Id": "dist_km_unit",
+                    "Description": "Distance, Kilometers Unit"
+                },
+                {
+                    "Id": "waypoint_origin_id",
+                    "Description": "Origin Waypoint ID"
+                },
+                {
+                    "Id": "waypoint_dest_id",
+                    "Description": "Destination Waypoint ID"
+                }
+            ],
+            "Description": "Distance, Waypoint to Waypoint"
+        },
+        "WPL": {
+            "Fields": [
+                {
+                    "Id": "lat",
+                    "Description": "Latitude"
+                },
+                {
+                    "Id": "lat_dir",
+                    "Description": "Latitude Direction"
+                },
+                {
+                    "Id": "lon",
+                    "Description": "Longitude"
+                },
+                {
+                    "Id": "lon_dir",
+                    "Description": "Longitude Direction"
+                },
+                {
+                    "Id": "waypoint_id",
+                    "Description": "Waypoint ID"
+                }
+            ],
+            "Description": "Waypoint Location"
+        },
+        "XTE": {
+            "Fields": [
+                {
+                    "Id": "warning_flag",
+                    "Description": "General Warning Flag"
+                },
+                {
+                    "Id": "lock_flag",
+                    "Description": "Lock flag (Not Used)"
+                },
+                {
+                    "Id": "cross_track_err_dist",
+                    "Description": "Cross Track Error Distance"
+                },
+                {
+                    "Id": "correction_dir",
+                    "Description": "Correction Direction (L or R)"
+                },
+                {
+                    "Id": "dist_units",
+                    "Description": "Distance Units"
+                }
+            ],
+            "Description": "Cross-Track Error, Measured"
+        },
+        "ZDA": {
+            "Fields": [
+                {
+                    "Id": "timestamp",
+                    "Description": "Timestamp"
+                },
+                {
+                    "Id": "day",
+                    "Description": "Day"
+                },
+                {
+                    "Id": "month",
+                    "Description": "Month"
+                },
+                {
+                    "Id": "year",
+                    "Description": "Year"
+                },
+                {
+                    "Id": "local_zone",
+                    "Description": "Local Zone Description"
+                },
+                {
+                    "Id": "local_zone_minutes",
+                    "Description": "Local Zone Minutes Description"
+                }
+            ],
+            "Description": ""
+        },
+        "RSA": {
+            "Fields": [
+                {
+                    "Id": "rsa_starboard",
+                    "Description": "Starboard rudder sensor"
+                },
+                {
+                    "Id": "rsa_starboard_status",
+                    "Description": "Starboard rudder sensor status"
+                },
+                {
+                    "Id": "rsa_port",
+                    "Description": "Port rudder sensor"
+                },
+                {
+                    "Id": "rsa_port_status",
+                    "Description": "Port rudder sensor status"
+                }
+            ],
+            "Description": "Rudder Sensor Angle"
+        },
+        "HSC": {
+            "Fields": [
+                {
+                    "Id": "heading_true",
+                    "Description": "Heading"
+                },
+                {
+                    "Id": "true",
+                    "Description": "True"
+                },
+                {
+                    "Id": "heading_magnetic",
+                    "Description": "Heading Magnetic"
+                },
+                {
+                    "Id": "magnetic",
+                    "Description": "Magnetic"
+                }
+            ],
+            "Description": "Heading Steering Command"
+        },
+        "MWD": {
+            "Fields": [
+                {
+                    "Id": "direction_true",
+                    "Description": "Wind direction true"
+                },
+                {
+                    "Id": "true",
+                    "Description": "True"
+                },
+                {
+                    "Id": "direction_magnetic",
+                    "Description": "Wind direction magnetic"
+                },
+                {
+                    "Id": "magnetic",
+                    "Description": "Magnetic"
+                },
+                {
+                    "Id": "wind_speed_knots",
+                    "Description": "Wind speed knots"
+                },
+                {
+                    "Id": "knots",
+                    "Description": "Knots"
+                },
+                {
+                    "Id": "wind_speed_meters",
+                    "Description": "Wind speed meters/second"
+                },
+                {
+                    "Id": "meters",
+                    "Description": "Wind speed"
+                }
+            ],
+            "Description": "Wind Direction\n    NMEA 0183 standard Wind Direction and Speed, with respect to north."
+        },
+        "MWV": {
+            "Fields": [
+                {
+                    "Id": "wind_angle",
+                    "Description": "Wind angle"
+                },
+                {
+                    "Id": "reference",
+                    "Description": "Reference"
+                },
+                {
+                    "Id": "wind_speed",
+                    "Description": "Wind speed"
+                },
+                {
+                    "Id": "wind_speed_units",
+                    "Description": "Wind speed units"
+                },
+                {
+                    "Id": "status",
+                    "Description": "Status"
+                }
+            ],
+            "Description": "Wind Speed and Angle\n    NMEA 0183 standard Wind Speed and Angle, in relation to the vessel's\n    bow/centerline."
+        },
+        "DBT": {
+            "Fields": [
+                {
+                    "Id": "depth_feet",
+                    "Description": "Depth below surface, feet"
+                },
+                {
+                    "Id": "unit_feet",
+                    "Description": "Feet"
+                },
+                {
+                    "Id": "depth_meters",
+                    "Description": "Depth below surface, meters"
+                },
+                {
+                    "Id": "unit_meters",
+                    "Description": "Meters"
+                },
+                {
+                    "Id": "depth_fathoms",
+                    "Description": "Depth below surface, fathoms"
+                },
+                {
+                    "Id": "unit_fathoms",
+                    "Description": "fathoms"
+                }
+            ],
+            "Description": "Depth Below Transducer"
+        },
+        "HDM": {
+            "Fields": [
+                {
+                    "Id": "heading",
+                    "Description": "Heading degrees"
+                },
+                {
+                    "Id": "magnetic",
+                    "Description": "Magnetic"
+                }
+            ],
+            "Description": "Heading, Magnetic"
+        },
+        "MTW": {
+            "Fields": [
+                {
+                    "Id": "temperature",
+                    "Description": "Water temperature"
+                },
+                {
+                    "Id": "units",
+                    "Description": "Unit of measurement"
+                }
+            ],
+            "Description": "Water Temperature"
+        },
+        "VHW": {
+            "Fields": [
+                {
+                    "Id": "heading_true",
+                    "Description": "Heading true degrees"
+                },
+                {
+                    "Id": "true",
+                    "Description": "heading true"
+                },
+                {
+                    "Id": "heading_magnetic",
+                    "Description": "Heading Magnetic degrees"
+                },
+                {
+                    "Id": "magnetic",
+                    "Description": "Magnetic"
+                },
+                {
+                    "Id": "water_speed_knots",
+                    "Description": "Water speed knots"
+                },
+                {
+                    "Id": "knots",
+                    "Description": "Knots"
+                },
+                {
+                    "Id": "water_speed_km",
+                    "Description": "Water speed kilometers"
+                },
+                {
+                    "Id": "kilometers",
+                    "Description": "Kilometers"
+                }
+            ],
+            "Description": "Water Speed and Heading"
+        },
+        "VLW": {
+            "Fields": [
+                {
+                    "Id": "trip_distance",
+                    "Description": "Water trip distance"
+                },
+                {
+                    "Id": "trip_distance_miles",
+                    "Description": "Trip distance nautical miles"
+                },
+                {
+                    "Id": "trip_distance_reset",
+                    "Description": "Water trip distance since reset"
+                },
+                {
+                    "Id": "trip_distance_reset_miles",
+                    "Description": "Trip distance nautical miles since reset"
+                }
+            ],
+            "Description": "Distance Traveled through the Water"
+        },
+        "ROT": {
+            "Fields": [
+                {
+                    "Id": "rate_of_turn",
+                    "Description": "Rate of turn"
+                },
+                {
+                    "Id": "status",
+                    "Description": "Status"
+                }
+            ],
+            "Description": "Rate of Turn"
+        },
+        "RPM": {
+            "Fields": [
+                {
+                    "Id": "source",
+                    "Description": "Source"
+                },
+                {
+                    "Id": "engine_no",
+                    "Description": "Engine or shaft number"
+                },
+                {
+                    "Id": "speed",
+                    "Description": "Speed"
+                },
+                {
+                    "Id": "pitch",
+                    "Description": "Propeller pitch"
+                },
+                {
+                    "Id": "status",
+                    "Description": "Status"
+                }
+            ],
+            "Description": "Revolutions"
+        },
+        "VPW": {
+            "Fields": [
+                {
+                    "Id": "speed_kn",
+                    "Description": "Speed knots"
+                },
+                {
+                    "Id": "unit_knots",
+                    "Description": "Unit knots"
+                },
+                {
+                    "Id": "speed_ms",
+                    "Description": "Speed m/s"
+                },
+                {
+                    "Id": "unit_ms",
+                    "Description": "Unit m/s"
+                }
+            ],
+            "Description": "Speed, Measured Parallel to Wind"
+        },
+        "VDR": {
+            "Fields": [
+                {
+                    "Id": "deg_t",
+                    "Description": "Degrees True"
+                },
+                {
+                    "Id": "true",
+                    "Description": "TRUE"
+                },
+                {
+                    "Id": "deg_m",
+                    "Description": "Degrees Magnetic"
+                },
+                {
+                    "Id": "magnetic",
+                    "Description": "Magnetic"
+                },
+                {
+                    "Id": "current",
+                    "Description": "Speed of Current"
+                },
+                {
+                    "Id": "unit_kn",
+                    "Description": "Unit"
+                }
+            ],
+            "Description": ""
+        },
+        "VWR": {
+            "Fields": [
+                {
+                    "Id": "deg_r",
+                    "Description": "Degrees Rel"
+                },
+                {
+                    "Id": "l_r",
+                    "Description": "Left/Right"
+                },
+                {
+                    "Id": "wind_speed_kn",
+                    "Description": "Wind speed kn"
+                },
+                {
+                    "Id": "unit_knots",
+                    "Description": "Knots"
+                },
+                {
+                    "Id": "wind_speed_ms",
+                    "Description": "Wind Speed m/s"
+                },
+                {
+                    "Id": "unit_ms",
+                    "Description": "m/s"
+                },
+                {
+                    "Id": "wind_speed_km",
+                    "Description": "Wind Speed Km/h"
+                },
+                {
+                    "Id": "unit_km",
+                    "Description": "Knots"
+                }
+            ],
+            "Description": ""
+        },
+        "XDR": {
+            "Fields": [
+                {
+                    "Id": "type",
+                    "Description": "Transducer type"
+                },
+                {
+                    "Id": "value",
+                    "Description": "Transducer data value"
+                },
+                {
+                    "Id": "units",
+                    "Description": "Transducer data units"
+                },
+                {
+                    "Id": "id",
+                    "Description": "Transducer ID"
+                }
+            ],
+            "Description": ""
+        },
+        "OSD": {
+            "Fields": [
+                {
+                    "Id": "heading",
+                    "Description": "True Heading"
+                },
+                {
+                    "Id": "status",
+                    "Description": "Status"
+                },
+                {
+                    "Id": "course",
+                    "Description": "Vessel Course true degrees"
+                },
+                {
+                    "Id": "course_true",
+                    "Description": "Course True"
+                },
+                {
+                    "Id": "speed",
+                    "Description": "Vessel Speed"
+                },
+                {
+                    "Id": "speed_ref",
+                    "Description": "Speed Reference"
+                },
+                {
+                    "Id": "set",
+                    "Description": "Vessel Set true degrees"
+                },
+                {
+                    "Id": "drift",
+                    "Description": "Vessel Drift(speed)"
+                },
+                {
+                    "Id": "speed_unit",
+                    "Description": "Speed Units"
+                }
+            ],
+            "Description": "Own Ship Data"
+        },
+        "TLL": {
+            "Fields": [
+                {
+                    "Id": "target_number",
+                    "Description": "Target Number"
+                },
+                {
+                    "Id": "lat",
+                    "Description": "Target Latitude"
+                },
+                {
+                    "Id": "lat_dir",
+                    "Description": "Latitude Direction"
+                },
+                {
+                    "Id": "lon",
+                    "Description": "Target Longitude"
+                },
+                {
+                    "Id": "lon_dir",
+                    "Description": "Longitude Direction"
+                },
+                {
+                    "Id": "target_name",
+                    "Description": "Target Name"
+                },
+                {
+                    "Id": "timestamp",
+                    "Description": "Timestamp (UTC)"
+                },
+                {
+                    "Id": "target_status",
+                    "Description": "Target Status"
+                },
+                {
+                    "Id": "reference",
+                    "Description": "Reference Target"
+                }
+            ],
+            "Description": "Target Latitude & Longitude"
+        },
+        "TTM": {
+            "Fields": [
+                {
+                    "Id": "target_number",
+                    "Description": "Target Number"
+                },
+                {
+                    "Id": "distance",
+                    "Description": "Target Distance"
+                },
+                {
+                    "Id": "bearing",
+                    "Description": "Bearing from Own Ship"
+                },
+                {
+                    "Id": "brg_ref",
+                    "Description": "Bearing Reference"
+                },
+                {
+                    "Id": "speed",
+                    "Description": "Target Speed"
+                },
+                {
+                    "Id": "cog",
+                    "Description": "Target Course over Ground"
+                },
+                {
+                    "Id": "cog_unit",
+                    "Description": "Course Units"
+                },
+                {
+                    "Id": "dist_cpa",
+                    "Description": "Distance of CPA"
+                },
+                {
+                    "Id": "time_cpa",
+                    "Description": "Time until CPA"
+                },
+                {
+                    "Id": "dist_unit",
+                    "Description": "Distance Units"
+                },
+                {
+                    "Id": "name",
+                    "Description": "Target Name"
+                },
+                {
+                    "Id": "status",
+                    "Description": "Target Status"
+                },
+                {
+                    "Id": "reference",
+                    "Description": "Target Reference"
+                },
+                {
+                    "Id": "timestamp",
+                    "Description": "Timestamp (UTC)"
+                },
+                {
+                    "Id": "acquisition",
+                    "Description": "Acquisition Type"
+                }
+            ],
+            "Description": "Tracked Target Message"
+        },
+        "DTM": {
+            "Fields": [
+                {
+                    "Id": "datum",
+                    "Description": "Local datum"
+                },
+                {
+                    "Id": "subd_datum",
+                    "Description": "Subdivision datum"
+                },
+                {
+                    "Id": "lat",
+                    "Description": "Latitude"
+                },
+                {
+                    "Id": "lat_dir",
+                    "Description": "Latitude Direction"
+                },
+                {
+                    "Id": "lon",
+                    "Description": "Longitude"
+                },
+                {
+                    "Id": "lon_dir",
+                    "Description": "Longitude Direction"
+                },
+                {
+                    "Id": "altitude",
+                    "Description": "Signed altitude"
+                },
+                {
+                    "Id": "datum_code",
+                    "Description": "Datum code"
+                }
+            ],
+            "Description": ""
+        },
+        "MDA": {
+            "Fields": [
+                {
+                    "Id": "b_pressure_inch",
+                    "Description": "Barometric pressure, inches of mercury"
+                },
+                {
+                    "Id": "inches",
+                    "Description": "Inches"
+                },
+                {
+                    "Id": "b_pressure_bar",
+                    "Description": "Barometric pressure, bars"
+                },
+                {
+                    "Id": "bars",
+                    "Description": "Bars"
+                },
+                {
+                    "Id": "air_temp",
+                    "Description": "Air temperature, degrees C"
+                },
+                {
+                    "Id": "a_celsius",
+                    "Description": "Celsius"
+                },
+                {
+                    "Id": "water_temp",
+                    "Description": "Water temperature, degrees C"
+                },
+                {
+                    "Id": "w_celsius",
+                    "Description": "Celsius"
+                },
+                {
+                    "Id": "rel_humidity",
+                    "Description": "Relative humidity, percent"
+                },
+                {
+                    "Id": "abs_humidity",
+                    "Description": "Absolute humidity, percent"
+                },
+                {
+                    "Id": "dew_point",
+                    "Description": "Dew point, degrees C"
+                },
+                {
+                    "Id": "d_celsius",
+                    "Description": "Celsius"
+                },
+                {
+                    "Id": "direction_true",
+                    "Description": "Wind direction true"
+                },
+                {
+                    "Id": "true",
+                    "Description": "True"
+                },
+                {
+                    "Id": "direction_magnetic",
+                    "Description": "Wind direction magnetic"
+                },
+                {
+                    "Id": "magnetic",
+                    "Description": "Magnetic"
+                },
+                {
+                    "Id": "wind_speed_knots",
+                    "Description": "Wind speed knots"
+                },
+                {
+                    "Id": "knots",
+                    "Description": "Knots"
+                },
+                {
+                    "Id": "wind_speed_meters",
+                    "Description": "Wind speed meters/second"
+                },
+                {
+                    "Id": "meters",
+                    "Description": "Meters"
+                }
+            ],
+            "Description": ""
+        },
+        "VWT": {
+            "Fields": [
+                {
+                    "Id": "wind_angle_vessel",
+                    "Description": "Wind angle relative to the vessel"
+                },
+                {
+                    "Id": "direction",
+                    "Description": "Direction, L=Left, R=Right, relative to the vessel head"
+                },
+                {
+                    "Id": "wind_speed_knots",
+                    "Description": "Wind speed knots"
+                },
+                {
+                    "Id": "knots",
+                    "Description": "Knots"
+                },
+                {
+                    "Id": "wind_speed_meters",
+                    "Description": "Wind speed meters/second"
+                },
+                {
+                    "Id": "meters",
+                    "Description": "Meters"
+                },
+                {
+                    "Id": "wind_speed_km",
+                    "Description": "Wind speed km/h"
+                },
+                {
+                    "Id": "km",
+                    "Description": "Km"
+                }
+            ],
+            "Description": ""
+        },
+        "DBS": {
+            "Fields": [
+                {
+                    "Id": "depth_feet",
+                    "Description": "Depth below surface, feet"
+                },
+                {
+                    "Id": "feets",
+                    "Description": "Feets"
+                },
+                {
+                    "Id": "depth_meter",
+                    "Description": "Depth below surface, meters"
+                },
+                {
+                    "Id": "meters",
+                    "Description": "Meters"
+                },
+                {
+                    "Id": "depth_ fathoms",
+                    "Description": "Depth below surface, fathoms"
+                },
+                {
+                    "Id": "fathoms",
+                    "Description": "Fathoms"
+                }
+            ],
+            "Description": ""
+        },
+        "DPT": {
+            "Fields": [
+                {
+                    "Id": "depth",
+                    "Description": "Water depth, in meters"
+                },
+                {
+                    "Id": "offset",
+                    "Description": "Offset from the trasducer, in meters"
+                },
+                {
+                    "Id": "range",
+                    "Description": "Maximum range scale in use"
+                }
+            ],
+            "Description": ""
+        },
+        "GBS": {
+            "Fields": [
+                {
+                    "Id": "timestamp",
+                    "Description": "Timestamp"
+                },
+                {
+                    "Id": "lat_err",
+                    "Description": "Expected error in latitude"
+                },
+                {
+                    "Id": "lon_err",
+                    "Description": "Expected error in longitude"
+                },
+                {
+                    "Id": "alt_err",
+                    "Description": "Expected error in altitude"
+                },
+                {
+                    "Id": "sat_prn_num_f",
+                    "Description": "PRN of most likely failed satellite"
+                },
+                {
+                    "Id": "pro_miss",
+                    "Description": "Probability of missed detection for most likely failed satellite"
+                },
+                {
+                    "Id": "est_bias",
+                    "Description": "Estimate of bias in meters on most likely failed satellite"
+                },
+                {
+                    "Id": "est_bias_dev",
+                    "Description": "Standard deviation of bias estimate"
+                }
+            ],
+            "Description": ""
+        },
+        "ALK": {
+            "Fields": [
+                {
+                    "Id": "cmd",
+                    "Description": "Command"
+                },
+                {
+                    "Id": "data_byte1",
+                    "Description": "Data Byte 1"
+                },
+                {
+                    "Id": "data_byte2",
+                    "Description": "Data Byte 2"
+                },
+                {
+                    "Id": "data_byte3",
+                    "Description": "Data Byte 3"
+                },
+                {
+                    "Id": "data_byte4",
+                    "Description": "Data Byte 4"
+                },
+                {
+                    "Id": "data_byte5",
+                    "Description": "Data Byte 5"
+                },
+                {
+                    "Id": "data_byte6",
+                    "Description": "Data Byte 6"
+                },
+                {
+                    "Id": "data_byte7",
+                    "Description": "Data Byte 7"
+                },
+                {
+                    "Id": "data_byte8",
+                    "Description": "Data Byte 8"
+                },
+                {
+                    "Id": "data_byte9",
+                    "Description": "Data Byte 9"
+                }
+            ],
+            "Description": ""
+        },
+        "PGN": {
+            "Fields": [],
+            "Description": "PGN messages"
+        }
+    },
+    "Proprietary": {
+        "ASH": {
+            "Decription": "Generic Ashtech Response Message",
+            "Sentences": {
+                "R": {
+                    "Fields": [
+                        {
+                            "Id": "_r",
+                            "Description": "R"
+                        },
+                        {
+                            "Id": "timestamp",
+                            "Description": "Timestamp"
+                        },
+                        {
+                            "Id": "true_heading",
+                            "Description": "Heading Angle"
+                        },
+                        {
+                            "Id": "is_true_heading",
+                            "Description": "Is True Heading"
+                        },
+                        {
+                            "Id": "roll",
+                            "Description": "Roll Angle"
+                        },
+                        {
+                            "Id": "pitch",
+                            "Description": "Pitch Angle"
+                        },
+                        {
+                            "Id": "heading",
+                            "Description": "Heave"
+                        },
+                        {
+                            "Id": "roll_accuracy",
+                            "Description": "Roll Accuracy Estimate"
+                        },
+                        {
+                            "Id": "pitch_accuracy",
+                            "Description": "Pitch Accuracy Estimate"
+                        },
+                        {
+                            "Id": "heading_accuracy",
+                            "Description": "Heading Accuracy Estimate"
+                        },
+                        {
+                            "Id": "aiding_status",
+                            "Description": "Aiding Status"
+                        },
+                        {
+                            "Id": "imu_status",
+                            "Description": "IMU Status"
+                        }
+                    ],
+                    "Description": "RT300 proprietary attitude sentence"
+                },
+                "RHPR": {
+                    "Fields": [
+                        {
+                            "Id": "_r",
+                            "Description": "R"
+                        },
+                        {
+                            "Id": "subtype",
+                            "Description": "Subtype"
+                        },
+                        {
+                            "Id": "timestamp",
+                            "Description": "Timestamp"
+                        },
+                        {
+                            "Id": "heading",
+                            "Description": "Heading Angle"
+                        },
+                        {
+                            "Id": "pitch",
+                            "Description": "Pitch Angle"
+                        },
+                        {
+                            "Id": "roll",
+                            "Description": "Roll Angle"
+                        },
+                        {
+                            "Id": "carrier_rms",
+                            "Description": "Carrier measurement RMS"
+                        },
+                        {
+                            "Id": "baseline_rms",
+                            "Description": "Baseline measurement RMS"
+                        },
+                        {
+                            "Id": "integer_ambiguity",
+                            "Description": "Integer Ambiguity"
+                        },
+                        {
+                            "Id": "mode",
+                            "Description": "Mode"
+                        },
+                        {
+                            "Id": "status",
+                            "Description": "Status"
+                        },
+                        {
+                            "Id": "pdop",
+                            "Description": "PDOP"
+                        }
+                    ],
+                    "Description": "Ashtech HPR Message"
+                },
+                "RLTN": {
+                    "Fields": [
+                        {
+                            "Id": "_r",
+                            "Description": "R"
+                        },
+                        {
+                            "Id": "subtype",
+                            "Description": "Subtype"
+                        },
+                        {
+                            "Id": "latency",
+                            "Description": "Latency (ms)"
+                        }
+                    ],
+                    "Description": "Ashtech LTN Message"
+                },
+                "RPOS": {
+                    "Fields": [
+                        {
+                            "Id": "_r",
+                            "Description": "R"
+                        },
+                        {
+                            "Id": "subtype",
+                            "Description": "Subtype"
+                        },
+                        {
+                            "Id": "mode",
+                            "Description": "Solution Type"
+                        },
+                        {
+                            "Id": "sat_count",
+                            "Description": "Satellites used in Solution"
+                        },
+                        {
+                            "Id": "timestamp",
+                            "Description": "Timestamp"
+                        },
+                        {
+                            "Id": "lat",
+                            "Description": "Latitude"
+                        },
+                        {
+                            "Id": "lat_dir",
+                            "Description": "Latitude Direction"
+                        },
+                        {
+                            "Id": "lon",
+                            "Description": "Longitude"
+                        },
+                        {
+                            "Id": "lon_dir",
+                            "Description": "Longitude Direction"
+                        },
+                        {
+                            "Id": "altitude",
+                            "Description": "Altitude above WGS84 ellipsoid, meters"
+                        },
+                        {
+                            "Id": "__",
+                            "Description": "Empty"
+                        },
+                        {
+                            "Id": "course",
+                            "Description": "True Track/Course Over Ground"
+                        },
+                        {
+                            "Id": "spd_over_grnd",
+                            "Description": "Speed Over Ground"
+                        },
+                        {
+                            "Id": "vertical_velocity",
+                            "Description": "Vertical Velocity"
+                        },
+                        {
+                            "Id": "pdop",
+                            "Description": "PDOP"
+                        },
+                        {
+                            "Id": "hdop",
+                            "Description": "HDOP"
+                        },
+                        {
+                            "Id": "vdop",
+                            "Description": "VDOP"
+                        },
+                        {
+                            "Id": "tdop",
+                            "Description": "TDOP"
+                        },
+                        {
+                            "Id": "station_id",
+                            "Description": "Base station ID"
+                        }
+                    ],
+                    "Description": "Ashtech POS Message"
+                },
+                "RVEL": {
+                    "Fields": [
+                        {
+                            "Id": "_r",
+                            "Description": "R"
+                        },
+                        {
+                            "Id": "subtype",
+                            "Description": "Subtype"
+                        },
+                        {
+                            "Id": "enu",
+                            "Description": "ENU"
+                        },
+                        {
+                            "Id": "timestamp",
+                            "Description": "Timestamp"
+                        },
+                        {
+                            "Id": "easting",
+                            "Description": "Easting"
+                        },
+                        {
+                            "Id": "northing",
+                            "Description": "Northing"
+                        },
+                        {
+                            "Id": "vertical",
+                            "Description": "Vertical Velocity"
+                        },
+                        {
+                            "Id": "easting_rms",
+                            "Description": "Easting RMS"
+                        },
+                        {
+                            "Id": "northing_rms",
+                            "Description": "Northing RMS"
+                        },
+                        {
+                            "Id": "vertical_rms",
+                            "Description": "Vertical RMS"
+                        },
+                        {
+                            "Id": "smoothing",
+                            "Description": "Applied effective velocity smoothing interval (ms)"
+                        }
+                    ],
+                    "Description": "Ashtech VEL Message"
+                }
+            }
+        },
+        "GRM": {
+            "Decription": "",
+            "Sentences": {
+                "E": {
+                    "Fields": [
+                        {
+                            "Id": "subtype",
+                            "Description": "Subtype"
+                        },
+                        {
+                            "Id": "hpe",
+                            "Description": "Estimated Horiz. Position Error"
+                        },
+                        {
+                            "Id": "hpe_unit",
+                            "Description": "Estimated Horiz. Position Error Unit (M)"
+                        },
+                        {
+                            "Id": "vpe",
+                            "Description": "Estimated Vert. Position Error"
+                        },
+                        {
+                            "Id": "vpe_unit",
+                            "Description": "Estimated Vert. Position Error Unit (M)"
+                        },
+                        {
+                            "Id": "osepe",
+                            "Description": "Estimated Horiz. Position Error"
+                        },
+                        {
+                            "Id": "osepe_unit",
+                            "Description": "Overall Spherical Equiv. Position Error"
+                        }
+                    ],
+                    "Description": "GARMIN Estimated position error"
+                },
+                "M": {
+                    "Fields": [
+                        {
+                            "Id": "subtype",
+                            "Description": "Subtype"
+                        },
+                        {
+                            "Id": "datum",
+                            "Description": "Currently Active Datum"
+                        }
+                    ],
+                    "Description": "GARMIN Map Datum"
+                },
+                "W": {
+                    "Fields": [
+                        {
+                            "Id": "subtype",
+                            "Description": "Subtype"
+                        },
+                        {
+                            "Id": "wname",
+                            "Description": "Waypoint Name"
+                        },
+                        {
+                            "Id": "altitude",
+                            "Description": "Altitude"
+                        },
+                        {
+                            "Id": "symbol",
+                            "Description": "Symbol"
+                        },
+                        {
+                            "Id": "comment",
+                            "Description": "Comment"
+                        }
+                    ],
+                    "Description": "GARMIN Waypoint Information\n\n    https://www8.garmin.com/support/pdf/NMEA_0183.pdf\n    https://github.com/wb2osz/direwolf/blob/master/waypoint.c\n\n    $PGRMW,wname,alt,symbol,comment*99\n    Where,\n       wname\t\tis waypoint name.  Must match existing waypoint.\n       alt\t\tis altitude in meters.\n       symbol\t\tis symbol code.  Hexadecimal up to FFFF.\n                    See Garmin Device Interface Specification\n                    001-0063-00 for values of \"symbol_type.\"\n       comment      is comment for the waypoint.\n       *99\t\t    is checksum"
+                },
+                "Z": {
+                    "Fields": [
+                        {
+                            "Id": "subtype",
+                            "Description": "Subtype"
+                        },
+                        {
+                            "Id": "altitude",
+                            "Description": "Altitude"
+                        },
+                        {
+                            "Id": "altitude_unit",
+                            "Description": "Altitude Units (Feet)"
+                        },
+                        {
+                            "Id": "pos_fix_dim",
+                            "Description": "Positional Fix Dimension (2=user, 3=GPS)"
+                        }
+                    ],
+                    "Description": "GARMIN Altitude Information"
+                }
+            }
+        },
+        "KWD": {
+            "Decription": "",
+            "Sentences": {
+                "WPL": {
+                    "Fields": [
+                        {
+                            "Id": "subtype",
+                            "Description": "Subtype"
+                        },
+                        {
+                            "Id": "timestamp",
+                            "Description": "Time of Receipt"
+                        },
+                        {
+                            "Id": "status",
+                            "Description": "GPS Status (Void)"
+                        },
+                        {
+                            "Id": "lat",
+                            "Description": "Latitude"
+                        },
+                        {
+                            "Id": "lat_dir",
+                            "Description": "Latitude Direction"
+                        },
+                        {
+                            "Id": "lon",
+                            "Description": "Longitude"
+                        },
+                        {
+                            "Id": "lon_dir",
+                            "Description": "Longitude Direction"
+                        },
+                        {
+                            "Id": "sog",
+                            "Description": "Speed over Ground"
+                        },
+                        {
+                            "Id": "cog",
+                            "Description": "Course over Ground"
+                        },
+                        {
+                            "Id": "datestamp",
+                            "Description": "Date"
+                        },
+                        {
+                            "Id": "altitude",
+                            "Description": "Altitude"
+                        },
+                        {
+                            "Id": "wname",
+                            "Description": "Waypoint Name"
+                        },
+                        {
+                            "Id": "ts",
+                            "Description": "Table and Symbol"
+                        }
+                    ],
+                    "Description": "Kenwood Waypoint Location\n\n    https://github.com/wb2osz/direwolf/blob/master/waypoint.c\n\n    $PKWDWPL,hhmmss,v,ddmm.mm,ns,dddmm.mm,ew,speed,course,ddmmyy,alt,wname,ts*99\n    Where,\n       hhmmss       is time in UTC from the clock in the transceiver.\n                    This will be bogus if the clock was not set properly.\n                    It does not use the timestamp from a position\n                    report which could be useful.\n\n       GPS Status\tA = active, V = void.\n                    It looks like this might be modeled after the GPS status values\n                    we see in $GPRMC.  i.e. Does the transceiver know its location?\n                    I don't see how that information would be relevant in this context.\n                    I've observed this under various conditions (No GPS, GPS with/without\n                    fix) and it has always been \"V.\"\n\n       ddmm.mm,ns   is latitude. N or S.\n       dddmm.mm,ew  is longitude.  E or W.\n       speed        is speed over ground, knots.\n       course       is course over ground, degrees.\n       ddmmyy       is date.  See comments for time.\n       alt          is altitude, meters above mean sea level.\n       wname        is the waypoint name.  For an Object Report, the id is the object name.\n                    For a position report, it is the call of the sending station.\n                    An Object name can contain any printable characters.\n                    What if object name contains , or * characters?\n                    Those are field delimiter characters and it would be unfortunate\n                    if they appeared in a NMEA sentence data field.\n\n                    If there is a comma in the name, such as \"test,5\" the Kenwood TM-D710A displays\n                    it fine but we end up with an extra field.\n\n                       $PKWDWPL,150803,V,4237.14,N,07120.83,W,,,190316,,test,5,/'*30\n\n                    If the name contains an asterisk, it doesn't show up on the\n                    display and no waypoint sentence is generated.\n                    Some other talkers substitute these two characters following the AvMap precedent.\n\n                       $PKWDWPL,204714,V,4237.1400,N,07120.8300,W,,,200316,,test|5,/'*61\n                       $PKWDWPL,204719,V,4237.1400,N,07120.8300,W,,,200316,,test~6,/'*6D\n\n       ts           are the table and symbol.\n\n                    What happens if the symbol is comma or asterisk?\n                        , Boy Scouts / Girl Scouts\n                        * SnowMobile / Snow\n\n                    the D710A just pushes them thru without checking.\n                    These would not be parsed properly:\n\n                        $PKWDWPL,150753,V,4237.14,N,07120.83,W,,,190316,,test3,/,*1B\n                        $PKWDWPL,150758,V,4237.14,N,07120.83,W,,,190316,,test4,/ **3B\n\n                    Other talkers do the usual substitution and the other end would\n                    need to change them back after extracting from NMEA sentence.\n\n                       $PKWDWPL,204704,V,4237.1400,N,07120.8300,W,,,200316,,test3,/|*41\n                       $PKWDWPL,204709,V,4237.1400,N,07120.8300,W,,,200316,,test4,/~*49\n\n\n        *99            is checksum\n\n    Oddly, there is no place for comment."
+                }
+            }
+        },
+        "MGN": {
+            "Decription": "",
+            "Sentences": {
+                "WPL": {
+                    "Fields": [
+                        {
+                            "Id": "subtype",
+                            "Description": "Subtype"
+                        },
+                        {
+                            "Id": "lat",
+                            "Description": "Latitude"
+                        },
+                        {
+                            "Id": "lat_dir",
+                            "Description": "Latitude Direction"
+                        },
+                        {
+                            "Id": "lon",
+                            "Description": "Longitude"
+                        },
+                        {
+                            "Id": "lon_dir",
+                            "Description": "Longitude Direction"
+                        },
+                        {
+                            "Id": "altitude",
+                            "Description": "Altitude"
+                        },
+                        {
+                            "Id": "altitude_unit",
+                            "Description": "Altitude Units (Feet/Meters)"
+                        },
+                        {
+                            "Id": "wname",
+                            "Description": "Waypoint Name"
+                        },
+                        {
+                            "Id": "comment",
+                            "Description": "Comment"
+                        },
+                        {
+                            "Id": "icon",
+                            "Description": "Icon"
+                        },
+                        {
+                            "Id": "type",
+                            "Description": "Waypoint Type"
+                        }
+                    ],
+                    "Description": "Magellan Waypoint Location\n\n    https://github.com/wb2osz/direwolf/blob/master/waypoint.c\n\n    $PMGNWPL,ddmm.mmmm,ns,dddmm.mmmm,ew,alt,unit,wname,comment,icon,xx*99\n    Where,\n        ddmm.mmmm,ns    is latitude\n        dddmm.mmmm,ew   is longitude\n        alt             is altitude\n        unit            is M for meters or F for feet\n        wname           is the waypoint name\n        comment         is message or comment\n        icon            is one or two letters for icon code\n        xx              is waypoint type which is optional, not well\n                        defined, and not used in their example.\n        *99             is checksum"
+                }
+            }
+        },
+        "RDI": {
+            "Decription": "RD Instruments message. Only one sentence known?",
+            "Sentences": {
+                "D": {
+                    "Fields": [
+                        {
+                            "Id": "subtype",
+                            "Description": "Subtype"
+                        },
+                        {
+                            "Id": "pitch",
+                            "Description": "Pitch"
+                        },
+                        {
+                            "Id": "roll",
+                            "Description": "Roll"
+                        },
+                        {
+                            "Id": "heading",
+                            "Description": "Heading"
+                        }
+                    ],
+                    "Description": "RD Instruments heading, pitch and roll data"
+                }
+            }
+        },
+        "SRF": {
+            "Decription": "",
+            "Sentences": {
+                "103": {
+                    "Fields": [
+                        {
+                            "Id": "subtype",
+                            "Description": "Subtype"
+                        },
+                        {
+                            "Id": "sentence",
+                            "Description": "Sentence type"
+                        },
+                        {
+                            "Id": "command",
+                            "Description": "Command"
+                        },
+                        {
+                            "Id": "rate",
+                            "Description": "Rate"
+                        },
+                        {
+                            "Id": "checksum",
+                            "Description": "Checksum"
+                        }
+                    ],
+                    "Description": ""
+                },
+                "100": {
+                    "Fields": [
+                        {
+                            "Id": "subtype",
+                            "Description": "Subtype"
+                        },
+                        {
+                            "Id": "protocol",
+                            "Description": "Protocol"
+                        },
+                        {
+                            "Id": "baud",
+                            "Description": "Baud Rate"
+                        },
+                        {
+                            "Id": "databits",
+                            "Description": "Data bits"
+                        },
+                        {
+                            "Id": "stopbits",
+                            "Description": "Stop bits"
+                        },
+                        {
+                            "Id": "parity",
+                            "Description": "Parity"
+                        }
+                    ],
+                    "Description": ""
+                }
+            }
+        },
+        "SXN": {
+            "Decription": "",
+            "Sentences": {
+                "20": {
+                    "Fields": [
+                        {
+                            "Id": "_blank",
+                            "Description": "Blank"
+                        },
+                        {
+                            "Id": "message_type",
+                            "Description": "Message Type"
+                        },
+                        {
+                            "Id": "horiz_qual",
+                            "Description": "Horizontal position and velocity quality"
+                        },
+                        {
+                            "Id": "hgt_qual",
+                            "Description": "Height and vertical velocity quality"
+                        },
+                        {
+                            "Id": "head_qual",
+                            "Description": "Heading quality"
+                        },
+                        {
+                            "Id": "rp_qual",
+                            "Description": "Roll and pitch quality"
+                        }
+                    ],
+                    "Description": ""
+                },
+                "21": {
+                    "Fields": [
+                        {
+                            "Id": "_blank",
+                            "Description": "Blank"
+                        },
+                        {
+                            "Id": "message_type",
+                            "Description": "Message Type"
+                        },
+                        {
+                            "Id": "event",
+                            "Description": "Event code: 1 = system restart."
+                        }
+                    ],
+                    "Description": ""
+                },
+                "22": {
+                    "Fields": [
+                        {
+                            "Id": "_blank",
+                            "Description": "Blank"
+                        },
+                        {
+                            "Id": "message_type",
+                            "Description": "Message Type"
+                        },
+                        {
+                            "Id": "gyro_calib",
+                            "Description": "Gyro calibration value since system start-up in degrees"
+                        },
+                        {
+                            "Id": "gyro_ffs",
+                            "Description": "Short-term gyro offset in degrees"
+                        }
+                    ],
+                    "Description": ""
+                },
+                "23": {
+                    "Fields": [
+                        {
+                            "Id": "_blank",
+                            "Description": "Blank"
+                        },
+                        {
+                            "Id": "message_type",
+                            "Description": "Message Type"
+                        },
+                        {
+                            "Id": "roll",
+                            "Description": "Roll in degrees. Positive with port side up."
+                        },
+                        {
+                            "Id": "pitch",
+                            "Description": "Pitch in degrees. Positive with bow up."
+                        },
+                        {
+                            "Id": "head",
+                            "Description": "Heading, degrees true (0.00 - 359.99)."
+                        },
+                        {
+                            "Id": "heave",
+                            "Description": "Heave in metres. Positive down."
+                        }
+                    ],
+                    "Description": ""
+                },
+                "24": {
+                    "Fields": [
+                        {
+                            "Id": "_blank",
+                            "Description": "Blank"
+                        },
+                        {
+                            "Id": "message_type",
+                            "Description": "Message Type"
+                        },
+                        {
+                            "Id": "roll_rate",
+                            "Description": "Roll rate in degrees/second. Positive when port side is moving upwards."
+                        },
+                        {
+                            "Id": "pitch_rate",
+                            "Description": "Pitch rate in degrees/second. Positive when bow is moving upwards."
+                        },
+                        {
+                            "Id": "yaw_rate",
+                            "Description": "Yaw rate in degrees/second. Positive when bow is moving towards starboard."
+                        },
+                        {
+                            "Id": "vertical_vel",
+                            "Description": "Vertical velocity in metres/second. Positive when moving downwards."
+                        }
+                    ],
+                    "Description": ""
+                }
+            }
+        },
+        "TNL": {
+            "Decription": "",
+            "Sentences": {
+                "AVR": {
+                    "Fields": [
+                        {
+                            "Id": "_",
+                            "Description": "Empty"
+                        },
+                        {
+                            "Id": "type",
+                            "Description": "Sentence Type"
+                        },
+                        {
+                            "Id": "timestamp",
+                            "Description": "Timestamp"
+                        },
+                        {
+                            "Id": "yaw_angle",
+                            "Description": "Yaw Angle"
+                        },
+                        {
+                            "Id": "yaw",
+                            "Description": "Yaw"
+                        },
+                        {
+                            "Id": "tilt_angle",
+                            "Description": "Tilt Angle"
+                        },
+                        {
+                            "Id": "tilt",
+                            "Description": "Tilt"
+                        },
+                        {
+                            "Id": "roll_angle",
+                            "Description": "Roll Angle"
+                        },
+                        {
+                            "Id": "roll",
+                            "Description": "Roll"
+                        },
+                        {
+                            "Id": "baseline",
+                            "Description": "Baseline Range"
+                        },
+                        {
+                            "Id": "gps_quality",
+                            "Description": "GPS Quality"
+                        },
+                        {
+                            "Id": "pdop",
+                            "Description": "PDOP"
+                        },
+                        {
+                            "Id": "num_sats",
+                            "Description": "Total number of satelites in use"
+                        }
+                    ],
+                    "Description": "Trimble AVR Message"
+                },
+                "BPQ": {
+                    "Fields": [
+                        {
+                            "Id": "_",
+                            "Description": "Empty"
+                        },
+                        {
+                            "Id": "type",
+                            "Description": "Sentence Type"
+                        },
+                        {
+                            "Id": "timestamp",
+                            "Description": "Timestamp"
+                        },
+                        {
+                            "Id": "datestamp",
+                            "Description": "Datestamp"
+                        },
+                        {
+                            "Id": "lat",
+                            "Description": "Latitude"
+                        },
+                        {
+                            "Id": "lat_dir",
+                            "Description": "Latitude Direction"
+                        },
+                        {
+                            "Id": "lon",
+                            "Description": "Longitude"
+                        },
+                        {
+                            "Id": "lon_dir",
+                            "Description": "Longitude Direction"
+                        },
+                        {
+                            "Id": "height",
+                            "Description": "Height Ellipsoid"
+                        },
+                        {
+                            "Id": "meters",
+                            "Description": "Meters"
+                        },
+                        {
+                            "Id": "mode_fix_type",
+                            "Description": "Mode fix type"
+                        },
+                        {
+                            "Id": "num_sats",
+                            "Description": "Total number of satelites in use"
+                        }
+                    ],
+                    "Description": "Trimble BPQ Message"
+                },
+                "GGK": {
+                    "Fields": [
+                        {
+                            "Id": "_",
+                            "Description": "Empty"
+                        },
+                        {
+                            "Id": "type",
+                            "Description": "Sentence Type"
+                        },
+                        {
+                            "Id": "timestamp",
+                            "Description": "Timestamp"
+                        },
+                        {
+                            "Id": "datestamp",
+                            "Description": "Datestamp"
+                        },
+                        {
+                            "Id": "lat",
+                            "Description": "Latitude"
+                        },
+                        {
+                            "Id": "lat_dir",
+                            "Description": "Latitude Direction"
+                        },
+                        {
+                            "Id": "lon",
+                            "Description": "Longitude"
+                        },
+                        {
+                            "Id": "lon_dir",
+                            "Description": "Longitude Direction"
+                        },
+                        {
+                            "Id": "quality",
+                            "Description": "GPS Quality"
+                        },
+                        {
+                            "Id": "num_sats",
+                            "Description": "Total number of satelites in use"
+                        },
+                        {
+                            "Id": "dop",
+                            "Description": "DOP"
+                        },
+                        {
+                            "Id": "height",
+                            "Description": "Height Ellipsoid"
+                        },
+                        {
+                            "Id": "meters",
+                            "Description": "Meters"
+                        },
+                        {
+                            "Id": "mode_fix_type",
+                            "Description": "Mode fix type"
+                        }
+                    ],
+                    "Description": "Trimble GGK Message"
+                },
+                "VHD": {
+                    "Fields": [
+                        {
+                            "Id": "_",
+                            "Description": "Empty"
+                        },
+                        {
+                            "Id": "type",
+                            "Description": "Sentence Type"
+                        },
+                        {
+                            "Id": "timestamp",
+                            "Description": "Timestamp"
+                        },
+                        {
+                            "Id": "datestamp",
+                            "Description": "Datestamp"
+                        },
+                        {
+                            "Id": "azimuth",
+                            "Description": "Azimuth Angle"
+                        },
+                        {
+                            "Id": "azdt",
+                            "Description": "AzimuthTime"
+                        },
+                        {
+                            "Id": "vertical",
+                            "Description": "Vertical Angle"
+                        },
+                        {
+                            "Id": "vertdt",
+                            "Description": "VerticalTime"
+                        },
+                        {
+                            "Id": "range",
+                            "Description": "Range"
+                        },
+                        {
+                            "Id": "rdt",
+                            "Description": "RangeTime"
+                        },
+                        {
+                            "Id": "gps_quality",
+                            "Description": "GPS Quality"
+                        },
+                        {
+                            "Id": "num_sats",
+                            "Description": "Total number of satelites in use"
+                        },
+                        {
+                            "Id": "pdop",
+                            "Description": "PDOP"
+                        }
+                    ],
+                    "Description": "Trimble VHD Message"
+                },
+                "PJT": {
+                    "Fields": [
+                        {
+                            "Id": "_",
+                            "Description": "Empty"
+                        },
+                        {
+                            "Id": "type",
+                            "Description": "Sentence Type"
+                        },
+                        {
+                            "Id": "coord_name",
+                            "Description": "Coordinate System"
+                        },
+                        {
+                            "Id": "project_name",
+                            "Description": "Project Name"
+                        }
+                    ],
+                    "Description": "Trimble PJT Message"
+                }
+            }
+        },
+        "UBX": {
+            "Decription": "",
+            "Sentences": {
+                "00": {
+                    "Fields": [
+                        {
+                            "Id": "_blank",
+                            "Description": "Blank"
+                        },
+                        {
+                            "Id": "ubx_type",
+                            "Description": "UBX Type"
+                        },
+                        {
+                            "Id": "timestamp",
+                            "Description": "Timestamp (UTC)"
+                        },
+                        {
+                            "Id": "lat",
+                            "Description": "Latitude"
+                        },
+                        {
+                            "Id": "lat_dir",
+                            "Description": "Latitude Direction"
+                        },
+                        {
+                            "Id": "lon",
+                            "Description": "Longitude"
+                        },
+                        {
+                            "Id": "lon_dir",
+                            "Description": "Longitude Direction"
+                        },
+                        {
+                            "Id": "alt_ref",
+                            "Description": "Altitude above user datum ellipsoid"
+                        },
+                        {
+                            "Id": "nav_stat",
+                            "Description": "Navigation Status"
+                        },
+                        {
+                            "Id": "h_acc",
+                            "Description": "Horizontal Accuracy Estimate"
+                        },
+                        {
+                            "Id": "v_acc",
+                            "Description": "Vertical Accuracy Estimate"
+                        },
+                        {
+                            "Id": "sog",
+                            "Description": "Speed over Ground"
+                        },
+                        {
+                            "Id": "cog",
+                            "Description": "Course over Ground"
+                        },
+                        {
+                            "Id": "v_vel",
+                            "Description": "Vertical Velocity"
+                        },
+                        {
+                            "Id": "diff_age",
+                            "Description": "Age of Differential Corrections"
+                        },
+                        {
+                            "Id": "hdop",
+                            "Description": "Horizontal Dilution of Precision"
+                        },
+                        {
+                            "Id": "vdop",
+                            "Description": "Vertical Dilution of Precision"
+                        },
+                        {
+                            "Id": "tdop",
+                            "Description": "Time Dilution of Precision"
+                        },
+                        {
+                            "Id": "num_svs",
+                            "Description": "Number of Satellites Used"
+                        },
+                        {
+                            "Id": "reserved",
+                            "Description": "Reserved"
+                        }
+                    ],
+                    "Description": "Lat/Long Position Data"
+                },
+                "03": {
+                    "Fields": [
+                        {
+                            "Id": "_blank",
+                            "Description": "Blank"
+                        },
+                        {
+                            "Id": "ubx_type",
+                            "Description": "UBX Type"
+                        },
+                        {
+                            "Id": "num_sv",
+                            "Description": "Number of GNSS Satellites Tracked"
+                        }
+                    ],
+                    "Description": "Satellite Status"
+                },
+                "04": {
+                    "Fields": [
+                        {
+                            "Id": "_blank",
+                            "Description": "Blank"
+                        },
+                        {
+                            "Id": "ubx_type",
+                            "Description": "UBX Type"
+                        },
+                        {
+                            "Id": "time",
+                            "Description": "UTC Time"
+                        },
+                        {
+                            "Id": "date",
+                            "Description": "UTC Date"
+                        },
+                        {
+                            "Id": "utc_tow",
+                            "Description": "UTC Time of Week"
+                        },
+                        {
+                            "Id": "utc_wk",
+                            "Description": "UTC Week Number"
+                        },
+                        {
+                            "Id": "leap_sec",
+                            "Description": "Leap Seconds"
+                        },
+                        {
+                            "Id": "clk_bias",
+                            "Description": "Receiver Clock Bias"
+                        },
+                        {
+                            "Id": "clk_drift",
+                            "Description": "Receiver Clock Drift"
+                        },
+                        {
+                            "Id": "tp_gran",
+                            "Description": "Time Pulse Granularity"
+                        }
+                    ],
+                    "Description": "Time and Day Clock Information"
+                }
+            }
+        },
+        "VTX": {
+            "Decription": "",
+            "Sentences": {
+                "0002": {
+                    "Fields": [
+                        {
+                            "Id": "mplaceholder",
+                            "Description": "Message Placeholder"
+                        },
+                        {
+                            "Id": "subtype",
+                            "Description": "Subtype"
+                        },
+                        {
+                            "Id": "measurement_id",
+                            "Description": "Measurement ID"
+                        },
+                        {
+                            "Id": "dist",
+                            "Description": "Distance (meters)"
+                        },
+                        {
+                            "Id": "dist_unit",
+                            "Description": "Distance unit"
+                        },
+                        {
+                            "Id": "direction",
+                            "Description": "Direction (degrees)"
+                        },
+                        {
+                            "Id": "direction_unit",
+                            "Description": "Direction unit"
+                        },
+                        {
+                            "Id": "va",
+                            "Description": "Vertical angle (degrees)"
+                        },
+                        {
+                            "Id": "decl",
+                            "Description": "Magnetic declination (degrees)"
+                        },
+                        {
+                            "Id": "decl_ref",
+                            "Description": "Magnetic declination ref (E/W)"
+                        }
+                    ],
+                    "Description": "Vectronix measurement: laser distance and angles (degrees) with declination"
+                },
+                "0000": {
+                    "Fields": [
+                        {
+                            "Id": "mplaceholder",
+                            "Description": "Message Placeholder"
+                        },
+                        {
+                            "Id": "subtype",
+                            "Description": "Subtype"
+                        },
+                        {
+                            "Id": "dist",
+                            "Description": "Distance (meters)"
+                        },
+                        {
+                            "Id": "dist_unit",
+                            "Description": "Distance unit"
+                        },
+                        {
+                            "Id": "direction",
+                            "Description": "Direction (radians)"
+                        },
+                        {
+                            "Id": "roll",
+                            "Description": "Roll angle (radians)"
+                        },
+                        {
+                            "Id": "va",
+                            "Description": "Vertical angle (radians)"
+                        },
+                        {
+                            "Id": "angle_units",
+                            "Description": "Angular units type"
+                        }
+                    ],
+                    "Description": "Vectronix raw measurement: laser distance and angles (radians) without declination"
+                },
+                "0020": {
+                    "Fields": [
+                        {
+                            "Id": "mplaceholder",
+                            "Description": "Message Placeholder"
+                        },
+                        {
+                            "Id": "subtype",
+                            "Description": "Subtype"
+                        },
+                        {
+                            "Id": "measurement_id",
+                            "Description": "Measurement ID"
+                        },
+                        {
+                            "Id": "lat",
+                            "Description": "Latitude"
+                        },
+                        {
+                            "Id": "lat_dir",
+                            "Description": "Latitude Direction"
+                        },
+                        {
+                            "Id": "lon",
+                            "Description": "Longitude"
+                        },
+                        {
+                            "Id": "lon_dir",
+                            "Description": "Longitude Direction"
+                        },
+                        {
+                            "Id": "altitude",
+                            "Description": "Altitude above WGS84 ellipsoid, meters"
+                        },
+                        {
+                            "Id": "altitude_units",
+                            "Description": "Altitude units"
+                        }
+                    ],
+                    "Description": "Vectronix self location: lat, long, altitude"
+                },
+                "0012": {
+                    "Fields": [
+                        {
+                            "Id": "mplaceholder",
+                            "Description": "Message Placeholder"
+                        },
+                        {
+                            "Id": "subtype",
+                            "Description": "Subtype"
+                        },
+                        {
+                            "Id": "measurement_id",
+                            "Description": "Measurement ID"
+                        },
+                        {
+                            "Id": "lat",
+                            "Description": "Latitude"
+                        },
+                        {
+                            "Id": "lat_dir",
+                            "Description": "Latitude Direction"
+                        },
+                        {
+                            "Id": "lon",
+                            "Description": "Longitude"
+                        },
+                        {
+                            "Id": "lon_dir",
+                            "Description": "Longitude Direction"
+                        },
+                        {
+                            "Id": "altitude",
+                            "Description": "Altitude above WGS84 ellipsoid, meters"
+                        },
+                        {
+                            "Id": "altitude_units",
+                            "Description": "Altitude units"
+                        },
+                        {
+                            "Id": "gain",
+                            "Description": "Gain (meters)"
+                        },
+                        {
+                            "Id": "gain_units",
+                            "Description": "Gain units"
+                        }
+                    ],
+                    "Description": "Vectronix target location: lat, long, altitude, gain"
+                }
+            }
+        },
+        "FEC": {
+            "Decription": "",
+            "Sentences": {
+                "GPatt": {
+                    "Fields": [
+                        {
+                            "Id": "_r",
+                            "Description": "R"
+                        },
+                        {
+                            "Id": "subtype",
+                            "Description": "Subtype"
+                        },
+                        {
+                            "Id": "heading",
+                            "Description": "Heading data"
+                        },
+                        {
+                            "Id": "pitch",
+                            "Description": "Pitching data"
+                        },
+                        {
+                            "Id": "roll",
+                            "Description": "Rolling data"
+                        }
+                    ],
+                    "Description": ""
+                }
+            }
+        }
+    }
+}
