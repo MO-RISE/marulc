@@ -1,6 +1,7 @@
 from jasmine.nmea0183 import unpack_nmea_message
 from jasmine.exceptions import MultiPacketInProcessError
 
+
 def test_unpack_known_regular_nmea_message(pinned):
 
     assert (
@@ -10,14 +11,11 @@ def test_unpack_known_regular_nmea_message(pinned):
         == pinned
     )
 
+
 def test_unpack_known_single_packet_nmea2k_message(pinned):
 
-    assert (
-        unpack_nmea_message(
-            "$MXPGN,01F200,2856,FFFF7F00000CB201*6F"
-        )
-        == pinned
-    )
+    assert unpack_nmea_message("$MXPGN,01F200,2856,FFFF7F00000CB201*6F") == pinned
+
 
 def test_unpack_known_multi_packet_nmea2k_message(pinned):
 
@@ -25,7 +23,7 @@ def test_unpack_known_multi_packet_nmea2k_message(pinned):
         "$MXPGN,01F201,2838,630D670F50001AA0*17",
         "$MXPGN,01F201,2838,FFFF002D0A3C88A1*12",
         "$MXPGN,01F201,2838,7F0030FFFFFFFFA2*14",
-        "$MXPGN,01F201,2738,090800000000A3*69"
+        "$MXPGN,01F201,2738,090800000000A3*69",
     ]
 
     for line in multi_packet_message:
@@ -33,5 +31,5 @@ def test_unpack_known_multi_packet_nmea2k_message(pinned):
             full_message = unpack_nmea_message(line)
         except MultiPacketInProcessError:
             pass
-    
+
     assert full_message == pinned

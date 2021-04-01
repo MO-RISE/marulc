@@ -9,6 +9,7 @@ See tests for now
 
 ## ToDo:
 
+- [ ] Linting
 - [ ] Test coverage
 - [ ] Documentation
 - [ ] Helper function for streaming input (basically support any kind of stream that yields strings with NMEA messages)
