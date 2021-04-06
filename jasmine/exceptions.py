@@ -1,11 +1,12 @@
 """
-Exceptions
+Custom exceptions
 """
+# pylint: disable=missing-class-docstring
 
 
 class ParseError(ValueError):
     def __init__(self, message, data):
-        super(ParseError, self).__init__((message, data))
+        super().__init__((message, data))
 
 
 class SentenceTypeError(ParseError):

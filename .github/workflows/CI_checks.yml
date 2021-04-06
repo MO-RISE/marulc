@@ -26,6 +26,9 @@ jobs:
     - name: Run black
       run: |
         black --check jasmine tests
+    - name: Run pylint
+      run: |
+        pylint jasmine
 
   testing:
 

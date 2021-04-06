@@ -1,3 +1,5 @@
+"""Containing functionality for unpacking binary n2k messages according to PGN-specific definitions
+"""
 import json
 from pathlib import Path
 from copy import deepcopy
@@ -21,7 +23,8 @@ BUCKET = dict()
 
 
 def process_sub_packet(pgn: int, address: int, data: bytearray):
-    """
+    """Process a single subpacket part of a multi-packet n2k message. The following
+    description of the protocol is taken from CANBOAT:
     /*
     * NMEA 2000 uses the 8 'data' bytes as follows for fast packet type:
     * data[0] is an 'order' that increments, or not (depending a bit on implementation).
@@ -33,6 +36,20 @@ def process_sub_packet(pgn: int, address: int, data: bytearray):
     * bytes and 7 for remaining. Since the max index is 31, the maximal payload is
     * 6 + 31 * 7 = 223 bytes
     */
+
+    Args:
+        pgn (int): PGN number
+        address (int): Source address of message
+        data (bytearray): Raw binary packet data
+
+    Raises:
+        MultiPacketDiscardedError: If this subpacket is discarded due to missing
+            messages
+        MultiPacketInProcessError: If this subpacket has been processed successfully
+            but we require more subpackets to be able to decode the full message
+
+    Returns:
+        bytearray: Complete, raw binary message stitched together from multiple subpackets
     """
     length = len(data) * 8  # bits
     order, idx = bitstruct.unpack(f">P{length - 8}u3u5", data)
@@ -73,14 +90,39 @@ def process_sub_packet(pgn: int, address: int, data: bytearray):
 
 
 def packet_type(pgn: int) -> str:
+    """Return the packet type associated with this PGN number
+
+    Args:
+        pgn (int): PGN number
+
+    Returns:
+        str: Packet type
+    """
     return PGN_DB[pgn]["Type"]
 
 
 def packet_total_length(pgn: int) -> int:
+    """Returns the total length of the binary message associated with this PGN number
+
+    Args:
+        pgn (int): PGN number
+
+    Returns:
+        int: Total length (number of bytes)
+    """
     return PGN_DB[pgn]["Length"]
 
 
-def packet_field_decoder(pgn: int):
+def packet_field_decoder(pgn: int) -> bitstruct.CompiledFormat:
+    """Returns a pre-compiled bit field decoder for the message definition
+    associated with this PGn number
+
+    Args:
+        pgn (int): PGN number
+
+    Returns:
+        bitstruct.CompiledFormat: Pre-compiled bit field decoder
+    """
     bits = ""
     for field in PGN_DB[pgn]["Fields"]:
         length = field["BitLength"]
@@ -94,6 +136,15 @@ def packet_field_decoder(pgn: int):
 
 
 def unpack_fields(pgn: int, data: bytearray) -> dict:
+    """Unpack all fields of a complete binary message into a python dictionary
+
+    Args:
+        pgn (int): PGN number
+        data (bytearray): Complete, raw binary message as a bytearray
+
+    Returns:
+        dict: Unpacked fields as a python dictionary
+    """
 
     # Fetch field decoder and unpack raw data
     decoder = packet_field_decoder(pgn)
@@ -124,6 +175,15 @@ def unpack_fields(pgn: int, data: bytearray) -> dict:
 
 
 def unpack_complete_message(pgn: int, data: bytearray) -> dict:
+    """Unpack a complete n2k message associated with this PGN number
+
+    Args:
+        pgn (int): PGN number
+        data (bytearray): Complete, raw binary message as a bytearray
+
+    Returns:
+        dict: Unpacked message as a python dictionary
+    """
     return {
         "Id": PGN_DB[pgn]["Id"],
         "Description": PGN_DB[pgn]["Description"],
@@ -131,10 +191,24 @@ def unpack_complete_message(pgn: int, data: bytearray) -> dict:
     }
 
 
-def unpack_PGN_message(msg: list) -> dict:
-    """
-    Decode --PGN sentence according to
+def unpack_PGN_message(msg: list) -> dict:  # pylint: disable=invalid-name
+    """Unpack a wrapped --PGN message as received in a NMEA0183 stream
+
+    Decodes --PGN sentences according to
     https://opencpn.org/wiki/dokuwiki/lib/exe/fetch.php?media=opencpn:software:mxpgn_sentence.pdf
+
+    Args:
+        msg (list): A list of strings containing the --PGN message
+
+    Raises:
+        PGNError: If we dont know how to decode as message associated with this PGN number
+        MultiPacketDiscardedError: If this subpacket is discarded due to missing
+            messages
+        MultiPacketInProcessError: If this subpacket has been processed successfully
+            but we require more subpackets to be able to decode the full message
+
+    Returns:
+        dict: A fully unpacked --PGN message as a dict
     """
     # Unpack pgn
     pgn = int(msg[0], 16)
@@ -143,7 +217,7 @@ def unpack_PGN_message(msg: list) -> dict:
         raise PGNError(f"Cant decode message with PGN {pgn}", msg)
 
     # Unpack attributes
-    _, priority, dlc, address = bitstruct.unpack(">u1u3u4u8", unhexlify(msg[1]))
+    _, priority, _, address = bitstruct.unpack(">u1u3u4u8", unhexlify(msg[1]))
 
     # Unpack message
     if packet_type(pgn) == "Single":

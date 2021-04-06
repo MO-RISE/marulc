@@ -1,7 +1,12 @@
+"""Containing functionality for unpacking textual NMEA0183 messages
+
+Code is heavily inspired by pynmea2
+"""
 import re
 import json
 import operator
 from pathlib import Path
+from typing import Union
 from functools import reduce
 
 from jasmine.nmea2000 import unpack_PGN_message
@@ -51,11 +56,27 @@ QUERY_REGEX = re.compile(r"^(?P<talker>\w{2})(?P<listener>\w{2})Q,(?P<sentence>\
 PROPRIETARY_REGEX = re.compile(r"^P(?P<manufacturer>\w{3})$")
 
 
-def parse_checksum(nmea_str):
+def calculate_checksum(nmea_str: str) -> int:
+    """Calculate checksum from inputted raw nmea string
+
+    Args:
+        nmea_str (str): Raw received nmea string
+
+    Returns:
+        int: Calculated checksum
+    """
     return reduce(operator.xor, map(ord, nmea_str), 0)
 
 
-def parse_value(value: str):
+def parse_value(value: str) -> Union[str, int, float]:
+    """Parses a value to either str, int or float depending on format
+
+    Args:
+        value (str): Inputted raw string
+
+    Returns:
+        Union[str, int, float]: Parsed output
+    """
     try:
         value = float(value)
         value = int(value) if value.is_integer() else value
@@ -65,7 +86,16 @@ def parse_value(value: str):
     return value
 
 
-def unpack_using_definition(definition: dict, data: list):
+def unpack_using_definition(definition: dict, data: list) -> dict:
+    """Unpack a list of data elements using the provided definition
+
+    Args:
+        definition (dict): Definition describing how the data should be interpreted
+        data (list): Raw data elements
+
+    Returns:
+        dict: Unpacked data including parsed values and descriptions
+    """
     out = {
         "Description": definition["Description"],
         "Fields": dict(),
@@ -80,13 +110,39 @@ def unpack_using_definition(definition: dict, data: list):
     return out
 
 
-def unpack_using_talker(talker: str, data: list):
-    definition = TALKER_DB["Talkers"][talker]
+def unpack_using_talker(talker: str, data: list) -> dict:
+    """Unpack a raw message based on knowledge about which talker sent it
+
+    Args:
+        talker (str): A talker acronym
+        data (list): Raw data elements
+
+    Raises:
+        ParseError: If a matching talker could not be found
+
+    Returns:
+        dict: Unpacked data including parsed values and descriptions
+    """
+    definition = TALKER_DB["Talkers"].get(talker)
+    if not definition:
+        raise ParseError("No matching talker!", list(talker, data))
     out = unpack_using_definition(definition, data)
     return out
 
 
-def unpack_using_proprietary(manufacturer: str, data: str):
+def unpack_using_proprietary(manufacturer: str, data: str) -> dict:
+    """Unpack a raw, proprietary message based on knowledge about the manufacturer
+
+    Args:
+        manufacturer (str): Manufacturer acronym
+        data (str): Raw data elements
+
+    Raises:
+        ParseError: If a definition could not be found for this proprietary message
+
+    Returns:
+        dict: Unpacked data including parsed values and descriptions
+    """
     manufacturer_def = TALKER_DB["Proprietary"][manufacturer]
 
     # Try to figure out the identifier of the message type
@@ -106,10 +162,27 @@ def unpack_using_proprietary(manufacturer: str, data: str):
     )
 
 
-def unpack_nmea_message(line: str):
-    """
-    Parses a string representing a NMEA 0183 sentence, and returns a
+def unpack_nmea_message(  # pylint: disable=too-many-locals,inconsistent-return-statements
+    line: str,
+) -> dict:
+    """Parses a string representing a NMEA 0183 sentence, and returns a
     python dictionary with the unpacked sentence
+
+    Args:
+        line (str): Raw NMEA0183 sentence
+
+    Raises:
+        ParseError: If parsing of message fails
+        ChecksumError: If checksum does not match
+        SentenceTypeError: If the inputted NMEA sentence is of a type that is not
+            supported
+        MultiPacketDiscardedError: If this subpacket is discarded due to missing
+            messages
+        MultiPacketInProcessError: If this subpacket has been processed successfully
+            but we require more subpackets to be able to decode the full message
+
+    Returns:
+        dict: [description]
     """
     match = SENTENCE_REGEX.match(line)
     if not match:
@@ -124,7 +197,7 @@ def unpack_nmea_message(line: str):
 
     if checksum:
         cs1 = int(checksum, 16)
-        cs2 = parse_checksum(nmea_str)
+        cs2 = calculate_checksum(nmea_str)
         if cs1 != cs2:
             raise ChecksumError(
                 "checksum does not match: %02X != %02X" % (cs1, cs2), data

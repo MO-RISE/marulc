@@ -21,5 +21,6 @@ See tests for now
 - [ ] Linting
 - [ ] Test coverage
 - [ ] Documentation
+- [ ] Command line tool for stdin/stdout parsing
 - [ ] Helper function for streaming input (basically support any kind of stream that yields strings with NMEA messages)
 - [ ] Helper functions for extracting timeseries. (I.e converting from array of structs to structs of arrays)
