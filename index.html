@@ -1,0 +1,516 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>jasmine &mdash; jasmine  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home"> jasmine
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">jasmine</a><ul>
+<li><a class="reference internal" href="#example-usage">Example usage</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#api-reference">API Reference</a><ul>
+<li><a class="reference internal" href="#module-jasmine">Package (<code class="docutils literal notranslate"><span class="pre">jasmine</span></code>)</a><ul>
+<li><a class="reference internal" href="#module-jasmine.nmea0183">Submodule (<code class="docutils literal notranslate"><span class="pre">jasmine.nmea0183</span></code>)</a></li>
+<li><a class="reference internal" href="#module-jasmine.nmea2000">Submodule (<code class="docutils literal notranslate"><span class="pre">jasmine.nmea2000</span></code>)</a></li>
+<li><a class="reference internal" href="#module-jasmine.exceptions">Submodule (<code class="docutils literal notranslate"><span class="pre">jasmine.exceptions</span></code>)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">jasmine</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>jasmine</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="jasmine">
+<h1>jasmine<a class="headerlink" href="#jasmine" title="Permalink to this headline">¶</a></h1>
+<p>A parser for NMEA 0183 and 2000 messages, heavily inspired by <a class="reference external" href="https://github.com/Knio/pynmea2">pynmea2</a>.</p>
+<p>Main features:</p>
+<ul class="simple">
+<li><p>Parsing NMEA0183 sentences to python dictionaries</p></li>
+<li><p>Parsing and decoding NMEA2000 binary messages to python dictionaries</p></li>
+<li><p>Support for NMEA2000 messages wrapped in NMEA0183 sentences (<code class="docutils literal notranslate"><span class="pre">--PGN</span></code>-sentences)</p></li>
+<li><p>Support for multi-packet NMEA2000 messages (fast-type messages)</p></li>
+</ul>
+<p>Since everything is parsed and decoded into regular python dictionaries, serialization to JSON format is very simple.</p>
+<p>For parsing and decoding of messages, the following definitions are used:</p>
+<ul class="simple">
+<li><p>For NMEA0183, definitions have been extracted from the class-based hierarchy of pynmea2 and copmiled into a JSON definition. It can be found <a class="reference external" href="https://github.com/RISE-MO/jasmine/blob/master/jasmine/talkers.json">here</a>. The script for extracting these definitions from the pynmea2 source code is available in the <code class="docutils literal notranslate"><span class="pre">scripts</span></code>-folder</p></li>
+<li><p>For NMEA2000, definitions are identical to what is being used in the <a class="reference external" href="https://github.com/canboat/canboat">CANBOAT</a> project. The definitions can be found <a class="reference external" href="https://github.com/RISE-MO/jasmine/blob/master/jasmine/pgns.json">here</a></p></li>
+</ul>
+<div class="section" id="example-usage">
+<h2>Example usage<a class="headerlink" href="#example-usage" title="Permalink to this headline">¶</a></h2>
+<p>See <a class="reference external" href="https://github.com/RISE-MO/jasmine/tree/master/tests">tests</a> for now.</p>
+</div>
+</div>
+<div class="section" id="api-reference">
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-jasmine">
+<span id="package-jasmine"></span><h2>Package (<code class="docutils literal notranslate"><span class="pre">jasmine</span></code>)<a class="headerlink" href="#module-jasmine" title="Permalink to this headline">¶</a></h2>
+<p>Package for parsing/decoding NMEA0183 and NMEA2000 messages</p>
+<div class="section" id="module-jasmine.nmea0183">
+<span id="submodule-jasmine-nmea0183"></span><h3>Submodule (<code class="docutils literal notranslate"><span class="pre">jasmine.nmea0183</span></code>)<a class="headerlink" href="#module-jasmine.nmea0183" title="Permalink to this headline">¶</a></h3>
+<p>Containing functionality for unpacking textual NMEA0183 messages</p>
+<dl class="py function">
+<dt id="jasmine.nmea0183.calculate_checksum">
+<code class="sig-prename descclassname"><span class="pre">jasmine.nmea0183.</span></code><code class="sig-name descname"><span class="pre">calculate_checksum</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmea_str</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">int</span><a class="headerlink" href="#jasmine.nmea0183.calculate_checksum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate checksum from inputted raw nmea string</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>nmea_str (str): Raw received nmea string</p>
+</dd>
+<dt>Returns:</dt><dd><p>int: Calculated checksum</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="jasmine.nmea0183.parse_value">
+<code class="sig-prename descclassname"><span class="pre">jasmine.nmea0183.</span></code><code class="sig-name descname"><span class="pre">parse_value</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#jasmine.nmea0183.parse_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses a value to either str, int or float depending on format</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>value (str): Inputted raw string</p>
+</dd>
+<dt>Returns:</dt><dd><p>Union[str, int, float]: Parsed output</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="jasmine.nmea0183.unpack_nmea_message">
+<code class="sig-prename descclassname"><span class="pre">jasmine.nmea0183.</span></code><code class="sig-name descname"><span class="pre">unpack_nmea_message</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">dict</span><a class="headerlink" href="#jasmine.nmea0183.unpack_nmea_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses a string representing a NMEA 0183 sentence, and returns a
+python dictionary with the unpacked sentence</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>line (str): Raw NMEA0183 sentence</p>
+</dd>
+<dt>Raises:</dt><dd><dl class="simple">
+<dt>ParseError:</dt><dd><p>If parsing of message fails</p>
+</dd>
+<dt>ChecksumError:</dt><dd><p>If checksum does not match</p>
+</dd>
+<dt>SentenceTypeError:</dt><dd><p>If the inputted NMEA sentence is of a type that is not supported</p>
+</dd>
+<dt>MultiPacketDiscardedError:</dt><dd><p>If this subpacket is discarded due to missing messages</p>
+</dd>
+<dt>MultiPacketInProcessError:</dt><dd><p>If this subpacket has been processed successfully but we require more
+subpackets to be able to decode the full message</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><p>dict: Complete unpacked message</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="jasmine.nmea0183.unpack_using_definition">
+<code class="sig-prename descclassname"><span class="pre">jasmine.nmea0183.</span></code><code class="sig-name descname"><span class="pre">unpack_using_definition</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">definition</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">dict</span><a class="headerlink" href="#jasmine.nmea0183.unpack_using_definition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unpack a list of data elements using the provided definition</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>definition (dict): Definition describing how the data should be interpreted
+data (list): Raw data elements</p>
+</dd>
+<dt>Returns:</dt><dd><p>dict: Unpacked data including parsed values and descriptions</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="jasmine.nmea0183.unpack_using_proprietary">
+<code class="sig-prename descclassname"><span class="pre">jasmine.nmea0183.</span></code><code class="sig-name descname"><span class="pre">unpack_using_proprietary</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manufacturer</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">dict</span><a class="headerlink" href="#jasmine.nmea0183.unpack_using_proprietary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unpack a raw, proprietary message based on knowledge about the manufacturer</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>manufacturer (str): Manufacturer acronym
+data (str): Raw data elements</p>
+</dd>
+<dt>Raises:</dt><dd><p>ParseError: If a definition could not be found for this proprietary message</p>
+</dd>
+<dt>Returns:</dt><dd><p>dict: Unpacked data including parsed values and descriptions</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="jasmine.nmea0183.unpack_using_talker">
+<code class="sig-prename descclassname"><span class="pre">jasmine.nmea0183.</span></code><code class="sig-name descname"><span class="pre">unpack_using_talker</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">talker</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">dict</span><a class="headerlink" href="#jasmine.nmea0183.unpack_using_talker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unpack a raw message based on knowledge about which talker sent it</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>talker (str): A talker acronym
+data (list): Raw data elements</p>
+</dd>
+<dt>Raises:</dt><dd><p>ParseError: If a matching talker could not be found</p>
+</dd>
+<dt>Returns:</dt><dd><p>dict: Unpacked data including parsed values and descriptions</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-jasmine.nmea2000">
+<span id="submodule-jasmine-nmea2000"></span><h3>Submodule (<code class="docutils literal notranslate"><span class="pre">jasmine.nmea2000</span></code>)<a class="headerlink" href="#module-jasmine.nmea2000" title="Permalink to this headline">¶</a></h3>
+<p>Containing functionality for unpacking binary n2k messages according to PGN-specific definitions</p>
+<dl class="py function">
+<dt id="jasmine.nmea2000.packet_field_decoder">
+<code class="sig-prename descclassname"><span class="pre">jasmine.nmea2000.</span></code><code class="sig-name descname"><span class="pre">packet_field_decoder</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">bitstruct.CompiledFormat</span><a class="headerlink" href="#jasmine.nmea2000.packet_field_decoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a pre-compiled bit field decoder for the message definition
+associated with this PGn number</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>pgn (int): PGN number</p>
+</dd>
+<dt>Returns:</dt><dd><p>bitstruct.CompiledFormat: Pre-compiled bit field decoder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="jasmine.nmea2000.packet_total_length">
+<code class="sig-prename descclassname"><span class="pre">jasmine.nmea2000.</span></code><code class="sig-name descname"><span class="pre">packet_total_length</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">int</span><a class="headerlink" href="#jasmine.nmea2000.packet_total_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the total length of the binary message associated with this PGN number</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>pgn (int): PGN number</p>
+</dd>
+<dt>Returns:</dt><dd><p>int: Total length (number of bytes)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="jasmine.nmea2000.packet_type">
+<code class="sig-prename descclassname"><span class="pre">jasmine.nmea2000.</span></code><code class="sig-name descname"><span class="pre">packet_type</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#jasmine.nmea2000.packet_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the packet type associated with this PGN number</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>pgn (int): PGN number</p>
+</dd>
+<dt>Returns:</dt><dd><p>str: Packet type</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="jasmine.nmea2000.process_sub_packet">
+<code class="sig-prename descclassname"><span class="pre">jasmine.nmea2000.</span></code><code class="sig-name descname"><span class="pre">process_sub_packet</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bytearray</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#jasmine.nmea2000.process_sub_packet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process a single subpacket part of a multi-packet n2k message. The following
+description of the protocol is taken from CANBOAT:</p>
+<p><code class="docutils literal notranslate"><span class="pre">`console</span>
+<span class="pre">NMEA</span> <span class="pre">2000</span> <span class="pre">uses</span> <span class="pre">the</span> <span class="pre">8</span> <span class="pre">'data'</span> <span class="pre">bytes</span> <span class="pre">as</span> <span class="pre">follows</span> <span class="pre">for</span> <span class="pre">fast</span> <span class="pre">packet</span> <span class="pre">type:</span>
+<span class="pre">data[0]</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">'order'</span> <span class="pre">that</span> <span class="pre">increments,</span> <span class="pre">or</span> <span class="pre">not</span> <span class="pre">(depending</span> <span class="pre">a</span> <span class="pre">bit</span> <span class="pre">on</span> <span class="pre">implementation).</span>
+<span class="pre">If</span> <span class="pre">the</span> <span class="pre">size</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">packet</span> <span class="pre">&lt;=</span> <span class="pre">7</span> <span class="pre">then</span> <span class="pre">the</span> <span class="pre">data</span> <span class="pre">follows</span> <span class="pre">in</span> <span class="pre">data[1..7]</span>
+<span class="pre">If</span> <span class="pre">the</span> <span class="pre">size</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">packet</span> <span class="pre">&gt;</span> <span class="pre">7</span> <span class="pre">then</span> <span class="pre">the</span> <span class="pre">next</span> <span class="pre">byte</span> <span class="pre">data[1]</span> <span class="pre">is</span> <span class="pre">the</span> <span class="pre">size</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">payload</span>
+<span class="pre">and</span> <span class="pre">data[0]</span> <span class="pre">is</span> <span class="pre">divided</span> <span class="pre">into</span> <span class="pre">5</span> <span class="pre">bits</span> <span class="pre">index</span> <span class="pre">into</span> <span class="pre">the</span> <span class="pre">fast</span> <span class="pre">packet,</span> <span class="pre">and</span> <span class="pre">3</span> <span class="pre">bits</span> <span class="pre">'order</span>
+<span class="pre">that</span> <span class="pre">increases.</span>
+<span class="pre">This</span> <span class="pre">means</span> <span class="pre">that</span> <span class="pre">for</span> <span class="pre">'fast</span> <span class="pre">packets'</span> <span class="pre">the</span> <span class="pre">first</span> <span class="pre">bucket</span> <span class="pre">(sub-packet)</span> <span class="pre">contains</span> <span class="pre">6</span> <span class="pre">payload</span>
+<span class="pre">bytes</span> <span class="pre">and</span> <span class="pre">7</span> <span class="pre">for</span> <span class="pre">remaining.</span> <span class="pre">Since</span> <span class="pre">the</span> <span class="pre">max</span> <span class="pre">index</span> <span class="pre">is</span> <span class="pre">31,</span> <span class="pre">the</span> <span class="pre">maximal</span> <span class="pre">payload</span> <span class="pre">is</span>
+<span class="pre">6</span> <span class="pre">+</span> <span class="pre">31</span> <span class="pre">*</span> <span class="pre">7</span> <span class="pre">=</span> <span class="pre">223</span> <span class="pre">bytes</span>
+<span class="pre">`</span></code></p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>pgn (int): PGN number
+address (int): Source address of message
+data (bytearray): Raw binary packet data</p>
+</dd>
+<dt>Raises:</dt><dd><dl class="simple">
+<dt>MultiPacketDiscardedError: If this subpacket is discarded due to missing</dt><dd><p>messages</p>
+</dd>
+<dt>MultiPacketInProcessError: If this subpacket has been processed successfully</dt><dd><p>but we require more subpackets to be able to decode the full message</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><p>bytearray: Complete, raw binary message stitched together from multiple subpackets</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="jasmine.nmea2000.unpack_PGN_message">
+<code class="sig-prename descclassname"><span class="pre">jasmine.nmea2000.</span></code><code class="sig-name descname"><span class="pre">unpack_PGN_message</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">dict</span><a class="headerlink" href="#jasmine.nmea2000.unpack_PGN_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unpack a wrapped –PGN message as received in a NMEA0183 stream</p>
+<p>Decodes –PGN sentences according to
+<a class="reference external" href="https://opencpn.org/wiki/dokuwiki/lib/exe/fetch.php?media=opencpn:software:mxpgn_sentence.pdf">https://opencpn.org/wiki/dokuwiki/lib/exe/fetch.php?media=opencpn:software:mxpgn_sentence.pdf</a></p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>msg (list): A list of strings containing the –PGN message</p>
+</dd>
+<dt>Raises:</dt><dd><dl class="simple">
+<dt>PGNError:</dt><dd><p>If we dont know how to decode as message associated with this PGN number</p>
+</dd>
+<dt>MultiPacketDiscardedError:</dt><dd><p>If this subpacket is discarded due to missing messages</p>
+</dd>
+<dt>MultiPacketInProcessError:</dt><dd><p>If this subpacket has been processed successfully but we require more
+subpackets to be able to decode the full message</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><p>dict: A fully unpacked –PGN message as a dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="jasmine.nmea2000.unpack_complete_message">
+<code class="sig-prename descclassname"><span class="pre">jasmine.nmea2000.</span></code><code class="sig-name descname"><span class="pre">unpack_complete_message</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bytearray</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">dict</span><a class="headerlink" href="#jasmine.nmea2000.unpack_complete_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unpack a complete n2k message associated with this PGN number</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>pgn (int): PGN number
+data (bytearray): Complete, raw binary message as a bytearray</p>
+</dd>
+<dt>Returns:</dt><dd><p>dict: Unpacked message as a python dictionary</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="jasmine.nmea2000.unpack_fields">
+<code class="sig-prename descclassname"><span class="pre">jasmine.nmea2000.</span></code><code class="sig-name descname"><span class="pre">unpack_fields</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bytearray</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">dict</span><a class="headerlink" href="#jasmine.nmea2000.unpack_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unpack all fields of a complete binary message into a python dictionary</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>pgn (int): PGN number
+data (bytearray): Complete, raw binary message as a bytearray</p>
+</dd>
+<dt>Returns:</dt><dd><p>dict: Unpacked fields as a python dictionary</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-jasmine.exceptions">
+<span id="submodule-jasmine-exceptions"></span><h3>Submodule (<code class="docutils literal notranslate"><span class="pre">jasmine.exceptions</span></code>)<a class="headerlink" href="#module-jasmine.exceptions" title="Permalink to this headline">¶</a></h3>
+<p>Custom exceptions</p>
+<dl class="py exception">
+<dt id="jasmine.exceptions.ChecksumError">
+<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">jasmine.exceptions.</span></code><code class="sig-name descname"><span class="pre">ChecksumError</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#jasmine.exceptions.ChecksumError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#jasmine.exceptions.ParseError" title="jasmine.exceptions.ParseError"><code class="xref py py-class docutils literal notranslate"><span class="pre">jasmine.exceptions.ParseError</span></code></a></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="jasmine.exceptions.MultiPacketDiscardedError">
+<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">jasmine.exceptions.</span></code><code class="sig-name descname"><span class="pre">MultiPacketDiscardedError</span></code><a class="headerlink" href="#jasmine.exceptions.MultiPacketDiscardedError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#jasmine.exceptions.MultiPacketError" title="jasmine.exceptions.MultiPacketError"><code class="xref py py-class docutils literal notranslate"><span class="pre">jasmine.exceptions.MultiPacketError</span></code></a></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="jasmine.exceptions.MultiPacketError">
+<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">jasmine.exceptions.</span></code><code class="sig-name descname"><span class="pre">MultiPacketError</span></code><a class="headerlink" href="#jasmine.exceptions.MultiPacketError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeError</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="jasmine.exceptions.MultiPacketInProcessError">
+<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">jasmine.exceptions.</span></code><code class="sig-name descname"><span class="pre">MultiPacketInProcessError</span></code><a class="headerlink" href="#jasmine.exceptions.MultiPacketInProcessError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#jasmine.exceptions.MultiPacketError" title="jasmine.exceptions.MultiPacketError"><code class="xref py py-class docutils literal notranslate"><span class="pre">jasmine.exceptions.MultiPacketError</span></code></a></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="jasmine.exceptions.PGNError">
+<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">jasmine.exceptions.</span></code><code class="sig-name descname"><span class="pre">PGNError</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#jasmine.exceptions.PGNError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#jasmine.exceptions.ParseError" title="jasmine.exceptions.ParseError"><code class="xref py py-class docutils literal notranslate"><span class="pre">jasmine.exceptions.ParseError</span></code></a></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="jasmine.exceptions.ParseError">
+<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">jasmine.exceptions.</span></code><code class="sig-name descname"><span class="pre">ParseError</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#jasmine.exceptions.ParseError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="jasmine.exceptions.SentenceTypeError">
+<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">jasmine.exceptions.</span></code><code class="sig-name descname"><span class="pre">SentenceTypeError</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#jasmine.exceptions.SentenceTypeError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#jasmine.exceptions.ParseError" title="jasmine.exceptions.ParseError"><code class="xref py py-class docutils literal notranslate"><span class="pre">jasmine.exceptions.ParseError</span></code></a></p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, RISE Research Institute of Sweden.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
