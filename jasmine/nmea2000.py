@@ -25,17 +25,18 @@ BUCKET = dict()
 def process_sub_packet(pgn: int, address: int, data: bytearray):
     """Process a single subpacket part of a multi-packet n2k message. The following
     description of the protocol is taken from CANBOAT:
-    /*
-    * NMEA 2000 uses the 8 'data' bytes as follows for fast packet type:
-    * data[0] is an 'order' that increments, or not (depending a bit on implementation).
-    * If the size of the packet <= 7 then the data follows in data[1..7]
-    * If the size of the packet > 7 then the next byte data[1] is the size of the payload
-    * and data[0] is divided into 5 bits index into the fast packet, and 3 bits 'order
-    * that increases.
-    * This means that for 'fast packets' the first bucket (sub-packet) contains 6 payload
-    * bytes and 7 for remaining. Since the max index is 31, the maximal payload is
-    * 6 + 31 * 7 = 223 bytes
-    */
+
+    ```console
+    NMEA 2000 uses the 8 'data' bytes as follows for fast packet type:
+    data[0] is an 'order' that increments, or not (depending a bit on implementation).
+    If the size of the packet <= 7 then the data follows in data[1..7]
+    If the size of the packet > 7 then the next byte data[1] is the size of the payload
+    and data[0] is divided into 5 bits index into the fast packet, and 3 bits 'order
+    that increases.
+    This means that for 'fast packets' the first bucket (sub-packet) contains 6 payload
+    bytes and 7 for remaining. Since the max index is 31, the maximal payload is
+    6 + 31 * 7 = 223 bytes
+    ```
 
     Args:
         pgn (int): PGN number
@@ -201,11 +202,13 @@ def unpack_PGN_message(msg: list) -> dict:  # pylint: disable=invalid-name
         msg (list): A list of strings containing the --PGN message
 
     Raises:
-        PGNError: If we dont know how to decode as message associated with this PGN number
-        MultiPacketDiscardedError: If this subpacket is discarded due to missing
-            messages
-        MultiPacketInProcessError: If this subpacket has been processed successfully
-            but we require more subpackets to be able to decode the full message
+        PGNError:
+            If we dont know how to decode as message associated with this PGN number
+        MultiPacketDiscardedError:
+            If this subpacket is discarded due to missing messages
+        MultiPacketInProcessError:
+            If this subpacket has been processed successfully but we require more
+            subpackets to be able to decode the full message
 
     Returns:
         dict: A fully unpacked --PGN message as a dict

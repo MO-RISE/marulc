@@ -1,6 +1,4 @@
 """Containing functionality for unpacking textual NMEA0183 messages
-
-Code is heavily inspired by pynmea2
 """
 import re
 import json
@@ -172,17 +170,20 @@ def unpack_nmea_message(  # pylint: disable=too-many-locals,inconsistent-return-
         line (str): Raw NMEA0183 sentence
 
     Raises:
-        ParseError: If parsing of message fails
-        ChecksumError: If checksum does not match
-        SentenceTypeError: If the inputted NMEA sentence is of a type that is not
-            supported
-        MultiPacketDiscardedError: If this subpacket is discarded due to missing
-            messages
-        MultiPacketInProcessError: If this subpacket has been processed successfully
-            but we require more subpackets to be able to decode the full message
+        ParseError:
+            If parsing of message fails
+        ChecksumError:
+            If checksum does not match
+        SentenceTypeError:
+            If the inputted NMEA sentence is of a type that is not supported
+        MultiPacketDiscardedError:
+            If this subpacket is discarded due to missing messages
+        MultiPacketInProcessError:
+            If this subpacket has been processed successfully but we require more
+            subpackets to be able to decode the full message
 
     Returns:
-        dict: [description]
+        dict: Complete unpacked message
     """
     match = SENTENCE_REGEX.match(line)
     if not match:

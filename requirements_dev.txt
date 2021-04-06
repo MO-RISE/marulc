@@ -2,4 +2,7 @@ black
 pylint
 pytest
 pytest-pinned
+sphinx
+sphinx-rtd-theme
+m2r2
 -e .

@@ -1,26 +1,22 @@
 # jasmine
 
-A parser for NMEA 0183 and 2000 messages
+A parser for NMEA 0183 and 2000 messages, heavily inspired by [pynmea2](https://github.com/Knio/pynmea2).
 
-Heavily inspired by [pynmea2](https://github.com/Knio/pynmea2) but reworked quite a lot to allow for supporting:
-* Easy serialization
-* PGN sentences
-* Multi-packet sentences
+Main features:
 
-Definitions for parsing sentence have been compiled from
-* NMEA0183 messages: Using the definitions provided by pynmea2
-* NMEA2000 messages: Using the deinfitions provided by CANBOAT
+* Parsing NMEA0183 sentences to python dictionaries
+* Parsing and decoding NMEA2000 binary messages to python dictionaries
+* Support for NMEA2000 messages wrapped in NMEA0183 sentences (``--PGN``-sentences)
+* Support for multi-packet NMEA2000 messages (fast-type messages)
+
+Since everything is parsed and decoded into regular python dictionaries, serialization to JSON format is very simple.
+
+For parsing and decoding of messages, the following definitions are used:
+
+- For NMEA0183, definitions have been extracted from the class-based hierarchy of pynmea2 and copmiled into a JSON definition. It can be found [here](https://github.com/RISE-MO/jasmine/blob/master/jasmine/talkers.json). The script for extracting these definitions from the pynmea2 source code is available in the ``scripts``-folder
+- For NMEA2000, definitions are identical to what is being used in the [CANBOAT](https://github.com/canboat/canboat) project. The definitions can be found [here](https://github.com/RISE-MO/jasmine/blob/master/jasmine/pgns.json)
 
 ## Example usage
 
-See tests for now
+See [tests](https://github.com/RISE-MO/jasmine/tree/master/tests) for now.
 
-
-## ToDo:
-
-- [ ] Linting
-- [ ] Test coverage
-- [ ] Documentation
-- [ ] Command line tool for stdin/stdout parsing
-- [ ] Helper function for streaming input (basically support any kind of stream that yields strings with NMEA messages)
-- [ ] Helper functions for extracting timeseries. (I.e converting from array of structs to structs of arrays)
