@@ -1,3 +1,5 @@
+import pytest
+
 from jasmine.nmea0183 import unpack_nmea_message
 from jasmine.exceptions import MultiPacketInProcessError
 
@@ -26,10 +28,15 @@ def test_unpack_known_multi_packet_nmea2k_message(pinned):
         "$MXPGN,01F201,2738,090800000000A3*69",
     ]
 
-    for line in multi_packet_message:
-        try:
-            full_message = unpack_nmea_message(line)
-        except MultiPacketInProcessError:
-            pass
+    with pytest.raises(MultiPacketInProcessError):
+        unpack_nmea_message(multi_packet_message[0])
+
+    with pytest.raises(MultiPacketInProcessError):
+        unpack_nmea_message(multi_packet_message[1])
+
+    with pytest.raises(MultiPacketInProcessError):
+        unpack_nmea_message(multi_packet_message[2])
+
+    full_message = unpack_nmea_message(multi_packet_message[3])
 
     assert full_message == pinned
