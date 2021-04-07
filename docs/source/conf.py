@@ -31,6 +31,7 @@ author = "RISE Research Institute of Sweden"
 # ones.
 extensions = [
     "sphinx.ext.autodoc",
+    "sphinx.ext.napoleon",
     "sphinx_rtd_theme",
     "m2r2",
 ]
