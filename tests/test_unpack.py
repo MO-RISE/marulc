@@ -1,7 +1,13 @@
+from pathlib import Path
+
 import pytest
 
+from jasmine import parse_from_iterator
 from jasmine.nmea0183 import unpack_nmea_message
-from jasmine.exceptions import MultiPacketInProcessError
+from jasmine.exceptions import MultiPacketInProcessError, ParseError
+from jasmine.utils import filter_on_talker
+
+THIS_DIR = Path(__file__).parent
 
 
 def test_unpack_known_regular_nmea_message(pinned):
@@ -40,3 +46,23 @@ def test_unpack_known_multi_packet_nmea2k_message(pinned):
     full_message = unpack_nmea_message(multi_packet_message[3])
 
     assert full_message == pinned
+
+
+def test_parse_from_iterator():
+
+    # When parsing using quiet=False, we should receive parsing errors
+    with (THIS_DIR / "nmea_test_log.txt").open() as f_handle:
+        with pytest.raises(ParseError):
+            list(parse_from_iterator(f_handle, quiet=False))
+
+    # When parsing using quiet=True, this should work without raising errors
+    with (THIS_DIR / "nmea_test_log.txt").open() as f_handle:
+        unpacked = list(parse_from_iterator(f_handle, quiet=True))
+
+        # We should have failed parsing some messages and we will have some
+        # multi-packet messages
+        assert len(unpacked) < 3000
+
+        # We should have 82 GNGGA messages
+        filtered = list(filter_on_talker("GNGGA")(unpacked))
+        assert len(filtered) == 82

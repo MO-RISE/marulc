@@ -18,5 +18,43 @@ For parsing and decoding of messages, the following definitions are used:
 
 ## Example usage
 
-See [tests](https://github.com/RISE-MO/jasmine/tree/master/tests) for now.
+**Single sentence**
+```python
+from jasmine import unpack_nmea_message
 
+msg_as_dict = unpack_nmea_message("$GNGGA,122203.19,5741.1549,N,01153.1748,E,4,37,0.5,4.03,M,35.78,M,,*72")
+```
+
+**Parse from iterator**
+```python
+from jasmine import parse_from_iterator
+
+with open("nmea_log.txt") as f_handle:
+    for unpacked_msg in parse_from_iterator(f_handle, quiet=True):
+        print(unpacked_msg)
+```
+
+**Filter for specific messages**
+```python
+from jasmine import parse_from_iterator
+from jasmine.utils import filter_on_talker
+
+with open("nmea_log.txt") as f_handle:
+    iterator_all = parse_from_iterator(f_handle, quiet=True):
+
+    for filtered_unpacked_msg in filter_on_talker("..GGA")(iterator_all): # Accepts regex!
+        print(filtered_unpacked_msg)
+```
+
+**Extract specific value from specific messages**
+```python
+from jasmine import parse_from_iterator
+from jasmine.utils import filter_on_pgn, deep_get
+
+with open("nmea_log.txt") as f_handle:
+    iterator_all = parse_from_iterator(f_handle, quiet=True):
+
+    for filtered_unpacked_msg in filter_on_pgn(127488)(iterator_all):
+        speed = deep_get(filtered_unpacked_msg, "Fields", "speed")
+        print(f"Engine running speed: {speed['Value']} {speed['Unit']}")
+```
