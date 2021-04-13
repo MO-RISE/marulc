@@ -89,10 +89,11 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#api-reference">API Reference</a><ul>
-<li><a class="reference internal" href="#module-jasmine">Package (<code class="docutils literal notranslate"><span class="pre">jasmine</span></code>)</a><ul>
-<li><a class="reference internal" href="#module-jasmine.nmea0183">Submodule (<code class="docutils literal notranslate"><span class="pre">jasmine.nmea0183</span></code>)</a></li>
-<li><a class="reference internal" href="#module-jasmine.nmea2000">Submodule (<code class="docutils literal notranslate"><span class="pre">jasmine.nmea2000</span></code>)</a></li>
-<li><a class="reference internal" href="#module-jasmine.exceptions">Submodule (<code class="docutils literal notranslate"><span class="pre">jasmine.exceptions</span></code>)</a></li>
+<li><a class="reference internal" href="#module-jasmine">Package (<code class="xref py py-mod docutils literal notranslate"><span class="pre">jasmine</span></code>)</a><ul>
+<li><a class="reference internal" href="#module-jasmine.nmea0183">Submodule (<code class="xref py py-mod docutils literal notranslate"><span class="pre">jasmine.nmea0183</span></code>)</a></li>
+<li><a class="reference internal" href="#module-jasmine.nmea2000">Submodule (<code class="xref py py-mod docutils literal notranslate"><span class="pre">jasmine.nmea2000</span></code>)</a></li>
+<li><a class="reference internal" href="#module-jasmine.utils">Submodule (<code class="xref py py-mod docutils literal notranslate"><span class="pre">jasmine.utils</span></code>)</a></li>
+<li><a class="reference internal" href="#module-jasmine.exceptions">Submodule (<code class="xref py py-mod docutils literal notranslate"><span class="pre">jasmine.exceptions</span></code>)</a></li>
 </ul>
 </li>
 </ul>
@@ -183,25 +184,81 @@
 </ul>
 <div class="section" id="example-usage">
 <h2>Example usage<a class="headerlink" href="#example-usage" title="Permalink to this headline">¶</a></h2>
-<p>See <a class="reference external" href="https://github.com/RISE-MO/jasmine/tree/master/tests">tests</a> for now.</p>
+<p><strong>Single sentence</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jasmine</span> <span class="kn">import</span> <span class="n">unpack_nmea_message</span>
+
+<span class="n">msg_as_dict</span> <span class="o">=</span> <span class="n">unpack_nmea_message</span><span class="p">(</span><span class="s2">&quot;$GNGGA,122203.19,5741.1549,N,01153.1748,E,4,37,0.5,4.03,M,35.78,M,,*72&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Parse from iterator</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jasmine</span> <span class="kn">import</span> <span class="n">parse_from_iterator</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;nmea_log.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f_handle</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">unpacked_msg</span> <span class="ow">in</span> <span class="n">parse_from_iterator</span><span class="p">(</span><span class="n">f_handle</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">unpacked_msg</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Filter for specific messages</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jasmine</span> <span class="kn">import</span> <span class="n">parse_from_iterator</span>
+<span class="kn">from</span> <span class="nn">jasmine.utils</span> <span class="kn">import</span> <span class="n">filter_on_talker</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;nmea_log.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f_handle</span><span class="p">:</span>
+    <span class="n">iterator_all</span> <span class="o">=</span> <span class="n">parse_from_iterator</span><span class="p">(</span><span class="n">f_handle</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+    <span class="k">for</span> <span class="n">filtered_unpacked_msg</span> <span class="ow">in</span> <span class="n">filter_on_talker</span><span class="p">(</span><span class="s2">&quot;..GGA&quot;</span><span class="p">)(</span><span class="n">iterator_all</span><span class="p">):</span> <span class="c1"># Accepts regex!</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">filtered_unpacked_msg</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Extract specific value from specific messages</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jasmine</span> <span class="kn">import</span> <span class="n">parse_from_iterator</span>
+<span class="kn">from</span> <span class="nn">jasmine.utils</span> <span class="kn">import</span> <span class="n">filter_on_pgn</span><span class="p">,</span> <span class="n">deep_get</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;nmea_log.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f_handle</span><span class="p">:</span>
+    <span class="n">iterator_all</span> <span class="o">=</span> <span class="n">parse_from_iterator</span><span class="p">(</span><span class="n">f_handle</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+    <span class="k">for</span> <span class="n">filtered_unpacked_msg</span> <span class="ow">in</span> <span class="n">filter_on_pgn</span><span class="p">(</span><span class="mi">127488</span><span class="p">)(</span><span class="n">iterator_all</span><span class="p">):</span>
+        <span class="n">speed</span> <span class="o">=</span> <span class="n">deep_get</span><span class="p">(</span><span class="n">filtered_unpacked_msg</span><span class="p">,</span> <span class="s2">&quot;Fields&quot;</span><span class="p">,</span> <span class="s2">&quot;speed&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Engine running speed: </span><span class="si">{</span><span class="n">speed</span><span class="p">[</span><span class="s1">&#39;Value&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">speed</span><span class="p">[</span><span class="s1">&#39;Units&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Extraction using JSON pointers</strong>
+Requires the <code class="docutils literal notranslate"><span class="pre">jsonpointer</span></code> package (<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">jsonpointer</span></code>)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jsonpointer</span> <span class="kn">import</span> <span class="n">resolve_pointer</span>
+
+<span class="kn">from</span> <span class="nn">jasmine</span> <span class="kn">import</span> <span class="n">parse_from_iterator</span>
+<span class="kn">from</span> <span class="nn">jasmine.utils</span> <span class="kn">import</span> <span class="n">filter_on_pgn</span><span class="p">,</span> <span class="n">deep_get</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;nmea_log.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f_handle</span><span class="p">:</span>
+    <span class="n">iterator_all</span> <span class="o">=</span> <span class="n">parse_from_iterator</span><span class="p">(</span><span class="n">f_handle</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+    <span class="k">for</span> <span class="n">filtered_unpacked_msg</span> <span class="ow">in</span> <span class="n">filter_on_pgn</span><span class="p">(</span><span class="mi">127488</span><span class="p">)(</span><span class="n">iterator_all</span><span class="p">):</span>
+        <span class="n">speed</span> <span class="o">=</span> <span class="n">resolve_pointer</span><span class="p">(</span><span class="n">filtered_unpacked_msg</span><span class="p">,</span> <span class="s2">&quot;/Fields/speed&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Engine running speed: </span><span class="si">{</span><span class="n">speed</span><span class="p">[</span><span class="s1">&#39;Value&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">speed</span><span class="p">[</span><span class="s1">&#39;Units&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="api-reference">
 <h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-jasmine">
-<span id="package-jasmine"></span><h2>Package (<code class="docutils literal notranslate"><span class="pre">jasmine</span></code>)<a class="headerlink" href="#module-jasmine" title="Permalink to this headline">¶</a></h2>
+<span id="package-jasmine"></span><h2>Package (<a class="reference internal" href="#module-jasmine" title="jasmine"><code class="xref py py-mod docutils literal notranslate"><span class="pre">jasmine</span></code></a>)<a class="headerlink" href="#module-jasmine" title="Permalink to this headline">¶</a></h2>
 <p>Package for parsing/decoding NMEA0183 and NMEA2000 messages</p>
 <div class="section" id="module-jasmine.nmea0183">
-<span id="submodule-jasmine-nmea0183"></span><h3>Submodule (<code class="docutils literal notranslate"><span class="pre">jasmine.nmea0183</span></code>)<a class="headerlink" href="#module-jasmine.nmea0183" title="Permalink to this headline">¶</a></h3>
+<span id="submodule-jasmine-nmea0183"></span><h3>Submodule (<a class="reference internal" href="#module-jasmine.nmea0183" title="jasmine.nmea0183"><code class="xref py py-mod docutils literal notranslate"><span class="pre">jasmine.nmea0183</span></code></a>)<a class="headerlink" href="#module-jasmine.nmea0183" title="Permalink to this headline">¶</a></h3>
 <p>Containing functionality for unpacking textual NMEA0183 messages</p>
 <dl class="py function">
 <dt id="jasmine.nmea0183.calculate_checksum">
 <code class="sig-prename descclassname"><span class="pre">jasmine.nmea0183.</span></code><code class="sig-name descname"><span class="pre">calculate_checksum</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmea_str</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">int</span><a class="headerlink" href="#jasmine.nmea0183.calculate_checksum" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate checksum from inputted raw nmea string</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>nmea_str (str): Raw received nmea string</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>nmea_str</strong> (<em>str</em>) – Raw received nmea string</p>
 </dd>
-<dt>Returns:</dt><dd><p>int: Calculated checksum</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Calculated checksum</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
 </dd>
 </dl>
 </dd></dl>
@@ -210,10 +267,15 @@
 <dt id="jasmine.nmea0183.parse_value">
 <code class="sig-prename descclassname"><span class="pre">jasmine.nmea0183.</span></code><code class="sig-name descname"><span class="pre">parse_value</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#jasmine.nmea0183.parse_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parses a value to either str, int or float depending on format</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>value (str): Inputted raw string</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>str</em>) – Inputted raw string</p>
 </dd>
-<dt>Returns:</dt><dd><p>Union[str, int, float]: Parsed output</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Parsed output</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Union[str, int, float]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -223,24 +285,25 @@
 <code class="sig-prename descclassname"><span class="pre">jasmine.nmea0183.</span></code><code class="sig-name descname"><span class="pre">unpack_nmea_message</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">dict</span><a class="headerlink" href="#jasmine.nmea0183.unpack_nmea_message" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parses a string representing a NMEA 0183 sentence, and returns a
 python dictionary with the unpacked sentence</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>line (str): Raw NMEA0183 sentence</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>line</strong> (<em>str</em>) – Raw NMEA0183 sentence</p>
 </dd>
-<dt>Raises:</dt><dd><dl class="simple">
-<dt>ParseError:</dt><dd><p>If parsing of message fails</p>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="#jasmine.exceptions.ParseError" title="jasmine.exceptions.ParseError"><strong>ParseError</strong></a> – If parsing of message fails</p></li>
+<li><p><a class="reference internal" href="#jasmine.exceptions.ChecksumError" title="jasmine.exceptions.ChecksumError"><strong>ChecksumError</strong></a> – If checksum does not match</p></li>
+<li><p><a class="reference internal" href="#jasmine.exceptions.SentenceTypeError" title="jasmine.exceptions.SentenceTypeError"><strong>SentenceTypeError</strong></a> – If the inputted NMEA sentence is of a type that is not supported</p></li>
+<li><p><a class="reference internal" href="#jasmine.exceptions.MultiPacketDiscardedError" title="jasmine.exceptions.MultiPacketDiscardedError"><strong>MultiPacketDiscardedError</strong></a> – If this subpacket is discarded due to missing messages</p></li>
+<li><p><a class="reference internal" href="#jasmine.exceptions.MultiPacketInProcessError" title="jasmine.exceptions.MultiPacketInProcessError"><strong>MultiPacketInProcessError</strong></a> – If this subpacket has been processed successfully but we require more
+    subpackets to be able to decode the full message</p></li>
+</ul>
 </dd>
-<dt>ChecksumError:</dt><dd><p>If checksum does not match</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Complete unpacked message</p>
 </dd>
-<dt>SentenceTypeError:</dt><dd><p>If the inputted NMEA sentence is of a type that is not supported</p>
-</dd>
-<dt>MultiPacketDiscardedError:</dt><dd><p>If this subpacket is discarded due to missing messages</p>
-</dd>
-<dt>MultiPacketInProcessError:</dt><dd><p>If this subpacket has been processed successfully but we require more
-subpackets to be able to decode the full message</p>
-</dd>
-</dl>
-</dd>
-<dt>Returns:</dt><dd><p>dict: Complete unpacked message</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
 </dd>
 </dl>
 </dd></dl>
@@ -249,11 +312,18 @@ subpackets to be able to decode the full message</p>
 <dt id="jasmine.nmea0183.unpack_using_definition">
 <code class="sig-prename descclassname"><span class="pre">jasmine.nmea0183.</span></code><code class="sig-name descname"><span class="pre">unpack_using_definition</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">definition</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">dict</span><a class="headerlink" href="#jasmine.nmea0183.unpack_using_definition" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unpack a list of data elements using the provided definition</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>definition (dict): Definition describing how the data should be interpreted
-data (list): Raw data elements</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>definition</strong> (<em>dict</em>) – Definition describing how the data should be interpreted</p></li>
+<li><p><strong>data</strong> (<em>list</em>) – Raw data elements</p></li>
+</ul>
 </dd>
-<dt>Returns:</dt><dd><p>dict: Unpacked data including parsed values and descriptions</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Unpacked data including parsed values and descriptions</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
 </dd></dl>
@@ -262,13 +332,21 @@ data (list): Raw data elements</p>
 <dt id="jasmine.nmea0183.unpack_using_proprietary">
 <code class="sig-prename descclassname"><span class="pre">jasmine.nmea0183.</span></code><code class="sig-name descname"><span class="pre">unpack_using_proprietary</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manufacturer</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">dict</span><a class="headerlink" href="#jasmine.nmea0183.unpack_using_proprietary" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unpack a raw, proprietary message based on knowledge about the manufacturer</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>manufacturer (str): Manufacturer acronym
-data (str): Raw data elements</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>manufacturer</strong> (<em>str</em>) – Manufacturer acronym</p></li>
+<li><p><strong>data</strong> (<em>str</em>) – Raw data elements</p></li>
+</ul>
 </dd>
-<dt>Raises:</dt><dd><p>ParseError: If a definition could not be found for this proprietary message</p>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="#jasmine.exceptions.ParseError" title="jasmine.exceptions.ParseError"><strong>ParseError</strong></a> – If a definition could not be found for this proprietary message</p>
 </dd>
-<dt>Returns:</dt><dd><p>dict: Unpacked data including parsed values and descriptions</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Unpacked data including parsed values and descriptions</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
 </dd>
 </dl>
 </dd></dl>
@@ -277,30 +355,43 @@ data (str): Raw data elements</p>
 <dt id="jasmine.nmea0183.unpack_using_talker">
 <code class="sig-prename descclassname"><span class="pre">jasmine.nmea0183.</span></code><code class="sig-name descname"><span class="pre">unpack_using_talker</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">talker</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">dict</span><a class="headerlink" href="#jasmine.nmea0183.unpack_using_talker" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unpack a raw message based on knowledge about which talker sent it</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>talker (str): A talker acronym
-data (list): Raw data elements</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>talker</strong> (<em>str</em>) – A talker acronym</p></li>
+<li><p><strong>data</strong> (<em>list</em>) – Raw data elements</p></li>
+</ul>
 </dd>
-<dt>Raises:</dt><dd><p>ParseError: If a matching talker could not be found</p>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="#jasmine.exceptions.ParseError" title="jasmine.exceptions.ParseError"><strong>ParseError</strong></a> – If a matching talker could not be found</p>
 </dd>
-<dt>Returns:</dt><dd><p>dict: Unpacked data including parsed values and descriptions</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Unpacked data including parsed values and descriptions</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
 </dd>
 </dl>
 </dd></dl>
 
 </div>
 <div class="section" id="module-jasmine.nmea2000">
-<span id="submodule-jasmine-nmea2000"></span><h3>Submodule (<code class="docutils literal notranslate"><span class="pre">jasmine.nmea2000</span></code>)<a class="headerlink" href="#module-jasmine.nmea2000" title="Permalink to this headline">¶</a></h3>
+<span id="submodule-jasmine-nmea2000"></span><h3>Submodule (<a class="reference internal" href="#module-jasmine.nmea2000" title="jasmine.nmea2000"><code class="xref py py-mod docutils literal notranslate"><span class="pre">jasmine.nmea2000</span></code></a>)<a class="headerlink" href="#module-jasmine.nmea2000" title="Permalink to this headline">¶</a></h3>
 <p>Containing functionality for unpacking binary n2k messages according to PGN-specific definitions</p>
 <dl class="py function">
 <dt id="jasmine.nmea2000.packet_field_decoder">
 <code class="sig-prename descclassname"><span class="pre">jasmine.nmea2000.</span></code><code class="sig-name descname"><span class="pre">packet_field_decoder</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">bitstruct.CompiledFormat</span><a class="headerlink" href="#jasmine.nmea2000.packet_field_decoder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a pre-compiled bit field decoder for the message definition
 associated with this PGn number</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>pgn (int): PGN number</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pgn</strong> (<em>int</em>) – PGN number</p>
 </dd>
-<dt>Returns:</dt><dd><p>bitstruct.CompiledFormat: Pre-compiled bit field decoder</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Pre-compiled bit field decoder</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bitstruct.CompiledFormat</p>
 </dd>
 </dl>
 </dd></dl>
@@ -309,10 +400,15 @@ associated with this PGn number</p>
 <dt id="jasmine.nmea2000.packet_total_length">
 <code class="sig-prename descclassname"><span class="pre">jasmine.nmea2000.</span></code><code class="sig-name descname"><span class="pre">packet_total_length</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">int</span><a class="headerlink" href="#jasmine.nmea2000.packet_total_length" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the total length of the binary message associated with this PGN number</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>pgn (int): PGN number</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pgn</strong> (<em>int</em>) – PGN number</p>
 </dd>
-<dt>Returns:</dt><dd><p>int: Total length (number of bytes)</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Total length (number of bytes)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
 </dd>
 </dl>
 </dd></dl>
@@ -321,10 +417,15 @@ associated with this PGn number</p>
 <dt id="jasmine.nmea2000.packet_type">
 <code class="sig-prename descclassname"><span class="pre">jasmine.nmea2000.</span></code><code class="sig-name descname"><span class="pre">packet_type</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#jasmine.nmea2000.packet_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the packet type associated with this PGN number</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>pgn (int): PGN number</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pgn</strong> (<em>int</em>) – PGN number</p>
 </dd>
-<dt>Returns:</dt><dd><p>str: Packet type</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Packet type</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -334,30 +435,36 @@ associated with this PGn number</p>
 <code class="sig-prename descclassname"><span class="pre">jasmine.nmea2000.</span></code><code class="sig-name descname"><span class="pre">process_sub_packet</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bytearray</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#jasmine.nmea2000.process_sub_packet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Process a single subpacket part of a multi-packet n2k message. The following
 description of the protocol is taken from CANBOAT:</p>
-<p><code class="docutils literal notranslate"><span class="pre">`console</span>
-<span class="pre">NMEA</span> <span class="pre">2000</span> <span class="pre">uses</span> <span class="pre">the</span> <span class="pre">8</span> <span class="pre">'data'</span> <span class="pre">bytes</span> <span class="pre">as</span> <span class="pre">follows</span> <span class="pre">for</span> <span class="pre">fast</span> <span class="pre">packet</span> <span class="pre">type:</span>
-<span class="pre">data[0]</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">'order'</span> <span class="pre">that</span> <span class="pre">increments,</span> <span class="pre">or</span> <span class="pre">not</span> <span class="pre">(depending</span> <span class="pre">a</span> <span class="pre">bit</span> <span class="pre">on</span> <span class="pre">implementation).</span>
-<span class="pre">If</span> <span class="pre">the</span> <span class="pre">size</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">packet</span> <span class="pre">&lt;=</span> <span class="pre">7</span> <span class="pre">then</span> <span class="pre">the</span> <span class="pre">data</span> <span class="pre">follows</span> <span class="pre">in</span> <span class="pre">data[1..7]</span>
-<span class="pre">If</span> <span class="pre">the</span> <span class="pre">size</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">packet</span> <span class="pre">&gt;</span> <span class="pre">7</span> <span class="pre">then</span> <span class="pre">the</span> <span class="pre">next</span> <span class="pre">byte</span> <span class="pre">data[1]</span> <span class="pre">is</span> <span class="pre">the</span> <span class="pre">size</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">payload</span>
-<span class="pre">and</span> <span class="pre">data[0]</span> <span class="pre">is</span> <span class="pre">divided</span> <span class="pre">into</span> <span class="pre">5</span> <span class="pre">bits</span> <span class="pre">index</span> <span class="pre">into</span> <span class="pre">the</span> <span class="pre">fast</span> <span class="pre">packet,</span> <span class="pre">and</span> <span class="pre">3</span> <span class="pre">bits</span> <span class="pre">'order</span>
-<span class="pre">that</span> <span class="pre">increases.</span>
-<span class="pre">This</span> <span class="pre">means</span> <span class="pre">that</span> <span class="pre">for</span> <span class="pre">'fast</span> <span class="pre">packets'</span> <span class="pre">the</span> <span class="pre">first</span> <span class="pre">bucket</span> <span class="pre">(sub-packet)</span> <span class="pre">contains</span> <span class="pre">6</span> <span class="pre">payload</span>
-<span class="pre">bytes</span> <span class="pre">and</span> <span class="pre">7</span> <span class="pre">for</span> <span class="pre">remaining.</span> <span class="pre">Since</span> <span class="pre">the</span> <span class="pre">max</span> <span class="pre">index</span> <span class="pre">is</span> <span class="pre">31,</span> <span class="pre">the</span> <span class="pre">maximal</span> <span class="pre">payload</span> <span class="pre">is</span>
-<span class="pre">6</span> <span class="pre">+</span> <span class="pre">31</span> <span class="pre">*</span> <span class="pre">7</span> <span class="pre">=</span> <span class="pre">223</span> <span class="pre">bytes</span>
-<span class="pre">`</span></code></p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>pgn (int): PGN number
-address (int): Source address of message
-data (bytearray): Raw binary packet data</p>
+<p>NMEA 2000 uses the 8 ‘data’ bytes as follows for fast packet type:
+data[0] is an ‘order’ that increments, or not (depending a bit on implementation).
+If the size of the packet &lt;= 7 then the data follows in data[1..7]
+If the size of the packet &gt; 7 then the next byte data[1] is the size of the payload
+and data[0] is divided into 5 bits index into the fast packet, and 3 bits ‘order
+that increases.
+This means that for ‘fast packets’ the first bucket (sub-packet) contains 6 payload
+bytes and 7 for remaining. Since the max index is 31, the maximal payload is
+6 + 31 * 7 = 223 bytes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pgn</strong> (<em>int</em>) – PGN number</p></li>
+<li><p><strong>address</strong> (<em>int</em>) – Source address of message</p></li>
+<li><p><strong>data</strong> (<em>bytearray</em>) – Raw binary packet data</p></li>
+</ul>
 </dd>
-<dt>Raises:</dt><dd><dl class="simple">
-<dt>MultiPacketDiscardedError: If this subpacket is discarded due to missing</dt><dd><p>messages</p>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="#jasmine.exceptions.MultiPacketDiscardedError" title="jasmine.exceptions.MultiPacketDiscardedError"><strong>MultiPacketDiscardedError</strong></a> – If this subpacket is discarded due to missing
+    messages</p></li>
+<li><p><a class="reference internal" href="#jasmine.exceptions.MultiPacketInProcessError" title="jasmine.exceptions.MultiPacketInProcessError"><strong>MultiPacketInProcessError</strong></a> – If this subpacket has been processed successfully
+    but we require more subpackets to be able to decode the full message</p></li>
+</ul>
 </dd>
-<dt>MultiPacketInProcessError: If this subpacket has been processed successfully</dt><dd><p>but we require more subpackets to be able to decode the full message</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Complete, raw binary message stitched together from multiple subpackets</p>
 </dd>
-</dl>
-</dd>
-<dt>Returns:</dt><dd><p>bytearray: Complete, raw binary message stitched together from multiple subpackets</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bytearray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -368,20 +475,23 @@ data (bytearray): Raw binary packet data</p>
 <dd><p>Unpack a wrapped –PGN message as received in a NMEA0183 stream</p>
 <p>Decodes –PGN sentences according to
 <a class="reference external" href="https://opencpn.org/wiki/dokuwiki/lib/exe/fetch.php?media=opencpn:software:mxpgn_sentence.pdf">https://opencpn.org/wiki/dokuwiki/lib/exe/fetch.php?media=opencpn:software:mxpgn_sentence.pdf</a></p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>msg (list): A list of strings containing the –PGN message</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>msg</strong> (<em>list</em>) – A list of strings containing the –PGN message</p>
 </dd>
-<dt>Raises:</dt><dd><dl class="simple">
-<dt>PGNError:</dt><dd><p>If we dont know how to decode as message associated with this PGN number</p>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="#jasmine.exceptions.PGNError" title="jasmine.exceptions.PGNError"><strong>PGNError</strong></a> – If we dont know how to decode as message associated with this PGN number</p></li>
+<li><p><a class="reference internal" href="#jasmine.exceptions.MultiPacketDiscardedError" title="jasmine.exceptions.MultiPacketDiscardedError"><strong>MultiPacketDiscardedError</strong></a> – If this subpacket is discarded due to missing messages</p></li>
+<li><p><a class="reference internal" href="#jasmine.exceptions.MultiPacketInProcessError" title="jasmine.exceptions.MultiPacketInProcessError"><strong>MultiPacketInProcessError</strong></a> – If this subpacket has been processed successfully but we require more
+    subpackets to be able to decode the full message</p></li>
+</ul>
 </dd>
-<dt>MultiPacketDiscardedError:</dt><dd><p>If this subpacket is discarded due to missing messages</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A fully unpacked –PGN message as a dict</p>
 </dd>
-<dt>MultiPacketInProcessError:</dt><dd><p>If this subpacket has been processed successfully but we require more
-subpackets to be able to decode the full message</p>
-</dd>
-</dl>
-</dd>
-<dt>Returns:</dt><dd><p>dict: A fully unpacked –PGN message as a dict</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
 </dd>
 </dl>
 </dd></dl>
@@ -390,11 +500,18 @@ subpackets to be able to decode the full message</p>
 <dt id="jasmine.nmea2000.unpack_complete_message">
 <code class="sig-prename descclassname"><span class="pre">jasmine.nmea2000.</span></code><code class="sig-name descname"><span class="pre">unpack_complete_message</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bytearray</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">dict</span><a class="headerlink" href="#jasmine.nmea2000.unpack_complete_message" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unpack a complete n2k message associated with this PGN number</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>pgn (int): PGN number
-data (bytearray): Complete, raw binary message as a bytearray</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pgn</strong> (<em>int</em>) – PGN number</p></li>
+<li><p><strong>data</strong> (<em>bytearray</em>) – Complete, raw binary message as a bytearray</p></li>
+</ul>
 </dd>
-<dt>Returns:</dt><dd><p>dict: Unpacked message as a python dictionary</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Unpacked message as a python dictionary</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
 </dd></dl>
@@ -403,18 +520,131 @@ data (bytearray): Complete, raw binary message as a bytearray</p>
 <dt id="jasmine.nmea2000.unpack_fields">
 <code class="sig-prename descclassname"><span class="pre">jasmine.nmea2000.</span></code><code class="sig-name descname"><span class="pre">unpack_fields</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bytearray</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">dict</span><a class="headerlink" href="#jasmine.nmea2000.unpack_fields" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unpack all fields of a complete binary message into a python dictionary</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>pgn (int): PGN number
-data (bytearray): Complete, raw binary message as a bytearray</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pgn</strong> (<em>int</em>) – PGN number</p></li>
+<li><p><strong>data</strong> (<em>bytearray</em>) – Complete, raw binary message as a bytearray</p></li>
+</ul>
 </dd>
-<dt>Returns:</dt><dd><p>dict: Unpacked fields as a python dictionary</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Unpacked fields as a python dictionary</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-jasmine.utils">
+<span id="submodule-jasmine-utils"></span><h3>Submodule (<a class="reference internal" href="#module-jasmine.utils" title="jasmine.utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">jasmine.utils</span></code></a>)<a class="headerlink" href="#module-jasmine.utils" title="Permalink to this headline">¶</a></h3>
+<p>Utility functions</p>
+<dl class="py function">
+<dt id="jasmine.utils.deep_get">
+<code class="sig-prename descclassname"><span class="pre">jasmine.utils.</span></code><code class="sig-name descname"><span class="pre">deep_get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dikt</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">keys</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Any</span><a class="headerlink" href="#jasmine.utils.deep_get" title="Permalink to this definition">¶</a></dt>
+<dd><p>A “deep getter” for nested dictionaries</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jasmine.utils</span> <span class="kn">import</span> <span class="n">deep_get</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;B&quot;</span><span class="p">:{</span><span class="s2">&quot;C&quot;</span><span class="p">:</span><span class="s2">&quot;3}}}</span>
+<span class="n">deep_get</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">)</span> <span class="c1"># Returns 3</span>
+<span class="n">deep_get</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">)</span> <span class="c1"># Returns None</span>
+<span class="n">deep_get</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">89</span><span class="p">)</span> <span class="c1"># Returns 89</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dikt</strong> (<em>dict</em>) – Nested dictionary to operate on</p></li>
+<li><p><strong>*keys</strong> (<em>str</em>) – Any number of keys in descending level in hte nested dictionary.</p></li>
+<li><p><strong>default</strong> (<em>Any</em><em>, </em><em>optional</em>) – Default value to return if chain of keys cant be
+followed. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The value found at the bottom of the keys or the default value.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="jasmine.utils.filter_on_pgn">
+<code class="sig-prename descclassname"><span class="pre">jasmine.utils.</span></code><code class="sig-name descname"><span class="pre">filter_on_pgn</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">PGNs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#jasmine.utils.filter_on_pgn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create filter that filters on specific PGN numbers</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jasmine</span> <span class="kn">import</span> <span class="n">parse_from_iterator</span>
+<span class="kn">from</span> <span class="nn">jasmine.utils</span> <span class="kn">import</span> <span class="n">filter_on_pgn</span>
+
+<span class="n">source</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;nmea_log.txt&quot;</span><span class="p">)</span>
+<span class="n">filtered</span> <span class="o">=</span> <span class="n">filter_on_pgn</span><span class="p">(</span><span class="mi">127488</span><span class="p">)(</span><span class="n">parse_from_iterator</span><span class="p">(</span><span class="n">source</span><span class="p">))</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>*PGNs</strong> (<em>str</em>) – Any number of PGN numbers that will be matched against a
+“PGN” key.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A pre-loaded filter callable</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Callable[[Iterable[dict]], Iterable[dict]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="jasmine.utils.filter_on_talker">
+<code class="sig-prename descclassname"><span class="pre">jasmine.utils.</span></code><code class="sig-name descname"><span class="pre">filter_on_talker</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">talkers</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#jasmine.utils.filter_on_talker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create filter that filters on specific talkers</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jasmine</span> <span class="kn">import</span> <span class="n">parse_from_iterator</span>
+<span class="kn">from</span> <span class="nn">jasmine.utils</span> <span class="kn">import</span> <span class="n">filter_on_talker</span>
+
+<span class="n">source</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;nmea_log.txt&quot;</span><span class="p">)</span>
+<span class="n">filtered</span> <span class="o">=</span> <span class="n">filter_on_talker</span><span class="p">(</span><span class="s2">&quot;..GGA&quot;</span><span class="p">,</span> <span class="s2">&quot;PASHR&quot;</span><span class="p">)(</span><span class="n">parse_from_iterator</span><span class="p">(</span><span class="n">source</span><span class="p">))</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>*talkers</strong> (<em>str</em>) – Any number of strings or regex expressions that
+will be matched against a “Talker” key.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A pre-loaded filter callable</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Callable[[Iterable[dict]], Iterable[dict]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="jasmine.utils.parse_from_iterator">
+<code class="sig-prename descclassname"><span class="pre">jasmine.utils.</span></code><code class="sig-name descname"><span class="pre">parse_from_iterator</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#jasmine.utils.parse_from_iterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper function for unpacking NMEA sentences from an iterable source</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source</strong> (<em>Iterable</em><em>[</em><em>str</em><em>]</em>) – Iterable source which yields NMEA 0183 sentences</p></li>
+<li><p><strong>quiet</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether exceptions encountered should be raised or
+silenced. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Yields</dt>
+<dd class="field-even"><p><em>Iterator[Iterable[dict]]</em> –</p>
+<dl class="simple">
+<dt>The next, complete, unpacked message as a python</dt><dd><p>dictionary.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
 
 </div>
 <div class="section" id="module-jasmine.exceptions">
-<span id="submodule-jasmine-exceptions"></span><h3>Submodule (<code class="docutils literal notranslate"><span class="pre">jasmine.exceptions</span></code>)<a class="headerlink" href="#module-jasmine.exceptions" title="Permalink to this headline">¶</a></h3>
+<span id="submodule-jasmine-exceptions"></span><h3>Submodule (<a class="reference internal" href="#module-jasmine.exceptions" title="jasmine.exceptions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">jasmine.exceptions</span></code></a>)<a class="headerlink" href="#module-jasmine.exceptions" title="Permalink to this headline">¶</a></h3>
 <p>Custom exceptions</p>
 <dl class="py exception">
 <dt id="jasmine.exceptions.ChecksumError">
