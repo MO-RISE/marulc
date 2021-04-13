@@ -2,10 +2,9 @@ from pathlib import Path
 
 import pytest
 
-from jasmine import parse_from_iterator
-from jasmine.nmea0183 import unpack_nmea_message
+from jasmine import parse_from_iterator, unpack_nmea_message
 from jasmine.exceptions import MultiPacketInProcessError, ParseError
-from jasmine.utils import filter_on_talker
+from jasmine.utils import filter_on_talker, filter_on_pgn, deep_get
 
 THIS_DIR = Path(__file__).parent
 
@@ -48,7 +47,7 @@ def test_unpack_known_multi_packet_nmea2k_message(pinned):
     assert full_message == pinned
 
 
-def test_parse_from_iterator():
+def test_parse_from_iterator(pinned):
 
     # When parsing using quiet=False, we should receive parsing errors
     with (THIS_DIR / "nmea_test_log.txt").open() as f_handle:
@@ -66,3 +65,12 @@ def test_parse_from_iterator():
         # We should have 82 GNGGA messages
         filtered = list(filter_on_talker("GNGGA")(unpacked))
         assert len(filtered) == 82
+
+    # Lets try to extract a timeserie
+    with (THIS_DIR / "nmea_test_log.txt").open() as f_handle:
+        rpms = [
+            deep_get(msg, "Fields", "speed", "Value")
+            for msg in filter_on_pgn(127488)(parse_from_iterator(f_handle, quiet=True))
+        ]
+
+        assert rpms == pinned
