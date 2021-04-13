@@ -56,5 +56,5 @@ with open("nmea_log.txt") as f_handle:
 
     for filtered_unpacked_msg in filter_on_pgn(127488)(iterator_all):
         speed = deep_get(filtered_unpacked_msg, "Fields", "speed")
-        print(f"Engine running speed: {speed['Value']} {speed['Unit']}")
+        print(f"Engine running speed: {speed['Value']} {speed['Units']}")
 ```
