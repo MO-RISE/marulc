@@ -26,7 +26,6 @@ def process_sub_packet(pgn: int, address: int, data: bytearray):
     """Process a single subpacket part of a multi-packet n2k message. The following
     description of the protocol is taken from CANBOAT:
 
-    ```console
     NMEA 2000 uses the 8 'data' bytes as follows for fast packet type:
     data[0] is an 'order' that increments, or not (depending a bit on implementation).
     If the size of the packet <= 7 then the data follows in data[1..7]
@@ -36,7 +35,6 @@ def process_sub_packet(pgn: int, address: int, data: bytearray):
     This means that for 'fast packets' the first bucket (sub-packet) contains 6 payload
     bytes and 7 for remaining. Since the max index is 31, the maximal payload is
     6 + 31 * 7 = 223 bytes
-    ```
 
     Args:
         pgn (int): PGN number

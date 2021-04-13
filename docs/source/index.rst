@@ -9,32 +9,40 @@
 API Reference
 =============
 
-Package (``jasmine``)
----------------------
+Package (:py:mod:`jasmine`)
+---------------------------
 
 .. automodule:: jasmine
    :members:
    :undoc-members:
    :show-inheritance:
 
-Submodule (``jasmine.nmea0183``)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Submodule (:py:mod:`jasmine.nmea0183`)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. automodule:: jasmine.nmea0183
    :members:
    :undoc-members:
    :show-inheritance:
 
-Submodule (``jasmine.nmea2000``)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Submodule (:py:mod:`jasmine.nmea2000`)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. automodule:: jasmine.nmea2000
    :members:
    :undoc-members:
    :show-inheritance:
 
-Submodule (``jasmine.exceptions``)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Submodule (:py:mod:`jasmine.utils`)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. automodule:: jasmine.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodule (:py:mod:`jasmine.exceptions`)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. automodule:: jasmine.exceptions
    :members:
