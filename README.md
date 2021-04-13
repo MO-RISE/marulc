@@ -58,3 +58,19 @@ with open("nmea_log.txt") as f_handle:
         speed = deep_get(filtered_unpacked_msg, "Fields", "speed")
         print(f"Engine running speed: {speed['Value']} {speed['Units']}")
 ```
+
+**Extraction using JSON pointers**
+Requires the `jsonpointer` package (`pip install jsonpointer`)
+```python
+from jsonpointer import resolve_pointer
+
+from jasmine import parse_from_iterator
+from jasmine.utils import filter_on_pgn, deep_get
+
+with open("nmea_log.txt") as f_handle:
+    iterator_all = parse_from_iterator(f_handle, quiet=True):
+
+    for filtered_unpacked_msg in filter_on_pgn(127488)(iterator_all):
+        speed = resolve_pointer(filtered_unpacked_msg, "/Fields/speed")
+        print(f"Engine running speed: {speed['Value']} {speed['Units']}")
+```
