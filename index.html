@@ -264,6 +264,23 @@ Requires the <code class="docutils literal notranslate"><span class="pre">jsonpo
 </dd></dl>
 
 <dl class="py function">
+<dt id="jasmine.nmea0183.get_description_for_sentence_formatter">
+<code class="sig-prename descclassname"><span class="pre">jasmine.nmea0183.</span></code><code class="sig-name descname"><span class="pre">get_description_for_sentence_formatter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sentence_formatter</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">dict</span><a class="headerlink" href="#jasmine.nmea0183.get_description_for_sentence_formatter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the description and template for this sentence formatter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sentence_formatter</strong> (<em>str</em>) – Sentence formatter</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Description</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="jasmine.nmea0183.parse_value">
 <code class="sig-prename descclassname"><span class="pre">jasmine.nmea0183.</span></code><code class="sig-name descname"><span class="pre">parse_value</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#jasmine.nmea0183.parse_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parses a value to either str, int or float depending on format</p>
@@ -295,7 +312,7 @@ python dictionary with the unpacked sentence</p>
 <li><p><a class="reference internal" href="#jasmine.exceptions.ChecksumError" title="jasmine.exceptions.ChecksumError"><strong>ChecksumError</strong></a> – If checksum does not match</p></li>
 <li><p><a class="reference internal" href="#jasmine.exceptions.SentenceTypeError" title="jasmine.exceptions.SentenceTypeError"><strong>SentenceTypeError</strong></a> – If the inputted NMEA sentence is of a type that is not supported</p></li>
 <li><p><a class="reference internal" href="#jasmine.exceptions.MultiPacketDiscardedError" title="jasmine.exceptions.MultiPacketDiscardedError"><strong>MultiPacketDiscardedError</strong></a> – If this subpacket is discarded due to missing messages</p></li>
-<li><p><a class="reference internal" href="#jasmine.exceptions.MultiPacketInProcessError" title="jasmine.exceptions.MultiPacketInProcessError"><strong>MultiPacketInProcessError</strong></a> – If this subpacket has been processed successfully but we require more
+<li><p><a class="reference internal" href="#jasmine.exceptions.MultiPacketInProcessError" title="jasmine.exceptions.MultiPacketInProcessError"><strong>MultiPacketInProcessError</strong></a> – If this subpacket has been processed successentence_formatterully but we require more
     subpackets to be able to decode the full message</p></li>
 </ul>
 </dd>
@@ -353,17 +370,17 @@ python dictionary with the unpacked sentence</p>
 
 <dl class="py function">
 <dt id="jasmine.nmea0183.unpack_using_talker">
-<code class="sig-prename descclassname"><span class="pre">jasmine.nmea0183.</span></code><code class="sig-name descname"><span class="pre">unpack_using_talker</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">talker</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">dict</span><a class="headerlink" href="#jasmine.nmea0183.unpack_using_talker" title="Permalink to this definition">¶</a></dt>
-<dd><p>Unpack a raw message based on knowledge about which talker sent it</p>
+<code class="sig-prename descclassname"><span class="pre">jasmine.nmea0183.</span></code><code class="sig-name descname"><span class="pre">unpack_using_talker</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sentence_formatter</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">dict</span><a class="headerlink" href="#jasmine.nmea0183.unpack_using_talker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unpack a raw message based on knowledge about which Sentence Formatter to use</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>talker</strong> (<em>str</em>) – A talker acronym</p></li>
+<li><p><strong>sentence_formatter</strong> (<em>str</em>) – A sentence formatter acronym</p></li>
 <li><p><strong>data</strong> (<em>list</em>) – Raw data elements</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference internal" href="#jasmine.exceptions.ParseError" title="jasmine.exceptions.ParseError"><strong>ParseError</strong></a> – If a matching talker could not be found</p>
+<dd class="field-even"><p><a class="reference internal" href="#jasmine.exceptions.ParseError" title="jasmine.exceptions.ParseError"><strong>ParseError</strong></a> – If a matching sentence formatter could not be found</p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>Unpacked data including parsed values and descriptions</p>
@@ -378,6 +395,24 @@ python dictionary with the unpacked sentence</p>
 <div class="section" id="module-jasmine.nmea2000">
 <span id="submodule-jasmine-nmea2000"></span><h3>Submodule (<a class="reference internal" href="#module-jasmine.nmea2000" title="jasmine.nmea2000"><code class="xref py py-mod docutils literal notranslate"><span class="pre">jasmine.nmea2000</span></code></a>)<a class="headerlink" href="#module-jasmine.nmea2000" title="Permalink to this headline">¶</a></h3>
 <p>Containing functionality for unpacking binary n2k messages according to PGN-specific definitions</p>
+<dl class="py function">
+<dt id="jasmine.nmea2000.get_description_for_pgn">
+<code class="sig-prename descclassname"><span class="pre">jasmine.nmea2000.</span></code><code class="sig-name descname"><span class="pre">get_description_for_pgn</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">dict</span><a class="headerlink" href="#jasmine.nmea2000.get_description_for_pgn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the description and template for this pgn in the format of a python
+dictionary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pgn</strong> (<em>int</em>) – PGN number</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Description</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py function">
 <dt id="jasmine.nmea2000.packet_field_decoder">
 <code class="sig-prename descclassname"><span class="pre">jasmine.nmea2000.</span></code><code class="sig-name descname"><span class="pre">packet_field_decoder</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">bitstruct.CompiledFormat</span><a class="headerlink" href="#jasmine.nmea2000.packet_field_decoder" title="Permalink to this definition">¶</a></dt>
