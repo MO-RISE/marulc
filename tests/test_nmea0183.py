@@ -5,6 +5,7 @@ from jasmine.nmea0183 import (
     parse_value,
     unpack_using_talker,
     unpack_using_proprietary,
+    get_description_for_sentence_formatter,
 )
 
 
@@ -41,6 +42,13 @@ def test_unpack_using_talker(pinned):
     ]
     msg = unpack_using_talker("GGA", data)
     assert msg == pinned
+
+
+def test_get_description(pinned):
+    assert get_description_for_sentence_formatter("RPM") == pinned
+
+    with pytest.raises(ValueError):
+        get_description_for_sentence_formatter("muppet")
 
 
 @pytest.mark.skip("Find a reasonable example")
