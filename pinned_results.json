@@ -1,4 +1,29 @@
 {
+    "tests/test_nmea0183.py::test_get_description_1": {
+        "Description": "Revolutions",
+        "Fields": [
+            {
+                "Description": "Source",
+                "Id": "source"
+            },
+            {
+                "Description": "Engine or shaft number",
+                "Id": "engine_no"
+            },
+            {
+                "Description": "Speed",
+                "Id": "speed"
+            },
+            {
+                "Description": "Propeller pitch",
+                "Id": "pitch"
+            },
+            {
+                "Description": "Status",
+                "Id": "status"
+            }
+        ]
+    },
     "tests/test_nmea0183.py::test_unpack_using_talker_1": {
         "Description": "",
         "Fields": {
@@ -59,6 +84,255 @@
                 "Value": 122203.19
             }
         }
+    },
+    "tests/test_nmea2000.py::test_get_description_1": {
+        "Complete": true,
+        "Description": "Engine Parameters, Dynamic",
+        "Fields": [
+            {
+                "BitLength": 8,
+                "BitOffset": 0,
+                "BitStart": 0,
+                "EnumValues": [
+                    {
+                        "name": "Single Engine or Dual Engine Port",
+                        "value": "0"
+                    },
+                    {
+                        "name": "Dual Engine Starboard",
+                        "value": "1"
+                    }
+                ],
+                "Id": "instance",
+                "Name": "Instance",
+                "Order": 1,
+                "Signed": false,
+                "Type": "Lookup table"
+            },
+            {
+                "BitLength": 16,
+                "BitOffset": 8,
+                "BitStart": 0,
+                "Id": "oilPressure",
+                "Name": "Oil pressure",
+                "Order": 2,
+                "Signed": false,
+                "Type": "Pressure",
+                "Units": "hPa"
+            },
+            {
+                "BitLength": 16,
+                "BitOffset": 24,
+                "BitStart": 0,
+                "Id": "oilTemperature",
+                "Name": "Oil temperature",
+                "Order": 3,
+                "Resolution": "0.1",
+                "Signed": false,
+                "Type": "Temperature",
+                "Units": "K"
+            },
+            {
+                "BitLength": 16,
+                "BitOffset": 40,
+                "BitStart": 0,
+                "Id": "temperature",
+                "Name": "Temperature",
+                "Order": 4,
+                "Resolution": "0.01",
+                "Signed": false,
+                "Type": "Temperature",
+                "Units": "K"
+            },
+            {
+                "BitLength": 16,
+                "BitOffset": 56,
+                "BitStart": 0,
+                "Id": "alternatorPotential",
+                "Name": "Alternator Potential",
+                "Order": 5,
+                "Resolution": "0.01",
+                "Signed": true,
+                "Units": "V"
+            },
+            {
+                "BitLength": 16,
+                "BitOffset": 72,
+                "BitStart": 0,
+                "Id": "fuelRate",
+                "Name": "Fuel Rate",
+                "Order": 6,
+                "Resolution": "0.1",
+                "Signed": true,
+                "Units": "L/h"
+            },
+            {
+                "BitLength": 32,
+                "BitOffset": 88,
+                "BitStart": 0,
+                "Id": "totalEngineHours",
+                "Name": "Total Engine hours",
+                "Order": 7,
+                "Signed": false,
+                "Units": "s"
+            },
+            {
+                "BitLength": 16,
+                "BitOffset": 120,
+                "BitStart": 0,
+                "Id": "coolantPressure",
+                "Name": "Coolant Pressure",
+                "Order": 8,
+                "Signed": false,
+                "Type": "Pressure",
+                "Units": "hPa"
+            },
+            {
+                "BitLength": 16,
+                "BitOffset": 136,
+                "BitStart": 0,
+                "Id": "fuelPressure",
+                "Name": "Fuel Pressure",
+                "Order": 9,
+                "Signed": false,
+                "Units": "kPa"
+            },
+            {
+                "BitLength": 8,
+                "BitOffset": 152,
+                "BitStart": 0,
+                "Id": "reserved",
+                "Name": "Reserved",
+                "Order": 10,
+                "Signed": false,
+                "Type": "Binary data"
+            },
+            {
+                "BitLength": 16,
+                "BitOffset": 160,
+                "BitStart": 0,
+                "EnumBitValues": [
+                    {
+                        "0": "Check Engine"
+                    },
+                    {
+                        "1": "Over Temperature"
+                    },
+                    {
+                        "2": "Low Oil Pressure"
+                    },
+                    {
+                        "3": "Low Oil Level"
+                    },
+                    {
+                        "4": "Low Fuel Pressure"
+                    },
+                    {
+                        "5": "Low System Voltage"
+                    },
+                    {
+                        "6": "Low Coolant Level"
+                    },
+                    {
+                        "7": "Water Flow"
+                    },
+                    {
+                        "8": "Water In Fuel"
+                    },
+                    {
+                        "9": "Charge Indicator"
+                    },
+                    {
+                        "10": "Preheat Indicator"
+                    },
+                    {
+                        "11": "High Boost Pressure"
+                    },
+                    {
+                        "12": "Rev Limit Exceeded"
+                    },
+                    {
+                        "13": "EGR System"
+                    },
+                    {
+                        "14": "Throttle Position Sensor"
+                    },
+                    {
+                        "15": "Emergency Stop"
+                    }
+                ],
+                "Id": "discreteStatus1",
+                "Name": "Discrete Status 1",
+                "Order": 11,
+                "Signed": false,
+                "Type": "Bitfield"
+            },
+            {
+                "BitLength": 16,
+                "BitOffset": 176,
+                "BitStart": 0,
+                "EnumBitValues": [
+                    {
+                        "0": "Warning Level 1"
+                    },
+                    {
+                        "1": "Warning Level 2"
+                    },
+                    {
+                        "2": "Power Reduction"
+                    },
+                    {
+                        "3": "Maintenance Needed"
+                    },
+                    {
+                        "4": "Engine Comm Error"
+                    },
+                    {
+                        "5": "Sub or Secondary Throttle"
+                    },
+                    {
+                        "6": "Neutral Start Protect"
+                    },
+                    {
+                        "7": "Engine Shutting Down"
+                    }
+                ],
+                "Id": "discreteStatus2",
+                "Name": "Discrete Status 2",
+                "Order": 12,
+                "Signed": false,
+                "Type": "Bitfield"
+            },
+            {
+                "BitLength": 8,
+                "BitOffset": 192,
+                "BitStart": 0,
+                "Id": "percentEngineLoad",
+                "Name": "Percent Engine Load",
+                "Order": 13,
+                "Resolution": 1,
+                "Signed": true,
+                "Type": "Integer",
+                "Units": "%"
+            },
+            {
+                "BitLength": 8,
+                "BitOffset": 200,
+                "BitStart": 0,
+                "Id": "percentEngineTorque",
+                "Name": "Percent Engine Torque",
+                "Order": 14,
+                "Resolution": 1,
+                "Signed": true,
+                "Type": "Integer",
+                "Units": "%"
+            }
+        ],
+        "Id": "engineParametersDynamic",
+        "Length": 26,
+        "PGN": 127489,
+        "RepeatingFields": 0,
+        "Type": "Fast"
     },
     "tests/test_nmea2000.py::test_unpack_complete_message_1": {
         "Description": "Engine Parameters, Rapid Update",
