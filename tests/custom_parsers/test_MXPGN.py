@@ -13,9 +13,6 @@ def test_correct_sentence_formatter():
     assert "PGN" == MXPGNFormatter().sentence_formatter()
 
 
-# $MXPGN,01F200,2838,00000024047FFFFF*67
-
-
 def test_unpack_PGN_message_correct():
     raw = unhexlify("00000024047FFFFF")
     textual = ["01F200", "2838", "00000024047FFFFF"]
@@ -29,6 +26,17 @@ def test_unpack_PGN_message_correct():
     assert msg["PGN"] == 127488
     assert msg["Priority"] == 2
     assert msg["SourceAddress"] == 56
+
+
+def test_reversal_of_byte_ordering():
+
+    textual1 = ["01F200", "2838", "FFFF7F00000CB201"]
+    textual2 = ["01F200", "2838", "01B20C00007FFFFF"]
+
+    msg1 = MXPGNFormatter().unpack(textual1)
+    msg2 = MXPGNFormatter(reverse_byte_ordering=True).unpack(textual2)
+
+    assert msg1 == msg2
 
 
 def test_unpack_PGN_message_wrong_PGN():

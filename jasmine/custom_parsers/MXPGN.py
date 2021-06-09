@@ -14,8 +14,9 @@ from jasmine.exceptions import PGNError
 
 
 class MXPGNFormatter(NMEA0183StandardFormatterBase):
-    def __init__(self) -> None:
+    def __init__(self, reverse_byte_ordering=False) -> None:
         super().__init__()
+        self._reverse_byte_ordering = reverse_byte_ordering
         self._bucket = dict()
 
     def sentence_formatter(self) -> str:
@@ -53,13 +54,17 @@ class MXPGNFormatter(NMEA0183StandardFormatterBase):
             ">u1u3u4u8", unhexlify(msg[1])
         )
 
+        data = unhexlify(msg[2])
+        if self._reverse_byte_ordering:
+            data = data[::-1]
+
         # Unpack message
         if packet_type(pgn) == "Single":
-            output = unpack_complete_message(pgn, unhexlify(msg[2]))
+            output = unpack_complete_message(pgn, data)
         elif packet_type(pgn) == "Fast":
             # Will raise if packet is not complete!
             complete_packet = process_sub_packet(
-                pgn, source_address, unhexlify(msg[2]), self._bucket
+                pgn, source_address, data, self._bucket
             )
             output = unpack_complete_message(pgn, complete_packet)
 
