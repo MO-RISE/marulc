@@ -24,11 +24,11 @@ def test_unpack_PGN_message_correct():
 
     assert unpack_complete_message(127488, raw).items() <= msg.items()
 
-    assert msg["Fields"]["speed"]["Value"] == 800
+    assert msg["Fields"]["speed"]["Value"] == 0.0
 
     assert msg["PGN"] == 127488
     assert msg["Priority"] == 2
-    assert msg["SourceAddress"] == 86
+    assert msg["SourceAddress"] == 56
 
 
 def test_unpack_PGN_message_wrong_PGN():

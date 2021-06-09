@@ -59,13 +59,10 @@ def deep_get(dikt: dict, *keys: str, default: Any = None) -> Any:
     Returns:
         Any: The value found at the bottom of the keys or the default value.
     """
-
-    return (
-        reduce(
-            lambda d, k: d.get(k) if (d and isinstance(d, dict)) else None, keys, dikt
-        )
-        or default
+    value = reduce(
+        lambda d, k: d.get(k) if (d and isinstance(d, dict)) else None, keys, dikt
     )
+    return default if value is None else value
 
 
 def filter_on_talker_formatter(

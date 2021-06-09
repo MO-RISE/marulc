@@ -17,6 +17,22 @@ with DB_PATH.open() as f_handle:
     PGN_DB = {item["PGN"]: item for item in json.load(f_handle)["PGNs"]}
 
 
+def get_description_for_pgn(pgn: int) -> dict:
+    """Get the description and template for this pgn in the format of a python
+    dictionary
+
+    Args:
+        pgn (int): PGN number
+
+    Returns:
+        dict: Description
+    """
+    descr = PGN_DB.get(pgn)
+    if not descr:
+        raise ValueError(f"No knowledge of PGN {pgn}")
+
+    return descr
+
 def process_sub_packet(pgn: int, address: int, data: bytearray, bucket: dict):
     """Process a single subpacket part of a multi-packet n2k message. The following
     description of the protocol is taken from CANBOAT:

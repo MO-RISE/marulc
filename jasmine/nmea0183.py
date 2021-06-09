@@ -10,10 +10,30 @@ from functools import reduce
 from jasmine.parser_bases import RawParserBase, NMEA0183FormatterBase
 from jasmine.exceptions import ParseError, SentenceTypeError, ChecksumError
 
-# Read Talker definitions from file
+# Read Sentence Formatter definitions from file
 DB_PATH = Path(__file__).parent / "nmea0183_sentence_formatters.json"
 with DB_PATH.open() as f_handle:
-    FORMATTERS_DB = json.load(f_handle)
+    db = json.load(f_handle)
+
+STANDARD_SENTENCE_FORMATTERS = db["Standard"]
+PROPRIETARY_SENTENCE_FORMATTERS = db["Proprietary"]
+
+
+def get_description_for_sentence_formatter(sentence_formatter: int) -> dict:
+    """Get the description and template for this sentence formatter
+    Args:
+        sentence_formatter (str): Sentence formatter
+    Returns:
+        dict: Description
+    """
+    descr = STANDARD_SENTENCE_FORMATTERS.get(
+        sentence_formatter
+    ) or PROPRIETARY_SENTENCE_FORMATTERS.get(sentence_formatter)
+    if not descr:
+        raise ValueError(f"No knowledge of the sentence formatter {sentence_formatter}")
+
+    return descr
+
 
 # REGEXes
 SENTENCE_REGEX = re.compile(
@@ -123,7 +143,7 @@ def unpack_using_formatter(formatter: str, data: list) -> dict:
     Returns:
         dict: Unpacked data including parsed values and descriptions
     """
-    definition = FORMATTERS_DB["Standard"].get(formatter)
+    definition = STANDARD_SENTENCE_FORMATTERS.get(formatter)
     if not definition:
         raise ParseError("No matching formatter!", list(formatter, data))
     out = unpack_using_definition(definition, data)
@@ -143,7 +163,7 @@ def unpack_using_proprietary(manufacturer: str, data: str) -> dict:
     Returns:
         dict: Unpacked data including parsed values and descriptions
     """
-    manufacturer_def = FORMATTERS_DB["Proprietary"][manufacturer]
+    manufacturer_def = PROPRIETARY_SENTENCE_FORMATTERS[manufacturer]
 
     # Try to figure out the identifier of the message type
     first = parse_value(data[0])
@@ -220,7 +240,7 @@ def unpack_nmea0183_message(  # pylint: disable=too-many-locals
             output["Formatter"] = sentence_formatter
             return output
 
-        if sentence_formatter in FORMATTERS_DB["Standard"]:
+        if sentence_formatter in STANDARD_SENTENCE_FORMATTERS:
             output = unpack_using_formatter(sentence_formatter, data)
             output["Talker"] = talker
             output["Formatter"] = sentence_formatter
@@ -240,7 +260,7 @@ def unpack_nmea0183_message(  # pylint: disable=too-many-locals
     if proprietary_match:
         manufacturer = proprietary_match.group("manufacturer")
 
-        if manufacturer in FORMATTERS_DB["Proprietary"]:
+        if manufacturer in PROPRIETARY_SENTENCE_FORMATTERS:
             return unpack_using_proprietary(manufacturer, data)
 
         raise ParseError(

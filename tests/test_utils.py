@@ -12,9 +12,10 @@ def fake_iterator():
 
 
 def test_deep_get():
-    d = {"A": {"B": {"C": 3}}}
+    d = {"A": {"B": {"C": 3, "C2": 0}}}
     assert deep_get(d) == d
     assert deep_get(d, "A", "B", "C") == 3
+    assert deep_get(d, "A", "B", "C2") == 0
     assert deep_get(d, "A", "B", "C", "D") is None
     assert deep_get(d, "A", "B", "C", "D", default=89) == 89
 

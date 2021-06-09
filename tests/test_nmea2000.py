@@ -9,6 +9,7 @@ from jasmine.nmea2000 import (
     unpack_fields,
     unpack_complete_message,
     process_sub_packet,
+    get_description_for_pgn,
 )
 from jasmine.exceptions import (
     MultiPacketDiscardedError,
@@ -73,3 +74,10 @@ def test_process_subpacket_first_third_message(clean_bucket):
 
     with pytest.raises(MultiPacketDiscardedError):
         process_sub_packet(127489, 86, raw, clean_bucket)
+
+
+def test_get_description(pinned):
+    assert get_description_for_pgn(127489) == pinned
+
+    with pytest.raises(ValueError):
+        get_description_for_pgn(372418338952)
