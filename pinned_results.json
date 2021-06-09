@@ -371,7 +371,6 @@
         839.0
     ],
     "tests/test_unpack.py::test_unpack_known_multi_packet_nmea2k_message_1": {
-        "Address": 56,
         "Description": "Engine Parameters, Dynamic",
         "Fields": {
             "alternatorPotential": {
@@ -537,10 +536,12 @@
                 "Value": 4294967295
             }
         },
+        "Formatter": "PGN",
         "Id": "engineParametersDynamic",
         "PGN": 127489,
         "Priority": 2,
-        "Talker": "MXPGN"
+        "SourceAddress": 56,
+        "Talker": "MX"
     },
     "tests/test_unpack.py::test_unpack_known_regular_nmea_message_1": {
         "Description": "",
@@ -602,10 +603,10 @@
                 "Value": 122203.19
             }
         },
-        "Talker": "GNGGA"
+        "Formatter": "GGA",
+        "Talker": "GN"
     },
     "tests/test_unpack.py::test_unpack_known_single_packet_nmea2k_message_1": {
-        "Address": 86,
         "Description": "Engine Parameters, Rapid Update",
         "Fields": {
             "boostPressure": {
@@ -645,9 +646,11 @@
                 "Value": 127
             }
         },
+        "Formatter": "PGN",
         "Id": "engineParametersRapidUpdate",
         "PGN": 127488,
         "Priority": 2,
-        "Talker": "MXPGN"
+        "SourceAddress": 86,
+        "Talker": "MX"
     }
 }

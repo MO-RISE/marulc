@@ -37,12 +37,12 @@ with open("nmea_log.txt") as f_handle:
 **Filter for specific messages**
 ```python
 from jasmine import parse_from_iterator
-from jasmine.utils import filter_on_talker
+from jasmine.utils import filter_on_talker_formatter
 
 with open("nmea_log.txt") as f_handle:
     iterator_all = parse_from_iterator(f_handle, quiet=True):
 
-    for filtered_unpacked_msg in filter_on_talker("..GGA")(iterator_all): # Accepts regex!
+    for filtered_unpacked_msg in filter_on_talker_formatter("..GGA")(iterator_all): # Accepts regex!
         print(filtered_unpacked_msg)
 ```
 

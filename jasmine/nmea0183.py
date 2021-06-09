@@ -4,16 +4,16 @@ import re
 import json
 import operator
 from pathlib import Path
-from typing import Union
+from typing import Sequence, Union, Optional, Dict, Type, Callable
 from functools import reduce
 
-from jasmine.nmea2000 import unpack_PGN_message
+from jasmine.parser_bases import RawParserBase, NMEA0183FormatterBase
 from jasmine.exceptions import ParseError, SentenceTypeError, ChecksumError
 
 # Read Talker definitions from file
-DB_PATH = Path(__file__).parent / "talkers.json"
+DB_PATH = Path(__file__).parent / "nmea0183_sentence_formatters.json"
 with DB_PATH.open() as f_handle:
-    TALKER_DB = json.load(f_handle)
+    FORMATTERS_DB = json.load(f_handle)
 
 # REGEXes
 SENTENCE_REGEX = re.compile(
@@ -49,8 +49,10 @@ SENTENCE_REGEX = re.compile(
     """,
     re.X | re.IGNORECASE,
 )
-TALKER_REGEX = re.compile(r"^(?P<talker>\w{2})(?P<sentence>\w{3}),$")
-QUERY_REGEX = re.compile(r"^(?P<talker>\w{2})(?P<listener>\w{2})Q,(?P<sentence>\w{3})$")
+TALKER_REGEX = re.compile(r"^(?P<talker>\w{2})(?P<sentence_formatter>\w{3}),$")
+QUERY_REGEX = re.compile(
+    r"^(?P<talker>\w{2})(?P<listener>\w{2})Q,(?P<sentence_formatter>\w{3})$"
+)
 PROPRIETARY_REGEX = re.compile(r"^P(?P<manufacturer>\w{3})$")
 
 
@@ -108,7 +110,7 @@ def unpack_using_definition(definition: dict, data: list) -> dict:
     return out
 
 
-def unpack_using_talker(talker: str, data: list) -> dict:
+def unpack_using_formatter(formatter: str, data: list) -> dict:
     """Unpack a raw message based on knowledge about which talker sent it
 
     Args:
@@ -121,9 +123,9 @@ def unpack_using_talker(talker: str, data: list) -> dict:
     Returns:
         dict: Unpacked data including parsed values and descriptions
     """
-    definition = TALKER_DB["Talkers"].get(talker)
+    definition = FORMATTERS_DB["Standard"].get(formatter)
     if not definition:
-        raise ParseError("No matching talker!", list(talker, data))
+        raise ParseError("No matching formatter!", list(formatter, data))
     out = unpack_using_definition(definition, data)
     return out
 
@@ -141,7 +143,7 @@ def unpack_using_proprietary(manufacturer: str, data: str) -> dict:
     Returns:
         dict: Unpacked data including parsed values and descriptions
     """
-    manufacturer_def = TALKER_DB["Proprietary"][manufacturer]
+    manufacturer_def = FORMATTERS_DB["Proprietary"][manufacturer]
 
     # Try to figure out the identifier of the message type
     first = parse_value(data[0])
@@ -151,23 +153,28 @@ def unpack_using_proprietary(manufacturer: str, data: str) -> dict:
     if identifier in manufacturer_def["Sentences"]:
         definition = manufacturer_def["Sentences"][identifier]
         out = unpack_using_definition(definition, data)
-        out["Talker"] = f"{manufacturer}{identifier}"
+        out["Talker"] = manufacturer
+        out["Formatter"] = identifier
         return out
 
     raise ParseError(
-        "Could not find a definition for this proprietary string",
+        "Could not find a definition for this proprietary sentence",
         list(manufacturer, identifier, *data),
     )
 
 
-def unpack_nmea_message(  # pylint: disable=too-many-locals,inconsistent-return-statements
+def unpack_nmea0183_message(  # pylint: disable=too-many-locals
     line: str,
+    custom_formatters: Optional[Dict[str, Callable]] = None,
 ) -> dict:
     """Parses a string representing a NMEA 0183 sentence, and returns a
     python dictionary with the unpacked sentence
 
     Args:
         line (str): Raw NMEA0183 sentence
+        custom_formatters (Optional[Dict[str, Callable]]): Dict with custom sentence
+            formatters. Keys are sentence formatter strings (ex. 'PGN' or 'DIN') and values are
+            callables returning a parsed message for the specific sentence formatter.
 
     Raises:
         ParseError:
@@ -176,11 +183,6 @@ def unpack_nmea_message(  # pylint: disable=too-many-locals,inconsistent-return-
             If checksum does not match
         SentenceTypeError:
             If the inputted NMEA sentence is of a type that is not supported
-        MultiPacketDiscardedError:
-            If this subpacket is discarded due to missing messages
-        MultiPacketInProcessError:
-            If this subpacket has been processed successfully but we require more
-            subpackets to be able to decode the full message
 
     Returns:
         dict: Complete unpacked message
@@ -208,20 +210,25 @@ def unpack_nmea_message(  # pylint: disable=too-many-locals,inconsistent-return-
     talker_match = TALKER_REGEX.match(sentence_type)
     if talker_match:
         talker = talker_match.group("talker")
-        sentence = talker_match.group("sentence")
+        sentence_formatter = talker_match.group("sentence_formatter")
 
-        if sentence == "PGN":
-            # This is a wrapped NMEA2000 message!
-            output = unpack_PGN_message(data)
-            output["Talker"] = f"{talker}{sentence}"
+        # Check if we have a custom formatter for this sentence
+        custom_formatters = custom_formatters or dict()
+        if sentence_formatter in custom_formatters:
+            output = custom_formatters[sentence_formatter](data)
+            output["Talker"] = talker
+            output["Formatter"] = sentence_formatter
             return output
 
-        if sentence in TALKER_DB["Talkers"]:
-            output = unpack_using_talker(sentence, data)
-            output["Talker"] = f"{talker}{sentence}"
+        if sentence_formatter in FORMATTERS_DB["Standard"]:
+            output = unpack_using_formatter(sentence_formatter, data)
+            output["Talker"] = talker
+            output["Formatter"] = sentence_formatter
             return output
 
-        raise ParseError("Could not find a definition for this NMEA string!", nmea_str)
+        raise ParseError(
+            "Could not find a definition for this NMEA sentence!", nmea_str
+        )
 
     # Is this a query sentence?
     query_match = QUERY_REGEX.match(sentence_type)
@@ -233,7 +240,25 @@ def unpack_nmea_message(  # pylint: disable=too-many-locals,inconsistent-return-
     if proprietary_match:
         manufacturer = proprietary_match.group("manufacturer")
 
-        if manufacturer in TALKER_DB["Proprietary"]:
+        if manufacturer in FORMATTERS_DB["Proprietary"]:
             return unpack_using_proprietary(manufacturer, data)
 
-        raise ParseError("Could not find a definition for this NMEA string!", nmea_str)
+        raise ParseError(
+            "Could not find a definition for this NMEA sentence!", nmea_str
+        )
+
+    raise ParseError("Malformed NMEA0183 sentence!", nmea_str)
+
+
+class NMEA0183Parser(RawParserBase):
+    def __init__(
+        self, custom_formatters: Optional[Sequence[Type[NMEA0183FormatterBase]]] = None
+    ) -> None:
+        super().__init__()
+        self._custom_formatters = {
+            fmt.sentence_formatter(): fmt.unpack
+            for fmt in (custom_formatters or list())
+        }
+
+    def unpack(self, msg: str) -> dict:
+        return unpack_nmea0183_message(msg, self._custom_formatters)

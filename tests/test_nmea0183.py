@@ -3,7 +3,7 @@ import pytest
 from jasmine.nmea0183 import (
     calculate_checksum,
     parse_value,
-    unpack_using_talker,
+    unpack_using_formatter,
     unpack_using_proprietary,
 )
 
@@ -39,7 +39,7 @@ def test_unpack_using_talker(pinned):
         "",
         "",
     ]
-    msg = unpack_using_talker("GGA", data)
+    msg = unpack_using_formatter("GGA", data)
     assert msg == pinned
 
 

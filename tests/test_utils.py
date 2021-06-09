@@ -1,15 +1,14 @@
-import pytest
-from jasmine.utils import deep_get, filter_on_pgn, filter_on_talker
+from jasmine.utils import deep_get, filter_on_pgn, filter_on_talker_formatter
 
 
 def fake_iterator():
-    yield {"Talker": "GNGGA"}
-    yield {"Talker": "GNGGA"}
-    yield {"Talker": "GNVTG"}
-    yield {"Talker": "PASHR"}
-    yield {"Talker": "MXPGN", "PGN": 127488}
-    yield {"Talker": "MXPGN", "PGN": 127488}
-    yield {"Talker": "MXPGN", "PGN": 127489}
+    yield {"Talker": "GN", "Formatter": "GGA"}
+    yield {"Talker": "GN", "Formatter": "GGA"}
+    yield {"Talker": "GN", "Formatter": "VTG"}
+    yield {"Talker": "PASHR", "Formatter": ""}
+    yield {"Talker": "MX", "Formatter": "PGN", "PGN": 127488}
+    yield {"Talker": "MX", "Formatter": "PGN", "PGN": 127488}
+    yield {"Talker": "MX", "Formatter": "PGN", "PGN": 127489}
 
 
 def test_deep_get():
@@ -20,11 +19,11 @@ def test_deep_get():
     assert deep_get(d, "A", "B", "C", "D", default=89) == 89
 
 
-def test_filter_on_talker():
-    filtered = list(filter_on_talker("GNGGA")(fake_iterator()))
+def test_filter_on_address():
+    filtered = list(filter_on_talker_formatter("GNGGA")(fake_iterator()))
     assert len(filtered) == 2
 
-    filtered = list(filter_on_talker("..GGA", "PASHR")(fake_iterator()))
+    filtered = list(filter_on_talker_formatter("..GGA", "PASHR")(fake_iterator()))
     assert len(filtered) == 3
 
 
@@ -38,6 +37,8 @@ def test_filter_on_PGN():
 
 def test_filter_chaining():
     filtered = list(
-        filter_on_talker("GN...")(filter_on_talker("...G.")(fake_iterator()))
+        filter_on_talker_formatter("GN...")(
+            filter_on_talker_formatter("...G.")(fake_iterator())
+        )
     )
     assert len(filtered) == 2

@@ -14,10 +14,12 @@ for subclass in TalkerSentence.__subclasses__():
         descr = (subclass.__doc__ or "").rstrip().lstrip()
         fields = []
         for field in subclass.fields:
-            fields.append({
-                "Id": field[1],
-                "Description": field[0],
-            })
+            fields.append(
+                {
+                    "Id": field[1],
+                    "Description": field[0],
+                }
+            )
         out["Talkers"][name] = {
             "Fields": fields,
             "Description": descr,
@@ -40,15 +42,14 @@ for manufacturer in ProprietarySentence.__subclasses__():
 
         fields = []
         for field in sentence.fields:
-            fields.append({
-                "Id": field[1],
-                "Description": field[0],
-            })
+            fields.append(
+                {
+                    "Id": field[1],
+                    "Description": field[0],
+                }
+            )
 
-        man["Sentences"][sent] = {
-            "Fields": fields,
-            "Description": doc
-        }
+        man["Sentences"][sent] = {"Fields": fields, "Description": doc}
     out["Proprietary"][name] = man
 
 with open("talkers.json", "w") as f:

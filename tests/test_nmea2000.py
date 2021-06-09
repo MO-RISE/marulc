@@ -8,22 +8,12 @@ from jasmine.nmea2000 import (
     packet_field_decoder,
     unpack_fields,
     unpack_complete_message,
-    unpack_PGN_message,
     process_sub_packet,
-    BUCKET,
 )
 from jasmine.exceptions import (
-    PGNError,
-    ParseError,
     MultiPacketDiscardedError,
     MultiPacketInProcessError,
 )
-
-
-@pytest.fixture
-def clean_bucket():
-    BUCKET.clear()
-    yield
 
 
 def test_packet_type():
@@ -42,11 +32,11 @@ def test_packet_field_decoder():
 
 
 def test_unpack_fields(pinned):
-    assert unpack_fields(127488, unhexlify("FFFF7F00000CB201")) == pinned
+    assert unpack_fields(127488, unhexlify("01B20C00007FFFFF")) == pinned
 
 
 def test_unpack_complete_message(pinned):
-    raw = unhexlify("FFFF7F00000CB201")
+    raw = unhexlify("01B20C00007FFFFF")
     msg = unpack_complete_message(127488, raw)
 
     assert msg["Fields"] == unpack_fields(127488, raw)
@@ -54,52 +44,32 @@ def test_unpack_complete_message(pinned):
     assert msg == pinned
 
 
-def test_unpack_PGN_message_correct():
-    raw = unhexlify("FFFF7F00000CB201")
-    textual = ["01F200", "2856", "FFFF7F00000CB201"]
-
-    msg = unpack_PGN_message(textual)
-
-    assert unpack_complete_message(127488, raw).items() <= msg.items()
-
-    assert msg["PGN"] == 127488
-    assert msg["Priority"] == 2
-    assert msg["Address"] == 86
-
-
-def test_unpack_PGN_message_wrong_PGN():
-    textual = ["01F256", "2856", "FFFF7F00000CB201"]
-
-    with pytest.raises(PGNError):
-        unpack_PGN_message(textual)
-
-
 def test_process_subpacket_first_message(clean_bucket):
-    raw = unhexlify("630D670F50001AA0")
+    raw = unhexlify("A01A00500F670D63")
 
     with pytest.raises(MultiPacketInProcessError):
-        process_sub_packet(127489, 86, raw)
+        process_sub_packet(127489, 86, raw, clean_bucket)
 
-    assert len(BUCKET) == 1
-    assert list(BUCKET.values())[0]["counter"] == 1
+    assert len(clean_bucket) == 1
+    assert list(clean_bucket.values())[0]["counter"] == 1
 
 
 def test_process_subpacket_second_message(clean_bucket):
-    raw = unhexlify("FFFF002D0A3C88A1")
+    raw = unhexlify("A1883C0A2D00FFFF")
 
     # Trying to parse the second message in a sequence without having
     # received the first message will fail
     with pytest.raises(MultiPacketDiscardedError):
-        process_sub_packet(127489, 86, raw)
+        process_sub_packet(127489, 86, raw, clean_bucket)
 
 
 def test_process_subpacket_first_third_message(clean_bucket):
-    raw = unhexlify("630D670F50001AA0")
+    raw = unhexlify("A01A00500F670D63")
 
     with pytest.raises(MultiPacketInProcessError):
-        process_sub_packet(127489, 86, raw)
+        process_sub_packet(127489, 86, raw, clean_bucket)
 
-    raw = unhexlify("7F0030FFFFFFFFA2")
+    raw = unhexlify("A2FFFFFFFF30007F")
 
     with pytest.raises(MultiPacketDiscardedError):
-        process_sub_packet(127489, 86, raw)
+        process_sub_packet(127489, 86, raw, clean_bucket)
