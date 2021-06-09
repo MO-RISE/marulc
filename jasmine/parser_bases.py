@@ -18,6 +18,16 @@ class RawParserBase(ParserBase):
 
 class NMEA0183FormatterBase(ParserBase):
     @abstractmethod
+    def unpack(self, msg: List[str]) -> dict:
+        """Unpack a NMEA0183 sentence using this sentence formatter
+
+        Args:
+            msg (List[str]): Message to be unpacked
+        """
+
+
+class NMEA0183StandardFormatterBase(NMEA0183FormatterBase):
+    @abstractmethod
     def sentence_formatter(self) -> str:
         """Which sentence formatter this parser is valid for
 
@@ -25,10 +35,12 @@ class NMEA0183FormatterBase(ParserBase):
             str: Sentence formatter
         """
 
-    @abstractmethod
-    def unpack(self, msg: List[str]) -> dict:
-        """Unpack a NMEA0183 sentence using this sentence formatter
 
-        Args:
-            msg (List[str]): Message to be unpacked
+class NMEA0183ProprietaryFormatterBase(NMEA0183FormatterBase):
+    @abstractmethod
+    def manufacturer_code(self) -> str:
+        """Which manufacturer code this parser is valid for
+
+        Returns:
+            str: 3-digit manufacturer code
         """

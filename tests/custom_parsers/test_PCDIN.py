@@ -10,12 +10,13 @@ from jasmine.exceptions import (
 
 
 def test_correct_sentence_formatter():
-    assert "DIN" == PCDINFormatter().sentence_formatter()
+    assert "CDI" == PCDINFormatter().manufacturer_code()
 
 
 def test_unpack_PGN_message_correct():
     raw = unhexlify("0000000B0C477CBC0C0000FFFFFFFFFFFF30007F000000000000")
     textual = [
+        "N",
         "01F201",
         "001935D5",
         "38",
@@ -32,7 +33,7 @@ def test_unpack_PGN_message_correct():
 
 
 def test_unpack_PGN_message_wrong_PGN():
-    textual = ["01F256", "2856", "FFFF7F00000CB201"]
+    textual = ["N", "01F256", "2856", "FFFF7F00000CB201"]
 
     with pytest.raises(PGNError):
         PCDINFormatter().unpack(textual)

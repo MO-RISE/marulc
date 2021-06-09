@@ -3,7 +3,7 @@ from typing import List
 
 import bitstruct
 
-from jasmine.parser_bases import NMEA0183FormatterBase
+from jasmine.parser_bases import NMEA0183StandardFormatterBase
 from jasmine.nmea2000 import (
     PGN_DB,
     unpack_complete_message,
@@ -13,7 +13,7 @@ from jasmine.nmea2000 import (
 from jasmine.exceptions import PGNError
 
 
-class MXPGNFormatter(NMEA0183FormatterBase):
+class MXPGNFormatter(NMEA0183StandardFormatterBase):
     def __init__(self) -> None:
         super().__init__()
         self._bucket = dict()
