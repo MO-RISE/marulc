@@ -168,7 +168,7 @@ def unpack_using_proprietary(manufacturer: str, data: str) -> dict:
     )
 
 
-def unpack_nmea0183_message(  # pylint: disable=too-many-locals
+def unpack_nmea0183_message(  # pylint: disable=too-many-locals, too-many-statements
     line: str,
     standard_custom_formatters: Optional[Dict[str, Callable]] = None,
     proprietary_custom_formatters: Optional[Dict[str, Callable]] = None,
@@ -275,14 +275,15 @@ def unpack_nmea0183_message(  # pylint: disable=too-many-locals
             return out
 
         raise ParseError(
-            "Could not find a definition for this proprietary sentence",
-            list(manufacturer, identifier, *data),
+            "Could not find a definition for this proprietary sentence", nmea_str
         )
 
     raise ParseError("Malformed NMEA0183 sentence!", nmea_str)
 
 
-class NMEA0183Parser(RawParserBase):
+class NMEA0183Parser(RawParserBase):  # pylint: disable=too-few-public-methods
+    """A parser for parsing raw NMEA0183 strings"""
+
     def __init__(
         self,
         custom_formatters: Optional[Sequence[Type[NMEA0183FormatterBase]]] = None,

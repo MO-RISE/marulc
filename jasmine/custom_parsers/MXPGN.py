@@ -1,3 +1,7 @@
+# pylint: disable=invalid-name
+"""A parser for MXPGN messages
+"""
+
 from binascii import unhexlify
 from typing import List
 
@@ -14,6 +18,9 @@ from jasmine.exceptions import PGNError
 
 
 class MXPGNFormatter(NMEA0183StandardFormatterBase):
+    """A parser for MXPGN messages, can handle both little-endian
+    and big-endian byte-order"""
+
     def __init__(self, reverse_byte_ordering=False) -> None:
         super().__init__()
         self._reverse_byte_ordering = reverse_byte_ordering

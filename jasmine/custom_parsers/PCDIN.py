@@ -1,3 +1,6 @@
+# pylint: disable=invalid-name
+"""A parser for PCDIN messages
+"""
 from typing import List
 from binascii import unhexlify
 
@@ -7,6 +10,8 @@ from jasmine.exceptions import PGNError
 
 
 class PCDINFormatter(NMEA0183ProprietaryFormatterBase):
+    """A parser for PCDIN messages"""
+
     def manufacturer_code(self) -> str:
         return "CDI"
 

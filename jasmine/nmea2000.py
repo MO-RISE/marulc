@@ -33,6 +33,7 @@ def get_description_for_pgn(pgn: int) -> dict:
 
     return descr
 
+
 def process_sub_packet(pgn: int, address: int, data: bytearray, bucket: dict):
     """Process a single subpacket part of a multi-packet n2k message. The following
     description of the protocol is taken from CANBOAT:
@@ -160,15 +161,13 @@ def unpack_fields(pgn: int, data: bytearray) -> dict:
 
     # Fetch field decoder and unpack raw data
     decoder = packet_field_decoder(pgn)
-    unpacked = decoder.unpack(data[::-1])[
-        ::-1
-    ]  # Reverse twice to match field ordering in JSON
+    # Reverse twice to match field ordering in JSON
+    unpacked = decoder.unpack(data[::-1])[::-1]
 
     output = {}
 
     for value, field in zip(unpacked, PGN_DB[pgn]["Fields"]):
         # Use field dictionary as blueprint
-        tmp = {}
         tmp = deepcopy(field)
 
         # Remove uneccessary info without raising any errors
