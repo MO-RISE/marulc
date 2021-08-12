@@ -3,18 +3,16 @@
 import json
 from pathlib import Path
 from copy import deepcopy
-from binascii import unhexlify
 
 import bitstruct
 
 from jasmine.exceptions import (
     MultiPacketDiscardedError,
     MultiPacketInProcessError,
-    PGNError,
 )
 
 # Read PGNs metadata from CANBOAT database
-DB_PATH = Path(__file__).parent / "pgns.json"
+DB_PATH = Path(__file__).parent / "nmea2000_pgn_specifications.json"
 with DB_PATH.open() as f_handle:
     PGN_DB = {item["PGN"]: item for item in json.load(f_handle)["PGNs"]}
 
@@ -36,11 +34,7 @@ def get_description_for_pgn(pgn: int) -> dict:
     return descr
 
 
-# Fast packet buffer to deal with multi-sentence messages
-BUCKET = dict()
-
-
-def process_sub_packet(pgn: int, address: int, data: bytearray):
+def process_sub_packet(pgn: int, address: int, data: bytearray, bucket: dict):
     """Process a single subpacket part of a multi-packet n2k message. The following
     description of the protocol is taken from CANBOAT:
 
@@ -58,6 +52,7 @@ def process_sub_packet(pgn: int, address: int, data: bytearray):
         pgn (int): PGN number
         address (int): Source address of message
         data (bytearray): Raw binary packet data
+        bucket (dict): Reference to temporary storage for partly parsed messages
 
     Raises:
         MultiPacketDiscardedError: If this subpacket is discarded due to missing
@@ -68,40 +63,41 @@ def process_sub_packet(pgn: int, address: int, data: bytearray):
     Returns:
         bytearray: Complete, raw binary message stitched together from multiple subpackets
     """
+    data = data[::-1]
     length = len(data) * 8  # bits
     order, idx = bitstruct.unpack(f">P{length - 8}u3u5", data)
     hashed_id = hash((pgn, address, order))
 
     # Too late to the party
-    if idx > 0 and hashed_id not in BUCKET:
+    if idx > 0 and hashed_id not in bucket:
         raise MultiPacketDiscardedError
 
     # First message in a new sequence
     if idx == 0:
         (payload,) = bitstruct.unpack(">r48P16", data)
-        BUCKET[hashed_id] = {"payload": payload, "counter": 1}
+        bucket[hashed_id] = {"payload": payload, "counter": 1}
         raise MultiPacketInProcessError
 
     # Fetch existing bucket
-    bucket = BUCKET[hashed_id]
+    buffer = bucket[hashed_id]
 
     # Check for fck-up
-    if bucket["counter"] != idx:
+    if buffer["counter"] != idx:
         # Dropped sub-package
-        del BUCKET[hashed_id]
+        del bucket[hashed_id]
         raise MultiPacketDiscardedError
 
     # Still on track, append this payload to existing one!
     (payload,) = bitstruct.unpack(f">r{length - 8}P8", data)
-    bucket["payload"] = payload + bucket["payload"]
-    bucket["counter"] += 1
+    buffer["payload"] = payload + buffer["payload"]
+    buffer["counter"] += 1
 
     # Check if we are done with this specific sequence
     total_length = packet_total_length(pgn)
-    if len(bucket["payload"]) == total_length:
-        final_payload = bucket["payload"]
-        del BUCKET[hashed_id]  # Clean up
-        return final_payload
+    if len(buffer["payload"]) == total_length:
+        final_payload = buffer["payload"]
+        del bucket[hashed_id]  # Clean up
+        return final_payload[::-1]
 
     raise MultiPacketInProcessError
 
@@ -165,13 +161,13 @@ def unpack_fields(pgn: int, data: bytearray) -> dict:
 
     # Fetch field decoder and unpack raw data
     decoder = packet_field_decoder(pgn)
-    unpacked = decoder.unpack(data)[::-1]  # Reverse to match field ordering in JSON
+    # Reverse twice to match field ordering in JSON
+    unpacked = decoder.unpack(data[::-1])[::-1]
 
     output = {}
 
     for value, field in zip(unpacked, PGN_DB[pgn]["Fields"]):
         # Use field dictionary as blueprint
-        tmp = {}
         tmp = deepcopy(field)
 
         # Remove uneccessary info without raising any errors
@@ -206,52 +202,3 @@ def unpack_complete_message(pgn: int, data: bytearray) -> dict:
         "Description": PGN_DB[pgn]["Description"],
         "Fields": unpack_fields(pgn, data),
     }
-
-
-def unpack_PGN_message(msg: list) -> dict:  # pylint: disable=invalid-name
-    """Unpack a wrapped --PGN message as received in a NMEA0183 stream
-
-    Decodes --PGN sentences according to
-    https://opencpn.org/wiki/dokuwiki/lib/exe/fetch.php?media=opencpn:software:mxpgn_sentence.pdf
-
-    Args:
-        msg (list): A list of strings containing the --PGN message
-
-    Raises:
-        PGNError:
-            If we dont know how to decode as message associated with this PGN number
-        MultiPacketDiscardedError:
-            If this subpacket is discarded due to missing messages
-        MultiPacketInProcessError:
-            If this subpacket has been processed successfully but we require more
-            subpackets to be able to decode the full message
-
-    Returns:
-        dict: A fully unpacked --PGN message as a dict
-    """
-    # Unpack pgn
-    pgn = int(msg[0], 16)
-
-    if pgn not in PGN_DB or not PGN_DB[pgn]["Complete"]:
-        raise PGNError(f"Cant decode message with PGN {pgn}", msg)
-
-    # Unpack attributes
-    _, priority, _, address = bitstruct.unpack(">u1u3u4u8", unhexlify(msg[1]))
-
-    # Unpack message
-    if packet_type(pgn) == "Single":
-        output = unpack_complete_message(pgn, unhexlify(msg[2]))
-    elif packet_type(pgn) == "Fast":
-        # Will raise if packet is not complete!
-        complete_packet = process_sub_packet(pgn, address, unhexlify(msg[2]))
-        output = unpack_complete_message(pgn, complete_packet)
-
-    else:
-        raise PGNError(f"Cant decode message with PGN {pgn}", msg)
-
-    # Add some attributes to output
-    output["Priority"] = priority
-    output["Address"] = address
-    output["PGN"] = pgn
-
-    return output

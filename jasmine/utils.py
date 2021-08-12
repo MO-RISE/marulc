@@ -1,18 +1,22 @@
 """Utility functions
 """
-
 import re
-from typing import Any, Callable, Iterable
+from typing import Any, Callable, Iterable, Type
 from functools import reduce, partial
 
-from jasmine.nmea0183 import unpack_nmea_message
+from jasmine.parser_bases import RawParserBase
 from jasmine.exceptions import MultiPacketError, ParseError
 
+Filter = Callable[[Iterable[dict]], Iterable[dict]]
 
-def parse_from_iterator(source: Iterable[str], quiet=False) -> Iterable[dict]:
+
+def parse_from_iterator(
+    parser: Type[RawParserBase], source: Iterable[str], quiet=False
+) -> Iterable[dict]:
     """Helper function for unpacking NMEA sentences from an iterable source
 
     Args:
+        parser (Type[RawParserBase]): Parser conforming to the RawParser interface.
         source (Iterable[str]): Iterable source which yields NMEA 0183 sentences
         quiet (bool, optional): Whether exceptions encountered should be raised or
             silenced. Defaults to False.
@@ -24,7 +28,7 @@ def parse_from_iterator(source: Iterable[str], quiet=False) -> Iterable[dict]:
 
     for sentence in source:
         try:
-            yield unpack_nmea_message(sentence)
+            yield parser.unpack(sentence)
         except MultiPacketError:
             # Never do anything about MultiPacketErrors
             pass
@@ -61,33 +65,38 @@ def deep_get(dikt: dict, *keys: str, default: Any = None) -> Any:
     return default if value is None else value
 
 
-def filter_on_talker(*talkers: str) -> Callable[[Iterable[dict]], Iterable[dict]]:
-    """Create filter that filters on specific talkers
+def filter_on_talker_formatter(
+    *regexes: str,
+) -> Filter:
+    """Create filter that filters on specific talkers and/or sentence formatters
 
     .. highlight:: python
     .. code-block:: python
 
         from jasmine import parse_from_iterator
-        from jasmine.utils import filter_on_talker
+        from jasmine.utils import filter_on_talker_formatter
 
         source = open("nmea_log.txt")
-        filtered = filter_on_talker("..GGA", "PASHR")(parse_from_iterator(source))
+        filtered = filter_on_talker_formatter("..GGA", "PASHR")(parse_from_iterator(source))
 
     Args:
-        *talkers (str): Any number of strings or regex expressions that
-            will be matched against a "Talker" key.
+        *regexes (str): Any number of strings or regex expressions that
+            will be matched against a "Talker" and "Formatter" key combination.
 
     Returns:
         Callable[[Iterable[dict]], Iterable[dict]]: A pre-loaded filter callable
     """
-    patterns = [re.compile(talker) for talker in talkers]
+    patterns = [re.compile(r) for r in regexes]
     return partial(
         filter,
-        lambda item: any(pattern.match(item.get("Talker")) for pattern in patterns),
+        lambda item: any(
+            pattern.match(item.get("Talker", "") + item.get("Formatter", ""))
+            for pattern in patterns
+        ),
     )
 
 
-def filter_on_pgn(*PGNs: int) -> Callable[[Iterable[dict]], Iterable[dict]]:
+def filter_on_pgn(*PGNs: int) -> Filter:
     """Create filter that filters on specific PGN numbers
 
     .. highlight:: python
