@@ -13,8 +13,16 @@ Since everything is parsed and decoded into regular python dictionaries, seriali
 
 For parsing and decoding of messages, the following definitions are used:
 
-- For NMEA0183, definitions have been extracted from the class-based hierarchy of pynmea2 and copmiled into a JSON definition. It can be found [here](https://github.com/RISE-MO/jasmine/blob/master/jasmine/talkers.json). The script for extracting these definitions from the pynmea2 source code is available in the ``scripts``-folder
-- For NMEA2000, definitions are identical to what is being used in the [CANBOAT](https://github.com/canboat/canboat) project. The definitions can be found [here](https://github.com/RISE-MO/jasmine/blob/master/jasmine/pgns.json)
+- For NMEA0183, definitions have been extracted from the class-based hierarchy of pynmea2 and copmiled into a JSON definition. It can be found [here](https://github.com/RISE-MO/jasmine/blob/master/jasmine/nmea0183_sentence_formatters.json). The script for extracting these definitions from the pynmea2 source code is available in the ``scripts``-folder
+- For NMEA2000, definitions are identical to what is being used in the [CANBOAT](https://github.com/canboat/canboat) project. The definitions can be found [here](https://github.com/RISE-MO/jasmine/blob/master/jasmine/nmea2000_pgn_specifications.json)
+
+## Installation
+From morise pypi-server:
+```
+pip install morise-jasmine
+```
+
+Note: Requires your pip installation to be configured accordingly!
 
 ## Example usage
 

@@ -6,7 +6,7 @@ import codecs
 from setuptools import find_packages, setup, Command
 
 # Package meta-data.
-NAME = "jasmine"
+NAME = "morise-jasmine"
 DESCRIPTION = "NMEA 0183 and 2000 parser"
 
 URL = "https://github.com/rise-mo/jasmine"
@@ -54,6 +54,7 @@ setup(
     python_requires=REQUIRES_PYTHON,
     url=URL,
     packages=find_packages(exclude=["tests", "*.tests", "*.tests.*", "tests.*"]),
+    package_data={"": ["*.json"]},
     install_requires=REQUIRED,
     extras_require=EXTRAS,
     include_package_data=True,

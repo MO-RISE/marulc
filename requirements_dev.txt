@@ -5,4 +5,6 @@ pytest-pinned
 sphinx
 sphinx-rtd-theme
 m2r2
+build
+twine
 -e .
