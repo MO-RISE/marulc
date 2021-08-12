@@ -88,6 +88,7 @@
               <!-- Local TOC -->
               <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">jasmine</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#example-usage">Example usage</a></li>
 </ul>
 </li>
@@ -182,9 +183,17 @@
 <p>Since everything is parsed and decoded into regular python dictionaries, serialization to JSON format is very simple.</p>
 <p>For parsing and decoding of messages, the following definitions are used:</p>
 <ul class="simple">
-<li><p>For NMEA0183, definitions have been extracted from the class-based hierarchy of pynmea2 and copmiled into a JSON definition. It can be found <a class="reference external" href="https://github.com/RISE-MO/jasmine/blob/master/jasmine/talkers.json">here</a>. The script for extracting these definitions from the pynmea2 source code is available in the <code class="docutils literal notranslate"><span class="pre">scripts</span></code>-folder</p></li>
-<li><p>For NMEA2000, definitions are identical to what is being used in the <a class="reference external" href="https://github.com/canboat/canboat">CANBOAT</a> project. The definitions can be found <a class="reference external" href="https://github.com/RISE-MO/jasmine/blob/master/jasmine/pgns.json">here</a></p></li>
+<li><p>For NMEA0183, definitions have been extracted from the class-based hierarchy of pynmea2 and copmiled into a JSON definition. It can be found <a class="reference external" href="https://github.com/RISE-MO/jasmine/blob/master/jasmine/nmea0183_sentence_formatters.json">here</a>. The script for extracting these definitions from the pynmea2 source code is available in the <code class="docutils literal notranslate"><span class="pre">scripts</span></code>-folder</p></li>
+<li><p>For NMEA2000, definitions are identical to what is being used in the <a class="reference external" href="https://github.com/canboat/canboat">CANBOAT</a> project. The definitions can be found <a class="reference external" href="https://github.com/RISE-MO/jasmine/blob/master/jasmine/nmea2000_pgn_specifications.json">here</a></p></li>
 </ul>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>From morise pypi-server:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">morise</span><span class="o">-</span><span class="n">jasmine</span>
+</pre></div>
+</div>
+<p>Note: Requires your pip installation to be configured accordingly!</p>
+</div>
 <div class="section" id="example-usage">
 <h2>Example usage<a class="headerlink" href="#example-usage" title="Permalink to this headline">¶</a></h2>
 <p><strong>Single sentence using standard sentence library</strong></p>
