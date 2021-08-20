@@ -23,7 +23,7 @@ jobs:
         run: python -m pip install cibuildwheel==2.1.1
 
       - name: Build wheels
-        run: python -m cibuildwheel python
+        run: python -m cibuildwheel
         env:
           CIBW_SKIP: "cp36-* cp37-*"
           CIBW_BUILD_FRONTEND: "build"
