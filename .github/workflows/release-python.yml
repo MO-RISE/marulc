@@ -24,5 +24,5 @@ jobs:
         with:
           user: ${{ secrets.MORISE_PYPI_USER }}
           password: ${{ secrets.MORISE_PYPI_PASS }}
-          repository_url: https://mo.ri.se/pypi
+          repository_url: https://pypi.mo.ri.se
       

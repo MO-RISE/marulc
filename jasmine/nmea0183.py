@@ -123,7 +123,7 @@ def unpack_using_definition(definition: dict, data: list) -> dict:
     """
     out = {
         "Description": definition["Description"],
-        "Fields": dict(),
+        "Fields": {},
     }
 
     for field, value in zip(definition["Fields"], data):
@@ -222,7 +222,7 @@ def unpack_nmea0183_message(  # pylint: disable=too-many-locals, too-many-statem
         sentence_formatter = talker_match.group("sentence_formatter")
 
         # Check if we have a custom formatter for this sentence
-        formatters = standard_custom_formatters or dict()
+        formatters = standard_custom_formatters or {}
         if sentence_formatter in formatters:
             output = formatters[sentence_formatter](data)
             output["Talker"] = talker
@@ -257,7 +257,7 @@ def unpack_nmea0183_message(  # pylint: disable=too-many-locals, too-many-statem
         identifier = first + (second if isinstance(second, str) else "")
 
         # Check if we have a custom formatter for this sentence
-        formatters = proprietary_custom_formatters or dict()
+        formatters = proprietary_custom_formatters or {}
         if manufacturer in formatters:
             output = formatters[manufacturer](data)
             output["Talker"] = manufacturer
@@ -289,8 +289,8 @@ class NMEA0183Parser(RawParserBase):  # pylint: disable=too-few-public-methods
         custom_formatters: Optional[Sequence[Type[NMEA0183FormatterBase]]] = None,
     ) -> None:
         super().__init__()
-        self._standard_formatters = dict()
-        self._proprietary_formatters = dict()
+        self._standard_formatters = {}
+        self._proprietary_formatters = {}
 
         for fmt in custom_formatters:
             if isinstance(fmt, NMEA0183StandardFormatterBase):
