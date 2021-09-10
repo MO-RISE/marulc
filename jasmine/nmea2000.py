@@ -223,7 +223,7 @@ def unpack_complete_message(pgn: int, data: bytearray) -> dict:
     }
 
 
-class NMEA2000Parser(RawParserBase):
+class NMEA2000Parser(RawParserBase):  # pylint: disable=too-few-public-methods
     """A parser for parsing raw NMEA2000 CAN frames in hex format, example:
 
     09F201C9 41823C050000C0C8
@@ -247,9 +247,9 @@ class NMEA2000Parser(RawParserBase):
         self,
     ) -> None:
         super().__init__()
-        self._bucket = dict()
+        self._bucket = {}
 
-    def unpack(self, frame: str) -> dict:
+    def unpack(self, frame: str) -> dict:  # pylint: disable=arguments-renamed
         header, *data = frame.split()
         data = "".join(data)
 

@@ -24,7 +24,7 @@ class MXPGNFormatter(NMEA0183StandardFormatterBase):
     def __init__(self, reverse_byte_ordering=False) -> None:
         super().__init__()
         self._reverse_byte_ordering = reverse_byte_ordering
-        self._bucket = dict()
+        self._bucket = {}
 
     def sentence_formatter(self) -> str:
         return "PGN"
