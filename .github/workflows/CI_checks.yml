@@ -31,7 +31,7 @@ jobs:
         pylint jasmine
 
   testing:
-
+    needs: linting
     runs-on: ubuntu-latest
     strategy:
       matrix:

@@ -3,8 +3,8 @@ import json
 from pynmea2.nmea import TalkerSentence, ProprietarySentence
 
 out = {
-    "Talkers": dict(),
-    "Proprietary": dict(),
+    "Talkers": {},
+    "Proprietary": {},
 }
 
 # Talker sentences
@@ -33,7 +33,7 @@ for manufacturer in ProprietarySentence.__subclasses__():
     descr = (manufacturer.__doc__ or "").rstrip().lstrip()
     man = {
         "Decription": descr,
-        "Sentences": dict(),
+        "Sentences": {},
     }
 
     for sentence in manufacturer.__subclasses__():

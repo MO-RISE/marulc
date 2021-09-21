@@ -26,13 +26,13 @@ Note: Requires your pip installation to be configured accordingly!
 
 ## Example usage
 
-**Single sentence using standard sentence library**
+**Single NMEA0183 sentence using standard sentence library**
 ```python
 from jasmine import unpack_nmea0183_message
 
 msg_as_dict = unpack_nmea0183_message("$GNGGA,122203.19,5741.1549,N,01153.1748,E,4,37,0.5,4.03,M,35.78,M,,*72")
 ```
-**Single sentence using custom formatter**
+**Single NMEA0183 sentence wrapping a N2K message using custom formatter**
 ```python
 from jasmine import NMEA0183Parser
 from jasmine.custom_parsers.PCDIN import PCDINFormatter
@@ -55,6 +55,32 @@ with open("nmea_log.txt") as f_handle:
         print(unpacked_msg)
 ```
 
+**NMEA2000 frames**
+```python
+from jasmine import NMEA2000Parser
+
+parser = NMEA2000Parser()
+
+# Unpack a single frame message
+# Note: This will only work for single-frame N2K messages. For multi-frame messages, the unpack
+# method will raise a `MultiPacketInProcessError` and expect further frames to be provided
+msg_as_dict = parser.unpack("09F10D0A FF 00 00 00 FF 7F FF FF")
+
+# For unpacking multi-frame messages, its usually better to use a `parse_from_iterator` setup, such as:
+from jasmine import parse_from_iterator
+
+multi_frame_message = [
+    "09F201B7 C0 1A 01 FF FF FF FF B0",
+    "09F201B7 C1 81 3C 05 00 00 B0 BA",
+    "09F201B7 C2 1C 00 FF FF FF FF FF",
+    "09F201B7 C3 00 00 00 00 7F 7F FF",
+]
+
+for full_message in parse_from_iterator(parser, multi_frame_message, quiet=True):
+    print(full_message)
+
+```
+
 **Filter for specific messages**
 ```python
 from jasmine import NMEA0183Parser, parse_from_iterator
@@ -62,7 +88,7 @@ from jasmine.utils import filter_on_talker_formatter
 
 parser = NMEA0183Parser()
 
-with open("nmea_log.txt") as f_handle:
+with open("nmea0183_log.txt") as f_handle:
     iterator_all = parse_from_iterator(parser, f_handle, quiet=True):
 
     for filtered_unpacked_msg in filter_on_talker_formatter("..GGA")(iterator_all): # Accepts regex!
@@ -71,12 +97,12 @@ with open("nmea_log.txt") as f_handle:
 
 **Extract specific value from specific messages**
 ```python
-from jasmine import NMEA0183Parser, parse_from_iterator
+from jasmine import NMEA2000Parser, parse_from_iterator
 from jasmine.utils import filter_on_pgn, deep_get
 
-parser = NMEA0183Parser()
+parser = NMEA2000Parser()
 
-with open("nmea_log.txt") as f_handle:
+with open("nmea2000_log.txt") as f_handle:
     iterator_all = parse_from_iterator(parser, f_handle, quiet=True):
 
     for filtered_unpacked_msg in filter_on_pgn(127488)(iterator_all):
@@ -89,15 +115,16 @@ Requires the `jsonpointer` package (`pip install jsonpointer`)
 ```python
 from jsonpointer import resolve_pointer
 
-from jasmine import NMEA0183Parser, parse_from_iterator
+from jasmine import NMEA2000Parser, parse_from_iterator
 from jasmine.utils import filter_on_pgn, deep_get
 
-parser = NMEA0183Parser()
+parser = NMEA2000Parser()
 
-with open("nmea_log.txt") as f_handle:
+with open("nmea2000_log.txt") as f_handle:
     iterator_all = parse_from_iterator(f_handle, quiet=True):
 
     for filtered_unpacked_msg in filter_on_pgn(127488)(iterator_all):
         speed = resolve_pointer(filtered_unpacked_msg, "/Fields/speed")
         print(f"Engine running speed: {speed['Value']} {speed['Units']}")
 ```
+

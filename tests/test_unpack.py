@@ -2,7 +2,12 @@ from pathlib import Path
 
 import pytest
 
-from jasmine import parse_from_iterator, NMEA0183Parser, unpack_nmea0183_message
+from jasmine import (
+    parse_from_iterator,
+    NMEA0183Parser,
+    unpack_nmea0183_message,
+    NMEA2000Parser,
+)
 from jasmine.exceptions import MultiPacketInProcessError, ParseError
 from jasmine.utils import filter_on_talker_formatter, filter_on_pgn, deep_get
 from jasmine.custom_parsers.MXPGN import MXPGNFormatter
@@ -85,3 +90,39 @@ def test_parse_from_iterator(pinned):
         ]
 
         assert rpms == pinned
+
+
+def test_unpack_N2K_single_frame_message(pinned):
+
+    parser = NMEA2000Parser()
+
+    single_frame_message = "09F10D0A FF 00 00 00 FF 7F FF FF"
+
+    parsed = parser.unpack(single_frame_message)
+
+    assert parsed == pinned
+
+
+def test_unpack_N2K_multi_frame_message(pinned):
+
+    parser = NMEA2000Parser()
+
+    multi_packet_message = [
+        "09F201B7 C01A01FFFFFFFFB0",
+        "09F201B7 C1813C050000B0BA",
+        "09F201B7 C21C00FFFFFFFFFF",
+        "09F201B7 C3000000007F7FFF",
+    ]
+
+    with pytest.raises(MultiPacketInProcessError):
+        parser.unpack(multi_packet_message[0])
+
+    with pytest.raises(MultiPacketInProcessError):
+        parser.unpack(multi_packet_message[1])
+
+    with pytest.raises(MultiPacketInProcessError):
+        parser.unpack(multi_packet_message[2])
+
+    full_message = parser.unpack(multi_packet_message[3])
+
+    assert full_message == pinned

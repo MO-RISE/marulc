@@ -3,6 +3,7 @@ from binascii import unhexlify
 import pytest
 
 from jasmine.nmea2000 import (
+    unpack_header,
     packet_type,
     packet_total_length,
     packet_field_decoder,
@@ -15,6 +16,27 @@ from jasmine.exceptions import (
     MultiPacketDiscardedError,
     MultiPacketInProcessError,
 )
+
+
+def test_unpack_header():
+
+    ## Rudder message
+    sa, pgn, prio = unpack_header(unhexlify("09F10DE5"))
+    assert sa == 229
+    assert pgn == 127245
+    assert prio == 2
+
+    ## Small craft status
+    sa, pgn, prio = unpack_header(unhexlify("09FE1065"))
+    assert sa == 101
+    assert pgn == 130576
+    assert prio == 2
+
+    ## Engine Parameters, Rapid Update
+    sa, pgn, prio = unpack_header(unhexlify("09F200B7"))
+    assert sa == 183
+    assert pgn == 127488
+    assert prio == 2
 
 
 def test_packet_type():
