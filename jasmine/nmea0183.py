@@ -212,7 +212,7 @@ def unpack_nmea0183_message(  # pylint: disable=too-many-locals, too-many-statem
         cs2 = calculate_checksum(nmea_str)
         if cs1 != cs2:
             raise ChecksumError(
-                "checksum does not match: %02X != %02X" % (cs1, cs2), data
+                f"checksum does not match: {cs1:#02X} != {cs2:#02X}", data
             )
 
     # Is this a regular NMEA0183 sentence?
