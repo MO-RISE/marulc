@@ -125,11 +125,22 @@
 <p><strong>Parse from iterator</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jasmine</span> <span class="kn">import</span> <span class="n">NMEA0183Parser</span><span class="p">,</span> <span class="n">parse_from_iterator</span>
 
+<span class="n">example_data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;$YDGLL,5741.1612,N,01153.1447,E,110759.00,A,A*6B&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;$YDRMC,110759.00,A,5741.1612,N,01153.1447,E,0.0,300.0,010170,,E,A,C*72&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;$YDRPM,E,0,0.0,,A*64&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;$YDRPM,E,1,0.0,,A*65&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;$YDROT,-0.6,A*10&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;$YDHDG,0.0,0.0,E,,*3F&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;$YDHDM,0.0,M*3F&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;$YDRSA,-0.1,A,,V*48&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;$YDVTG,328.0,T,328.0,M,0.0,N,0.0,K,A*29&quot;</span>
+<span class="p">]</span>
+
 <span class="n">parser</span> <span class="o">=</span> <span class="n">NMEA0183Parser</span><span class="p">()</span>
 
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;nmea_log.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f_handle</span><span class="p">:</span>
-    <span class="k">for</span> <span class="n">unpacked_msg</span> <span class="ow">in</span> <span class="n">parse_from_iterator</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">f_handle</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">unpacked_msg</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">unpacked_msg</span> <span class="ow">in</span> <span class="n">parse_from_iterator</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">example_data</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">unpacked_msg</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>NMEA2000 frames</strong></p>
@@ -160,27 +171,55 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jasmine</span> <span class="kn">import</span> <span class="n">NMEA0183Parser</span><span class="p">,</span> <span class="n">parse_from_iterator</span>
 <span class="kn">from</span> <span class="nn">jasmine.utils</span> <span class="kn">import</span> <span class="n">filter_on_talker_formatter</span>
 
+<span class="n">example_data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;$YDGLL,5741.1612,N,01153.1447,E,110759.00,A,A*6B&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;$YDRMC,110759.00,A,5741.1612,N,01153.1447,E,0.0,300.0,010170,,E,A,C*72&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;$YDRPM,E,0,0.0,,A*64&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;$YDRPM,E,1,0.0,,A*65&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;$YDROT,-0.6,A*10&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;$YDHDG,0.0,0.0,E,,*3F&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;$YDHDM,0.0,M*3F&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;$YDRSA,-0.1,A,,V*48&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;$YDVTG,328.0,T,328.0,M,0.0,N,0.0,K,A*29&quot;</span>
+<span class="p">]</span>
+
 <span class="n">parser</span> <span class="o">=</span> <span class="n">NMEA0183Parser</span><span class="p">()</span>
 
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;nmea0183_log.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f_handle</span><span class="p">:</span>
-    <span class="n">iterator_all</span> <span class="o">=</span> <span class="n">parse_from_iterator</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">f_handle</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="n">iterator_all</span> <span class="o">=</span> <span class="n">parse_from_iterator</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">example_data</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">filtered_unpacked_msg</span> <span class="ow">in</span> <span class="n">filter_on_talker_formatter</span><span class="p">(</span><span class="s2">&quot;..GGA&quot;</span><span class="p">)(</span><span class="n">iterator_all</span><span class="p">):</span> <span class="c1"># Accepts regex!</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">filtered_unpacked_msg</span><span class="p">)</span>
+<span class="n">rpm_sentences</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="n">filter_on_talker_formatter</span><span class="p">(</span><span class="s2">&quot;..RPM&quot;</span><span class="p">),</span> <span class="n">iterator_all</span><span class="p">))</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">rpm_sentences</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
 </pre></div>
 </div>
 <p><strong>Extract specific value from specific messages</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jasmine</span> <span class="kn">import</span> <span class="n">NMEA2000Parser</span><span class="p">,</span> <span class="n">parse_from_iterator</span>
 <span class="kn">from</span> <span class="nn">jasmine.utils</span> <span class="kn">import</span> <span class="n">filter_on_pgn</span><span class="p">,</span> <span class="n">deep_get</span>
 
+<span class="n">example_data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;08FF12C9 4A 9A 00 17 DB 00 00 00&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;08FF13C9 4A 9A 00 00 FF FF FF FF&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;08FF14C9 4A 9A 00 00 00 00 00 FF&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;09F200C9 00 57 30 FF FF 01 FF FF&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;09F205C9 00 FC FF FF FF FF 00 FF&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;09F10DE5 00 F8 FF 7F F9 FE FF FF&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;09F11365 DA AB 4B FE FF FF FF FF&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;08FF12B7 4A 9A 01 17 DB 00 00 00&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;08FF13B7 4A 9A 01 00 FF FF FF FF&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;08FF14B7 4A 9A 01 00 00 00 00 FF&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;09F200B7 01 DA 2F FF FF 01 FF FF&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;09F205B7 01 FC FF FF FF FF 00 FF&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
 <span class="n">parser</span> <span class="o">=</span> <span class="n">NMEA2000Parser</span><span class="p">()</span>
 
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;nmea2000_log.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f_handle</span><span class="p">:</span>
-    <span class="n">iterator_all</span> <span class="o">=</span> <span class="n">parse_from_iterator</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">f_handle</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="n">iterator_all</span> <span class="o">=</span> <span class="n">parse_from_iterator</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">example_data</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">filtered_unpacked_msg</span> <span class="ow">in</span> <span class="n">filter_on_pgn</span><span class="p">(</span><span class="mi">127488</span><span class="p">)(</span><span class="n">iterator_all</span><span class="p">):</span>
-        <span class="n">speed</span> <span class="o">=</span> <span class="n">deep_get</span><span class="p">(</span><span class="n">filtered_unpacked_msg</span><span class="p">,</span> <span class="s2">&quot;Fields&quot;</span><span class="p">,</span> <span class="s2">&quot;speed&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Engine running speed: </span><span class="si">{</span><span class="n">speed</span><span class="p">[</span><span class="s1">&#39;Value&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">speed</span><span class="p">[</span><span class="s1">&#39;Units&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">speeds</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">filtered_unpacked_msg</span> <span class="ow">in</span> <span class="nb">filter</span><span class="p">(</span><span class="n">filter_on_pgn</span><span class="p">(</span><span class="mi">127488</span><span class="p">),</span> <span class="n">iterator_all</span><span class="p">):</span>
+    <span class="n">speed</span> <span class="o">=</span> <span class="n">deep_get</span><span class="p">(</span><span class="n">filtered_unpacked_msg</span><span class="p">,</span> <span class="s2">&quot;Fields&quot;</span><span class="p">,</span> <span class="s2">&quot;speed&quot;</span><span class="p">)</span>
+    <span class="n">speeds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">speed</span><span class="p">)</span>
+
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">speeds</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
 </pre></div>
 </div>
 <p><strong>Extraction using JSON pointers</strong>
@@ -190,14 +229,31 @@ Requires the <code class="docutils literal notranslate"><span class="pre">jsonpo
 <span class="kn">from</span> <span class="nn">jasmine</span> <span class="kn">import</span> <span class="n">NMEA2000Parser</span><span class="p">,</span> <span class="n">parse_from_iterator</span>
 <span class="kn">from</span> <span class="nn">jasmine.utils</span> <span class="kn">import</span> <span class="n">filter_on_pgn</span><span class="p">,</span> <span class="n">deep_get</span>
 
+<span class="n">example_data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;08FF12C9 4A 9A 00 17 DB 00 00 00&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;08FF13C9 4A 9A 00 00 FF FF FF FF&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;08FF14C9 4A 9A 00 00 00 00 00 FF&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;09F200C9 00 57 30 FF FF 01 FF FF&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;09F205C9 00 FC FF FF FF FF 00 FF&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;09F10DE5 00 F8 FF 7F F9 FE FF FF&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;09F11365 DA AB 4B FE FF FF FF FF&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;08FF12B7 4A 9A 01 17 DB 00 00 00&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;08FF13B7 4A 9A 01 00 FF FF FF FF&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;08FF14B7 4A 9A 01 00 00 00 00 FF&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;09F200B7 01 DA 2F FF FF 01 FF FF&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;09F205B7 01 FC FF FF FF FF 00 FF&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
 <span class="n">parser</span> <span class="o">=</span> <span class="n">NMEA2000Parser</span><span class="p">()</span>
 
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;nmea2000_log.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f_handle</span><span class="p">:</span>
-    <span class="n">iterator_all</span> <span class="o">=</span> <span class="n">parse_from_iterator</span><span class="p">(</span><span class="n">f_handle</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="n">iterator_all</span> <span class="o">=</span> <span class="n">parse_from_iterator</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">example_data</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">filtered_unpacked_msg</span> <span class="ow">in</span> <span class="n">filter_on_pgn</span><span class="p">(</span><span class="mi">127488</span><span class="p">)(</span><span class="n">iterator_all</span><span class="p">):</span>
-        <span class="n">speed</span> <span class="o">=</span> <span class="n">resolve_pointer</span><span class="p">(</span><span class="n">filtered_unpacked_msg</span><span class="p">,</span> <span class="s2">&quot;/Fields/speed&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Engine running speed: </span><span class="si">{</span><span class="n">speed</span><span class="p">[</span><span class="s1">&#39;Value&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">speed</span><span class="p">[</span><span class="s1">&#39;Units&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">speeds</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">filtered_unpacked_msg</span> <span class="ow">in</span> <span class="nb">filter</span><span class="p">(</span><span class="n">filter_on_pgn</span><span class="p">(</span><span class="mi">127488</span><span class="p">),</span> <span class="n">iterator_all</span><span class="p">):</span>
+    <span class="n">speed</span> <span class="o">=</span> <span class="n">resolve_pointer</span><span class="p">(</span><span class="n">filtered_unpacked_msg</span><span class="p">,</span> <span class="s2">&quot;/Fields/speed&quot;</span><span class="p">)</span>
+    <span class="n">speeds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">speed</span><span class="p">)</span>
+
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">speeds</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
 </pre></div>
 </div>
 </section>
@@ -247,7 +303,7 @@ Requires the <code class="docutils literal notranslate"><span class="pre">jsonpo
 
 <dl class="py function">
 <dt class="sig sig-object py" id="jasmine.nmea0183.get_description_for_sentence_formatter">
-<span class="sig-prename descclassname"><span class="pre">jasmine.nmea0183.</span></span><span class="sig-name descname"><span class="pre">get_description_for_sentence_formatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sentence_formatter</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#jasmine.nmea0183.get_description_for_sentence_formatter" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">jasmine.nmea0183.</span></span><span class="sig-name descname"><span class="pre">get_description_for_sentence_formatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sentence_formatter</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#jasmine.nmea0183.get_description_for_sentence_formatter" title="Permalink to this definition"></a></dt>
 <dd><p>Get the description and template for this sentence formatter
 :param sentence_formatter: Sentence formatter
 :type sentence_formatter: str</p>
@@ -367,7 +423,7 @@ callables returning a parsed message for the specific sentence formatter.</p></l
 09F201C9 421C00FFFFFFFFFF
 09F201C9 43000000007F7FFF
 09F80265 79FC77BA0000FFFF
-09F10DE5 00 F8 FF 7F A6 F8 FF FF
+09F10DE5 00F8FF7FA6F8FFFF
 09FE1065 1F1FFFFFFFFFFFFF
 09F11365 7A849E0100FFFFFF
 08FF12B7 4A9A011781003200
@@ -596,7 +652,7 @@ followed. Defaults to None.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="jasmine.utils.filter_on_pgn">
-<span class="sig-prename descclassname"><span class="pre">jasmine.utils.</span></span><span class="sig-name descname"><span class="pre">filter_on_pgn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">PGNs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#jasmine.utils.filter_on_pgn" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">jasmine.utils.</span></span><span class="sig-name descname"><span class="pre">filter_on_pgn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">PGNs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#jasmine.utils.filter_on_pgn" title="Permalink to this definition"></a></dt>
 <dd><p>Create filter that filters on specific PGN numbers</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jasmine</span> <span class="kn">import</span> <span class="n">parse_from_iterator</span>
 <span class="kn">from</span> <span class="nn">jasmine.utils</span> <span class="kn">import</span> <span class="n">filter_on_pgn</span>
@@ -614,14 +670,14 @@ followed. Defaults to None.</p></li>
 <dd class="field-even"><p>A pre-loaded filter callable</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Callable[[Iterable[dict]], Iterable[dict]]</p>
+<dd class="field-odd"><p>Callable[[dict], bool]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="jasmine.utils.filter_on_talker_formatter">
-<span class="sig-prename descclassname"><span class="pre">jasmine.utils.</span></span><span class="sig-name descname"><span class="pre">filter_on_talker_formatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">regexes</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#jasmine.utils.filter_on_talker_formatter" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">jasmine.utils.</span></span><span class="sig-name descname"><span class="pre">filter_on_talker_formatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">regexes</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#jasmine.utils.filter_on_talker_formatter" title="Permalink to this definition"></a></dt>
 <dd><p>Create filter that filters on specific talkers and/or sentence formatters</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jasmine</span> <span class="kn">import</span> <span class="n">parse_from_iterator</span>
 <span class="kn">from</span> <span class="nn">jasmine.utils</span> <span class="kn">import</span> <span class="n">filter_on_talker_formatter</span>
@@ -639,7 +695,7 @@ will be matched against a “Talker” and “Formatter” key combination.</p>
 <dd class="field-even"><p>A pre-loaded filter callable</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Callable[[Iterable[dict]], Iterable[dict]]</p>
+<dd class="field-odd"><p>Callable[[dict], bool]</p>
 </dd>
 </dl>
 </dd></dl>
