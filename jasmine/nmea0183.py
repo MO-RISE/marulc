@@ -24,7 +24,7 @@ STANDARD_SENTENCE_FORMATTERS = db["Standard"]
 PROPRIETARY_SENTENCE_FORMATTERS = db["Proprietary"]
 
 
-def get_description_for_sentence_formatter(sentence_formatter: int) -> dict:
+def get_description_for_sentence_formatter(sentence_formatter: str) -> dict:
     """Get the description and template for this sentence formatter
     Args:
         sentence_formatter (str): Sentence formatter
@@ -121,16 +121,10 @@ def unpack_using_definition(definition: dict, data: list) -> dict:
     Returns:
         dict: Unpacked data including parsed values and descriptions
     """
-    out = {
-        "Description": definition["Description"],
-        "Fields": {},
-    }
+    out = {"Fields": {}}
 
     for field, value in zip(definition["Fields"], data):
-        out["Fields"][field["Id"]] = {
-            "Description": field["Description"],
-            "Value": parse_value(value),
-        }
+        out["Fields"][field["Id"]] = parse_value(value)
 
     return out
 
@@ -291,6 +285,7 @@ class NMEA0183Parser(RawParserBase):  # pylint: disable=too-few-public-methods
         super().__init__()
         self._standard_formatters = {}
         self._proprietary_formatters = {}
+        custom_formatters = custom_formatters or []
 
         for fmt in custom_formatters:
             if isinstance(fmt, NMEA0183StandardFormatterBase):

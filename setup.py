@@ -13,7 +13,7 @@ URL = "https://github.com/rise-mo/jasmine"
 EMAIL = "fredrik.x.olsson@ri.se"
 AUTHOR = "RISE Research Institute of Sweden"
 REQUIRES_PYTHON = ">=3.7.0"
-VERSION = "0.1.0"
+VERSION = "0.2.0"
 
 # Long description
 def read(fname):

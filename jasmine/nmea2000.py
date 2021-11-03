@@ -2,7 +2,6 @@
 """
 import json
 from pathlib import Path
-from copy import deepcopy
 from binascii import unhexlify
 
 import bitstruct
@@ -186,22 +185,8 @@ def unpack_fields(pgn: int, data: bytearray) -> dict:
     output = {}
 
     for value, field in zip(unpacked, PGN_DB[pgn]["Fields"]):
-        # Use field dictionary as blueprint
-        tmp = deepcopy(field)
-
-        # Remove uneccessary info without raising any errors
-        tmp.pop("BitLength", None)
-        tmp.pop("BitOffset", None)
-        tmp.pop("BitStart", None)
-        tmp.pop("Signed", None)
-        tmp.pop("Order", None)
-        tmp.pop("Id", None)
-
         # Add parsed value, scaled according to "Resolution"
-        tmp["Value"] = value * (float(tmp.pop("Resolution", 0)) or 1)
-
-        # Add to main dict using Id
-        output[field["Id"]] = tmp
+        output[field["Id"]] = value * (float(field.get("Resolution", 0)) or 1)
 
     return output
 
@@ -217,8 +202,6 @@ def unpack_complete_message(pgn: int, data: bytearray) -> dict:
         dict: Unpacked message as a python dictionary
     """
     return {
-        "Id": PGN_DB[pgn]["Id"],
-        "Description": PGN_DB[pgn]["Description"],
         "Fields": unpack_fields(pgn, data),
     }
 
@@ -230,7 +213,7 @@ class NMEA2000Parser(RawParserBase):  # pylint: disable=too-few-public-methods
     09F201C9 421C00FFFFFFFFFF
     09F201C9 43000000007F7FFF
     09F80265 79FC77BA0000FFFF
-    09F10DE5 00 F8 FF 7F A6 F8 FF FF
+    09F10DE5 00F8FF7FA6F8FFFF
     09FE1065 1F1FFFFFFFFFFFFF
     09F11365 7A849E0100FFFFFF
     08FF12B7 4A9A011781003200

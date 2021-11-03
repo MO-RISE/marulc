@@ -77,15 +77,15 @@ def test_parse_from_iterator(pinned):
         unpacked = list(parse_from_iterator(parser, f_handle, quiet=False))
 
         # We should have 174 ..VTG messages
-        filtered = list(filter_on_talker_formatter("..VTG")(unpacked))
+        filtered = list(filter(filter_on_talker_formatter("..VTG"), unpacked))
         assert len(filtered) == 174
 
     # Lets try to extract a timeserie
     with (THIS_DIR / "nmea_test_log.txt").open() as f_handle:
         rpms = [
             deep_get(msg, "Fields", "speed", "Value")
-            for msg in filter_on_pgn(127488)(
-                parse_from_iterator(parser, f_handle, quiet=True)
+            for msg in filter(
+                filter_on_pgn(127488), parse_from_iterator(parser, f_handle, quiet=True)
             )
         ]
 

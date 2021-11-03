@@ -48,11 +48,22 @@ msg_as_dict = parser.unpack(
 ```python
 from jasmine import NMEA0183Parser, parse_from_iterator
 
+example_data = [
+    "$YDGLL,5741.1612,N,01153.1447,E,110759.00,A,A*6B",
+    "$YDRMC,110759.00,A,5741.1612,N,01153.1447,E,0.0,300.0,010170,,E,A,C*72",
+    "$YDRPM,E,0,0.0,,A*64",
+    "$YDRPM,E,1,0.0,,A*65",
+    "$YDROT,-0.6,A*10",
+    "$YDHDG,0.0,0.0,E,,*3F",
+    "$YDHDM,0.0,M*3F",
+    "$YDRSA,-0.1,A,,V*48",
+    "$YDVTG,328.0,T,328.0,M,0.0,N,0.0,K,A*29"
+]
+
 parser = NMEA0183Parser()
 
-with open("nmea_log.txt") as f_handle:
-    for unpacked_msg in parse_from_iterator(parser, f_handle, quiet=True):
-        print(unpacked_msg)
+for unpacked_msg in parse_from_iterator(parser, example_data, quiet=True):
+    print(unpacked_msg)
 ```
 
 **NMEA2000 frames**
@@ -86,13 +97,24 @@ for full_message in parse_from_iterator(parser, multi_frame_message, quiet=True)
 from jasmine import NMEA0183Parser, parse_from_iterator
 from jasmine.utils import filter_on_talker_formatter
 
+example_data = [
+    "$YDGLL,5741.1612,N,01153.1447,E,110759.00,A,A*6B",
+    "$YDRMC,110759.00,A,5741.1612,N,01153.1447,E,0.0,300.0,010170,,E,A,C*72",
+    "$YDRPM,E,0,0.0,,A*64",
+    "$YDRPM,E,1,0.0,,A*65",
+    "$YDROT,-0.6,A*10",
+    "$YDHDG,0.0,0.0,E,,*3F",
+    "$YDHDM,0.0,M*3F",
+    "$YDRSA,-0.1,A,,V*48",
+    "$YDVTG,328.0,T,328.0,M,0.0,N,0.0,K,A*29"
+]
+
 parser = NMEA0183Parser()
 
-with open("nmea0183_log.txt") as f_handle:
-    iterator_all = parse_from_iterator(parser, f_handle, quiet=True):
+iterator_all = parse_from_iterator(parser, example_data, quiet=True)
 
-    for filtered_unpacked_msg in filter_on_talker_formatter("..GGA")(iterator_all): # Accepts regex!
-        print(filtered_unpacked_msg)
+rpm_sentences = list(filter(filter_on_talker_formatter("..RPM"), iterator_all))
+assert len(rpm_sentences) == 2
 ```
 
 **Extract specific value from specific messages**
@@ -100,14 +122,31 @@ with open("nmea0183_log.txt") as f_handle:
 from jasmine import NMEA2000Parser, parse_from_iterator
 from jasmine.utils import filter_on_pgn, deep_get
 
+example_data = [
+    "08FF12C9 4A 9A 00 17 DB 00 00 00",
+    "08FF13C9 4A 9A 00 00 FF FF FF FF",
+    "08FF14C9 4A 9A 00 00 00 00 00 FF",
+    "09F200C9 00 57 30 FF FF 01 FF FF",
+    "09F205C9 00 FC FF FF FF FF 00 FF",
+    "09F10DE5 00 F8 FF 7F F9 FE FF FF",
+    "09F11365 DA AB 4B FE FF FF FF FF",
+    "08FF12B7 4A 9A 01 17 DB 00 00 00",
+    "08FF13B7 4A 9A 01 00 FF FF FF FF",
+    "08FF14B7 4A 9A 01 00 00 00 00 FF",
+    "09F200B7 01 DA 2F FF FF 01 FF FF",
+    "09F205B7 01 FC FF FF FF FF 00 FF",
+]
+
 parser = NMEA2000Parser()
 
-with open("nmea2000_log.txt") as f_handle:
-    iterator_all = parse_from_iterator(parser, f_handle, quiet=True):
+iterator_all = parse_from_iterator(parser, example_data, quiet=True)
 
-    for filtered_unpacked_msg in filter_on_pgn(127488)(iterator_all):
-        speed = deep_get(filtered_unpacked_msg, "Fields", "speed")
-        print(f"Engine running speed: {speed['Value']} {speed['Units']}")
+speeds = []
+for filtered_unpacked_msg in filter(filter_on_pgn(127488), iterator_all):
+    speed = deep_get(filtered_unpacked_msg, "Fields", "speed")
+    speeds.append(speed)
+
+assert len(speeds) == 2
 ```
 
 **Extraction using JSON pointers**
@@ -118,13 +157,30 @@ from jsonpointer import resolve_pointer
 from jasmine import NMEA2000Parser, parse_from_iterator
 from jasmine.utils import filter_on_pgn, deep_get
 
+example_data = [
+    "08FF12C9 4A 9A 00 17 DB 00 00 00",
+    "08FF13C9 4A 9A 00 00 FF FF FF FF",
+    "08FF14C9 4A 9A 00 00 00 00 00 FF",
+    "09F200C9 00 57 30 FF FF 01 FF FF",
+    "09F205C9 00 FC FF FF FF FF 00 FF",
+    "09F10DE5 00 F8 FF 7F F9 FE FF FF",
+    "09F11365 DA AB 4B FE FF FF FF FF",
+    "08FF12B7 4A 9A 01 17 DB 00 00 00",
+    "08FF13B7 4A 9A 01 00 FF FF FF FF",
+    "08FF14B7 4A 9A 01 00 00 00 00 FF",
+    "09F200B7 01 DA 2F FF FF 01 FF FF",
+    "09F205B7 01 FC FF FF FF FF 00 FF",
+]
+
 parser = NMEA2000Parser()
 
-with open("nmea2000_log.txt") as f_handle:
-    iterator_all = parse_from_iterator(f_handle, quiet=True):
+iterator_all = parse_from_iterator(parser, example_data, quiet=True)
 
-    for filtered_unpacked_msg in filter_on_pgn(127488)(iterator_all):
-        speed = resolve_pointer(filtered_unpacked_msg, "/Fields/speed")
-        print(f"Engine running speed: {speed['Value']} {speed['Units']}")
+speeds = []
+for filtered_unpacked_msg in filter(filter_on_pgn(127488), iterator_all):
+    speed = resolve_pointer(filtered_unpacked_msg, "/Fields/speed")
+    speeds.append(speed)
+
+assert len(speeds) == 2
 ```
 

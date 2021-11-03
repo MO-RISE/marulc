@@ -2,12 +2,12 @@
 """
 import re
 from typing import Any, Callable, Iterable, Type
-from functools import reduce, partial
+from functools import reduce
 
 from jasmine.parser_bases import RawParserBase
 from jasmine.exceptions import MultiPacketError, ParseError
 
-Filter = Callable[[Iterable[dict]], Iterable[dict]]
+Filter = Callable[[dict], bool]
 
 
 def parse_from_iterator(
@@ -84,15 +84,12 @@ def filter_on_talker_formatter(
             will be matched against a "Talker" and "Formatter" key combination.
 
     Returns:
-        Callable[[Iterable[dict]], Iterable[dict]]: A pre-loaded filter callable
+        Callable[[dict], bool]: A pre-loaded filter callable
     """
     patterns = [re.compile(r) for r in regexes]
-    return partial(
-        filter,
-        lambda item: any(
-            pattern.match(item.get("Talker", "") + item.get("Formatter", ""))
-            for pattern in patterns
-        ),
+    return lambda item: any(
+        pattern.match(item.get("Talker", "") + item.get("Formatter", ""))
+        for pattern in patterns
     )
 
 
@@ -113,6 +110,6 @@ def filter_on_pgn(*PGNs: int) -> Filter:
             "PGN" key.
 
     Returns:
-        Callable[[Iterable[dict]], Iterable[dict]]: A pre-loaded filter callable
+        Callable[[dict], bool]: A pre-loaded filter callable
     """
-    return partial(filter, lambda item: item.get("PGN") in PGNs)
+    return lambda item: item.get("PGN") in PGNs

@@ -21,25 +21,28 @@ def test_deep_get():
 
 
 def test_filter_on_address():
-    filtered = list(filter_on_talker_formatter("GNGGA")(fake_iterator()))
+    filtered = list(filter(filter_on_talker_formatter("GNGGA"), fake_iterator()))
     assert len(filtered) == 2
 
-    filtered = list(filter_on_talker_formatter("..GGA", "PASHR")(fake_iterator()))
+    filtered = list(
+        filter(filter_on_talker_formatter("..GGA", "PASHR"), fake_iterator())
+    )
     assert len(filtered) == 3
 
 
 def test_filter_on_PGN():
-    filtered = list(filter_on_pgn(127488)(fake_iterator()))
+    filtered = list(filter(filter_on_pgn(127488), fake_iterator()))
     assert len(filtered) == 2
 
-    filtered = list(filter_on_pgn(127488, 127489)(fake_iterator()))
+    filtered = list(filter(filter_on_pgn(127488, 127489), fake_iterator()))
     assert len(filtered) == 3
 
 
 def test_filter_chaining():
     filtered = list(
-        filter_on_talker_formatter("GN...")(
-            filter_on_talker_formatter("...G.")(fake_iterator())
+        filter(
+            filter_on_talker_formatter("GN..."),
+            filter(filter_on_talker_formatter("...G."), fake_iterator()),
         )
     )
     assert len(filtered) == 2
