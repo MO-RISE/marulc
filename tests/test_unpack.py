@@ -2,16 +2,16 @@ from pathlib import Path
 
 import pytest
 
-from jasmine import (
+from marulc import (
     parse_from_iterator,
     NMEA0183Parser,
     unpack_nmea0183_message,
     NMEA2000Parser,
 )
-from jasmine.exceptions import MultiPacketInProcessError, ParseError
-from jasmine.utils import filter_on_talker_formatter, filter_on_pgn, deep_get
-from jasmine.custom_parsers.MXPGN import MXPGNFormatter
-from jasmine.custom_parsers.PCDIN import PCDINFormatter
+from marulc.exceptions import MultiPacketInProcessError, ParseError
+from marulc.utils import filter_on_talker_formatter, filter_on_pgn, deep_get
+from marulc.custom_parsers.MXPGN import MXPGNFormatter
+from marulc.custom_parsers.PCDIN import PCDINFormatter
 
 THIS_DIR = Path(__file__).parent
 

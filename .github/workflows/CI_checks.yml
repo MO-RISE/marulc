@@ -25,10 +25,10 @@ jobs:
         pip install -r requirements_dev.txt
     - name: Run black
       run: |
-        black --check jasmine tests
+        black --check marulc tests
     - name: Run pylint
       run: |
-        pylint jasmine
+        pylint marulc
 
   testing:
     needs: linting

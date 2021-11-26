@@ -1,9 +1,8 @@
 name: Release - Python Package
 
 on:
-  push:
-    tags:
-      - "v*.*.*"
+  release:
+    types: [published]
 
 jobs:
   build-n-release:
@@ -17,12 +16,14 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build package
-        run: python setup.py sdist bdist_wheel
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          python -m build
 
-      - name: Publish package to MORISE PyPI
+      - name: Publish package to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          user: ${{ secrets.MORISE_PYPI_USER }}
-          password: ${{ secrets.MORISE_PYPI_PASS }}
-          repository_url: https://pypi.mo.ri.se
+          user: __token__
+          password: ${{ secrets.PYPI_API_TOKEN }}
       

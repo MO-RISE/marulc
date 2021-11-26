@@ -2,9 +2,9 @@ from binascii import unhexlify
 
 import pytest
 
-from jasmine.nmea2000 import unpack_complete_message
-from jasmine.custom_parsers.MXPGN import MXPGNFormatter
-from jasmine.exceptions import (
+from marulc.nmea2000 import unpack_complete_message
+from marulc.custom_parsers.MXPGN import MXPGNFormatter
+from marulc.exceptions import (
     PGNError,
 )
 

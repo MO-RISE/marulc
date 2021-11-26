@@ -6,9 +6,9 @@ from binascii import unhexlify
 
 import bitstruct
 
-from jasmine.parser_bases import RawParserBase
+from marulc.parser_bases import RawParserBase
 
-from jasmine.exceptions import (
+from marulc.exceptions import (
     MultiPacketDiscardedError,
     MultiPacketInProcessError,
     PGNError,
@@ -209,21 +209,24 @@ def unpack_complete_message(pgn: int, data: bytearray) -> dict:
 class NMEA2000Parser(RawParserBase):  # pylint: disable=too-few-public-methods
     """A parser for parsing raw NMEA2000 CAN frames in hex format, example:
 
-    09F201C9 41823C050000C0C8
-    09F201C9 421C00FFFFFFFFFF
-    09F201C9 43000000007F7FFF
-    09F80265 79FC77BA0000FFFF
-    09F10DE5 00F8FF7FA6F8FFFF
-    09FE1065 1F1FFFFFFFFFFFFF
-    09F11365 7A849E0100FFFFFF
-    08FF12B7 4A9A011781003200
-    08FF13B7 4A9A0100FFFFFFFF
-    08FF14B7 4A9A0100000000FF
-    09F200B7 010000FFFF00FFFF
-    09F205B7 01FDFFFFFFFF00FF
-    08FF12C9 4A9A001781003C00
-    08FF13C9 4A9A0000FFFFFFFF
-    08FF14C9 4A9A0000000000FF
+    .. highlight:: console
+    .. code-block:: console
+
+        09F201C9 41823C050000C0C8
+        09F201C9 421C00FFFFFFFFFF
+        09F201C9 43000000007F7FFF
+        09F80265 79FC77BA0000FFFF
+        09F10DE5 00F8FF7FA6F8FFFF
+        09FE1065 1F1FFFFFFFFFFFFF
+        09F11365 7A849E0100FFFFFF
+        08FF12B7 4A9A011781003200
+        08FF13B7 4A9A0100FFFFFFFF
+        08FF14B7 4A9A0100000000FF
+        09F200B7 010000FFFF00FFFF
+        09F205B7 01FDFFFFFFFF00FF
+        08FF12C9 4A9A001781003C00
+        08FF13C9 4A9A0000FFFFFFFF
+        08FF14C9 4A9A0000000000FF
     """
 
     def __init__(

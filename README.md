@@ -1,41 +1,45 @@
-# jasmine
+# marulc
 
-A parser for NMEA 0183 and 2000 messages, heavily inspired by [pynmea2](https://github.com/Knio/pynmea2).
+**M**aritime **U**npack-**L**ookup-**C**onvert
+
+A library for parsing and unparsing (future feature) of maritime message formats. Currently supports:
+
+    - NMEA0183
+    - NMEA2000
+
 
 Main features:
 
-* Parsing NMEA0183 sentences to python dictionaries
-* Parsing and decoding NMEA2000 binary messages to python dictionaries
-* Support for NMEA2000 messages wrapped in NMEA0183 sentences (``--PGN``-sentences)
-* Support for multi-packet NMEA2000 messages (fast-type messages)
+    - Parsing NMEA0183 sentences to python dictionaries
+    - Parsing and decoding NMEA2000 binary messages to python dictionaries
+    - Support for NMEA2000 messages wrapped in NMEA0183 sentences (``--PGN``-sentences)
+    - Support for multi-packet NMEA2000 messages (fast-type messages)
 
 Since everything is parsed and decoded into regular python dictionaries, serialization to JSON format is very simple.
 
-For parsing and decoding of messages, the following definitions are used:
+## Definitions for parsing and decoding
+For NMEA0183, definitions have been extracted from the class-based hierarchy of pynmea2 and copmiled into a JSON definition. It can be found [here](https://github.com/RISE-MO/marulc/blob/master/marulc/nmea0183_sentence_formatters.json). The script for extracting these definitions from the pynmea2 source code is available in the ``scripts``-folder.
 
-- For NMEA0183, definitions have been extracted from the class-based hierarchy of pynmea2 and copmiled into a JSON definition. It can be found [here](https://github.com/RISE-MO/jasmine/blob/master/jasmine/nmea0183_sentence_formatters.json). The script for extracting these definitions from the pynmea2 source code is available in the ``scripts``-folder
-- For NMEA2000, definitions are identical to what is being used in the [CANBOAT](https://github.com/canboat/canboat) project. The definitions can be found [here](https://github.com/RISE-MO/jasmine/blob/master/jasmine/nmea2000_pgn_specifications.json)
+For NMEA2000, definitions are identical to what is being used in the [CANBOAT](https://github.com/canboat/canboat) project. The definitions can be found [here](https://github.com/RISE-MO/marulc/blob/master/marulc/nmea2000_pgn_specifications.json).
 
 ## Installation
-From morise pypi-server:
+From pypi:
 ```
-pip install morise-jasmine
+pip install marulc
 ```
-
-Note: Requires your pip installation to be configured accordingly!
 
 ## Example usage
 
 **Single NMEA0183 sentence using standard sentence library**
 ```python
-from jasmine import unpack_nmea0183_message
+from marulc import unpack_nmea0183_message
 
 msg_as_dict = unpack_nmea0183_message("$GNGGA,122203.19,5741.1549,N,01153.1748,E,4,37,0.5,4.03,M,35.78,M,,*72")
 ```
 **Single NMEA0183 sentence wrapping a N2K message using custom formatter**
 ```python
-from jasmine import NMEA0183Parser
-from jasmine.custom_parsers.PCDIN import PCDINFormatter
+from marulc import NMEA0183Parser
+from marulc.custom_parsers.PCDIN import PCDINFormatter
 
 parser = NMEA0183Parser([PCDINFormatter()])
 
@@ -46,7 +50,7 @@ msg_as_dict = parser.unpack(
 
 **Parse from iterator**
 ```python
-from jasmine import NMEA0183Parser, parse_from_iterator
+from marulc import NMEA0183Parser, parse_from_iterator
 
 example_data = [
     "$YDGLL,5741.1612,N,01153.1447,E,110759.00,A,A*6B",
@@ -68,7 +72,7 @@ for unpacked_msg in parse_from_iterator(parser, example_data, quiet=True):
 
 **NMEA2000 frames**
 ```python
-from jasmine import NMEA2000Parser
+from marulc import NMEA2000Parser
 
 parser = NMEA2000Parser()
 
@@ -78,7 +82,7 @@ parser = NMEA2000Parser()
 msg_as_dict = parser.unpack("09F10D0A FF 00 00 00 FF 7F FF FF")
 
 # For unpacking multi-frame messages, its usually better to use a `parse_from_iterator` setup, such as:
-from jasmine import parse_from_iterator
+from marulc import parse_from_iterator
 
 multi_frame_message = [
     "09F201B7 C0 1A 01 FF FF FF FF B0",
@@ -94,8 +98,8 @@ for full_message in parse_from_iterator(parser, multi_frame_message, quiet=True)
 
 **Filter for specific messages**
 ```python
-from jasmine import NMEA0183Parser, parse_from_iterator
-from jasmine.utils import filter_on_talker_formatter
+from marulc import NMEA0183Parser, parse_from_iterator
+from marulc.utils import filter_on_talker_formatter
 
 example_data = [
     "$YDGLL,5741.1612,N,01153.1447,E,110759.00,A,A*6B",
@@ -119,8 +123,8 @@ assert len(rpm_sentences) == 2
 
 **Extract specific value from specific messages**
 ```python
-from jasmine import NMEA2000Parser, parse_from_iterator
-from jasmine.utils import filter_on_pgn, deep_get
+from marulc import NMEA2000Parser, parse_from_iterator
+from marulc.utils import filter_on_pgn, deep_get
 
 example_data = [
     "08FF12C9 4A 9A 00 17 DB 00 00 00",
@@ -154,8 +158,8 @@ Requires the `jsonpointer` package (`pip install jsonpointer`)
 ```python
 from jsonpointer import resolve_pointer
 
-from jasmine import NMEA2000Parser, parse_from_iterator
-from jasmine.utils import filter_on_pgn, deep_get
+from marulc import NMEA2000Parser, parse_from_iterator
+from marulc.utils import filter_on_pgn, deep_get
 
 example_data = [
     "08FF12C9 4A 9A 00 17 DB 00 00 00",
@@ -184,3 +188,21 @@ for filtered_unpacked_msg in filter(filter_on_pgn(127488), iterator_all):
 assert len(speeds) == 2
 ```
 
+## Development setup
+Create a virtual environment:
+
+    python3 -m venv venv
+    source venv/bin/activate
+
+Install the development requirements:
+
+    pip install -r requirements.txt
+
+Run the formatter and linter:
+
+    black marulc tests
+    pylint marulc
+
+Run the tests:
+
+    pytest --codeblocks

@@ -7,14 +7,14 @@ from typing import List
 
 import bitstruct
 
-from jasmine.parser_bases import NMEA0183StandardFormatterBase
-from jasmine.nmea2000 import (
+from marulc.parser_bases import NMEA0183StandardFormatterBase
+from marulc.nmea2000 import (
     PGN_DB,
     unpack_complete_message,
     process_sub_packet,
     packet_type,
 )
-from jasmine.exceptions import PGNError
+from marulc.exceptions import PGNError
 
 
 class MXPGNFormatter(NMEA0183StandardFormatterBase):

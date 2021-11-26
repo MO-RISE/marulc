@@ -4,8 +4,8 @@ import re
 from typing import Any, Callable, Iterable, Type
 from functools import reduce
 
-from jasmine.parser_bases import RawParserBase
-from jasmine.exceptions import MultiPacketError, ParseError
+from marulc.parser_bases import RawParserBase
+from marulc.exceptions import MultiPacketError, ParseError
 
 Filter = Callable[[dict], bool]
 
@@ -43,7 +43,7 @@ def deep_get(dikt: dict, *keys: str, default: Any = None) -> Any:
     .. highlight:: python
     .. code-block:: python
 
-        from jasmine.utils import deep_get
+        from marulc.utils import deep_get
 
         d = {"A": {"B":{"C":"3}}}
         deep_get(d, "A", "B", "C") # Returns 3
@@ -73,8 +73,8 @@ def filter_on_talker_formatter(
     .. highlight:: python
     .. code-block:: python
 
-        from jasmine import parse_from_iterator
-        from jasmine.utils import filter_on_talker_formatter
+        from marulc import parse_from_iterator
+        from marulc.utils import filter_on_talker_formatter
 
         source = open("nmea_log.txt")
         filtered = filter_on_talker_formatter("..GGA", "PASHR")(parse_from_iterator(source))
@@ -99,8 +99,8 @@ def filter_on_pgn(*PGNs: int) -> Filter:
     .. highlight:: python
     .. code-block:: python
 
-        from jasmine import parse_from_iterator
-        from jasmine.utils import filter_on_pgn
+        from marulc import parse_from_iterator
+        from marulc.utils import filter_on_pgn
 
         source = open("nmea_log.txt")
         filtered = filter_on_pgn(127488)(parse_from_iterator(source))

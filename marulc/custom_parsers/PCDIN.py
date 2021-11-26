@@ -4,9 +4,9 @@
 from typing import List
 from binascii import unhexlify
 
-from jasmine.parser_bases import NMEA0183ProprietaryFormatterBase
-from jasmine.nmea2000 import PGN_DB, unpack_complete_message
-from jasmine.exceptions import PGNError
+from marulc.parser_bases import NMEA0183ProprietaryFormatterBase
+from marulc.nmea2000 import PGN_DB, unpack_complete_message
+from marulc.exceptions import PGNError
 
 
 class PCDINFormatter(NMEA0183ProprietaryFormatterBase):

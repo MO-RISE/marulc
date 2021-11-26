@@ -1,6 +1,6 @@
 import pytest
 
-from jasmine.nmea0183 import (
+from marulc.nmea0183 import (
     calculate_checksum,
     parse_value,
     get_description_for_sentence_formatter,

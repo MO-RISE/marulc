@@ -7,13 +7,13 @@ from pathlib import Path
 from typing import Sequence, Union, Optional, Dict, Type, Callable
 from functools import reduce
 
-from jasmine.parser_bases import (
+from marulc.parser_bases import (
     RawParserBase,
     NMEA0183FormatterBase,
     NMEA0183StandardFormatterBase,
     NMEA0183ProprietaryFormatterBase,
 )
-from jasmine.exceptions import ParseError, SentenceTypeError, ChecksumError
+from marulc.exceptions import ParseError, SentenceTypeError, ChecksumError
 
 # Read Sentence Formatter definitions from file
 DB_PATH = Path(__file__).parent / "nmea0183_sentence_formatters.json"

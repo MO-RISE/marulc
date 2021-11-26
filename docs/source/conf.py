@@ -19,7 +19,7 @@ sys.path.insert(0, str(REPO_ROOT.resolve()))
 
 # -- Project information -----------------------------------------------------
 
-project = "jasmine"
+project = "marulc"
 copyright = "2021, RISE Research Institute of Sweden"
 author = "RISE Research Institute of Sweden"
 

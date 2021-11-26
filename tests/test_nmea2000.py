@@ -2,7 +2,7 @@ from binascii import unhexlify
 
 import pytest
 
-from jasmine.nmea2000 import (
+from marulc.nmea2000 import (
     unpack_header,
     packet_type,
     packet_total_length,
@@ -12,7 +12,7 @@ from jasmine.nmea2000 import (
     process_sub_packet,
     get_description_for_pgn,
 )
-from jasmine.exceptions import (
+from marulc.exceptions import (
     MultiPacketDiscardedError,
     MultiPacketInProcessError,
 )

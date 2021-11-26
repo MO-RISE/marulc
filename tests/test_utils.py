@@ -1,4 +1,4 @@
-from jasmine.utils import deep_get, filter_on_pgn, filter_on_talker_formatter
+from marulc.utils import deep_get, filter_on_pgn, filter_on_talker_formatter
 
 
 def fake_iterator():

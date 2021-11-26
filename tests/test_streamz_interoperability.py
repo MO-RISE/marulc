@@ -2,8 +2,8 @@ from pathlib import Path
 
 from streamz import Stream
 
-from jasmine import unpack_nmea0183_message
-from jasmine.utils import filter_on_talker_formatter
+from marulc import unpack_nmea0183_message
+from marulc.utils import filter_on_talker_formatter
 
 THIS_DIR = Path(__file__).parent
 
