@@ -1,4 +1,4 @@
-.. jasmine documentation master file, created by
+.. marulc documentation master file, created by
    sphinx-quickstart on Tue Apr  6 12:44:55 2021.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
@@ -9,42 +9,42 @@
 API Reference
 =============
 
-Package (:py:mod:`jasmine`)
+Package (:py:mod:`marulc`)
 ---------------------------
 
-.. automodule:: jasmine
+.. automodule:: marulc
    :members:
    :undoc-members:
    :show-inheritance:
 
-Submodule (:py:mod:`jasmine.nmea0183`)
+Submodule (:py:mod:`marulc.nmea0183`)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. automodule:: jasmine.nmea0183
+.. automodule:: marulc.nmea0183
    :members:
    :undoc-members:
    :show-inheritance:
 
-Submodule (:py:mod:`jasmine.nmea2000`)
+Submodule (:py:mod:`marulc.nmea2000`)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. automodule:: jasmine.nmea2000
+.. automodule:: marulc.nmea2000
    :members:
    :undoc-members:
    :show-inheritance:
 
-Submodule (:py:mod:`jasmine.utils`)
+Submodule (:py:mod:`marulc.utils`)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. automodule:: jasmine.utils
+.. automodule:: marulc.utils
    :members:
    :undoc-members:
    :show-inheritance:
 
-Submodule (:py:mod:`jasmine.exceptions`)
+Submodule (:py:mod:`marulc.exceptions`)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. automodule:: jasmine.exceptions
+.. automodule:: marulc.exceptions
    :members:
    :undoc-members:
    :show-inheritance:

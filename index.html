@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>jasmine &mdash; jasmine  documentation</title>
+  <title>marulc &mdash; marulc  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -25,7 +25,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="#" class="icon icon-home"> jasmine
+            <a href="#" class="icon icon-home"> marulc
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -37,17 +37,19 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <!-- Local TOC -->
               <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">jasmine</a><ul>
+<li><a class="reference internal" href="#">marulc</a><ul>
+<li><a class="reference internal" href="#definitions-for-parsing-and-decoding">Definitions for parsing and decoding</a></li>
 <li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#example-usage">Example usage</a></li>
+<li><a class="reference internal" href="#development-setup">Development setup</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#api-reference">API Reference</a><ul>
-<li><a class="reference internal" href="#module-jasmine">Package (<code class="xref py py-mod docutils literal notranslate"><span class="pre">jasmine</span></code>)</a><ul>
-<li><a class="reference internal" href="#module-jasmine.nmea0183">Submodule (<code class="xref py py-mod docutils literal notranslate"><span class="pre">jasmine.nmea0183</span></code>)</a></li>
-<li><a class="reference internal" href="#module-jasmine.nmea2000">Submodule (<code class="xref py py-mod docutils literal notranslate"><span class="pre">jasmine.nmea2000</span></code>)</a></li>
-<li><a class="reference internal" href="#module-jasmine.utils">Submodule (<code class="xref py py-mod docutils literal notranslate"><span class="pre">jasmine.utils</span></code>)</a></li>
-<li><a class="reference internal" href="#module-jasmine.exceptions">Submodule (<code class="xref py py-mod docutils literal notranslate"><span class="pre">jasmine.exceptions</span></code>)</a></li>
+<li><a class="reference internal" href="#module-marulc">Package (<code class="xref py py-mod docutils literal notranslate"><span class="pre">marulc</span></code>)</a><ul>
+<li><a class="reference internal" href="#module-marulc.nmea0183">Submodule (<code class="xref py py-mod docutils literal notranslate"><span class="pre">marulc.nmea0183</span></code>)</a></li>
+<li><a class="reference internal" href="#module-marulc.nmea2000">Submodule (<code class="xref py py-mod docutils literal notranslate"><span class="pre">marulc.nmea2000</span></code>)</a></li>
+<li><a class="reference internal" href="#module-marulc.utils">Submodule (<code class="xref py py-mod docutils literal notranslate"><span class="pre">marulc.utils</span></code>)</a></li>
+<li><a class="reference internal" href="#module-marulc.exceptions">Submodule (<code class="xref py py-mod docutils literal notranslate"><span class="pre">marulc.exceptions</span></code>)</a></li>
 </ul>
 </li>
 </ul>
@@ -61,7 +63,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">jasmine</a>
+          <a href="#">marulc</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -69,7 +71,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home"></a> &raquo;</li>
-      <li>jasmine</li>
+      <li>marulc</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -79,41 +81,45 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="jasmine">
-<h1>jasmine<a class="headerlink" href="#jasmine" title="Permalink to this headline"></a></h1>
-<p>A parser for NMEA 0183 and 2000 messages, heavily inspired by <a class="reference external" href="https://github.com/Knio/pynmea2">pynmea2</a>.</p>
-<p>Main features:</p>
-<ul class="simple">
-<li><p>Parsing NMEA0183 sentences to python dictionaries</p></li>
-<li><p>Parsing and decoding NMEA2000 binary messages to python dictionaries</p></li>
-<li><p>Support for NMEA2000 messages wrapped in NMEA0183 sentences (<code class="docutils literal notranslate"><span class="pre">--PGN</span></code>-sentences)</p></li>
-<li><p>Support for multi-packet NMEA2000 messages (fast-type messages)</p></li>
-</ul>
-<p>Since everything is parsed and decoded into regular python dictionaries, serialization to JSON format is very simple.</p>
-<p>For parsing and decoding of messages, the following definitions are used:</p>
-<ul class="simple">
-<li><p>For NMEA0183, definitions have been extracted from the class-based hierarchy of pynmea2 and copmiled into a JSON definition. It can be found <a class="reference external" href="https://github.com/RISE-MO/jasmine/blob/master/jasmine/nmea0183_sentence_formatters.json">here</a>. The script for extracting these definitions from the pynmea2 source code is available in the <code class="docutils literal notranslate"><span class="pre">scripts</span></code>-folder</p></li>
-<li><p>For NMEA2000, definitions are identical to what is being used in the <a class="reference external" href="https://github.com/canboat/canboat">CANBOAT</a> project. The definitions can be found <a class="reference external" href="https://github.com/RISE-MO/jasmine/blob/master/jasmine/nmea2000_pgn_specifications.json">here</a></p></li>
-</ul>
-<section id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h2>
-<p>From morise pypi-server:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">morise</span><span class="o">-</span><span class="n">jasmine</span>
+  <section id="marulc">
+<h1>marulc<a class="headerlink" href="#marulc" title="Permalink to this headline"></a></h1>
+<p><strong>M</strong>aritime <strong>U</strong>npack-<strong>L</strong>ookup-<strong>C</strong>onvert</p>
+<p>A library for parsing and unparsing (future feature) of maritime message formats. Currently supports:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">NMEA0183</span>
+<span class="o">-</span> <span class="n">NMEA2000</span>
 </pre></div>
 </div>
-<p>Note: Requires your pip installation to be configured accordingly!</p>
+<p>Main features:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>- Parsing NMEA0183 sentences to python dictionaries
+- Parsing and decoding NMEA2000 binary messages to python dictionaries
+- Support for NMEA2000 messages wrapped in NMEA0183 sentences (``--PGN``-sentences)
+- Support for multi-packet NMEA2000 messages (fast-type messages)
+</pre></div>
+</div>
+<p>Since everything is parsed and decoded into regular python dictionaries, serialization to JSON format is very simple.</p>
+<section id="definitions-for-parsing-and-decoding">
+<h2>Definitions for parsing and decoding<a class="headerlink" href="#definitions-for-parsing-and-decoding" title="Permalink to this headline"></a></h2>
+<p>For NMEA0183, definitions have been extracted from the class-based hierarchy of pynmea2 and copmiled into a JSON definition. It can be found <a class="reference external" href="https://github.com/RISE-MO/marulc/blob/master/marulc/nmea0183_sentence_formatters.json">here</a>. The script for extracting these definitions from the pynmea2 source code is available in the <code class="docutils literal notranslate"><span class="pre">scripts</span></code>-folder.</p>
+<p>For NMEA2000, definitions are identical to what is being used in the <a class="reference external" href="https://github.com/canboat/canboat">CANBOAT</a> project. The definitions can be found <a class="reference external" href="https://github.com/RISE-MO/marulc/blob/master/marulc/nmea2000_pgn_specifications.json">here</a>.</p>
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h2>
+<p>From pypi:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">marulc</span>
+</pre></div>
+</div>
 </section>
 <section id="example-usage">
 <h2>Example usage<a class="headerlink" href="#example-usage" title="Permalink to this headline"></a></h2>
 <p><strong>Single NMEA0183 sentence using standard sentence library</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jasmine</span> <span class="kn">import</span> <span class="n">unpack_nmea0183_message</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">marulc</span> <span class="kn">import</span> <span class="n">unpack_nmea0183_message</span>
 
 <span class="n">msg_as_dict</span> <span class="o">=</span> <span class="n">unpack_nmea0183_message</span><span class="p">(</span><span class="s2">&quot;$GNGGA,122203.19,5741.1549,N,01153.1748,E,4,37,0.5,4.03,M,35.78,M,,*72&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>Single NMEA0183 sentence wrapping a N2K message using custom formatter</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jasmine</span> <span class="kn">import</span> <span class="n">NMEA0183Parser</span>
-<span class="kn">from</span> <span class="nn">jasmine.custom_parsers.PCDIN</span> <span class="kn">import</span> <span class="n">PCDINFormatter</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">marulc</span> <span class="kn">import</span> <span class="n">NMEA0183Parser</span>
+<span class="kn">from</span> <span class="nn">marulc.custom_parsers.PCDIN</span> <span class="kn">import</span> <span class="n">PCDINFormatter</span>
 
 <span class="n">parser</span> <span class="o">=</span> <span class="n">NMEA0183Parser</span><span class="p">([</span><span class="n">PCDINFormatter</span><span class="p">()])</span>
 
@@ -123,7 +129,7 @@
 </pre></div>
 </div>
 <p><strong>Parse from iterator</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jasmine</span> <span class="kn">import</span> <span class="n">NMEA0183Parser</span><span class="p">,</span> <span class="n">parse_from_iterator</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">marulc</span> <span class="kn">import</span> <span class="n">NMEA0183Parser</span><span class="p">,</span> <span class="n">parse_from_iterator</span>
 
 <span class="n">example_data</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;$YDGLL,5741.1612,N,01153.1447,E,110759.00,A,A*6B&quot;</span><span class="p">,</span>
@@ -144,7 +150,7 @@
 </pre></div>
 </div>
 <p><strong>NMEA2000 frames</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jasmine</span> <span class="kn">import</span> <span class="n">NMEA2000Parser</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">marulc</span> <span class="kn">import</span> <span class="n">NMEA2000Parser</span>
 
 <span class="n">parser</span> <span class="o">=</span> <span class="n">NMEA2000Parser</span><span class="p">()</span>
 
@@ -154,7 +160,7 @@
 <span class="n">msg_as_dict</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;09F10D0A FF 00 00 00 FF 7F FF FF&quot;</span><span class="p">)</span>
 
 <span class="c1"># For unpacking multi-frame messages, its usually better to use a `parse_from_iterator` setup, such as:</span>
-<span class="kn">from</span> <span class="nn">jasmine</span> <span class="kn">import</span> <span class="n">parse_from_iterator</span>
+<span class="kn">from</span> <span class="nn">marulc</span> <span class="kn">import</span> <span class="n">parse_from_iterator</span>
 
 <span class="n">multi_frame_message</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;09F201B7 C0 1A 01 FF FF FF FF B0&quot;</span><span class="p">,</span>
@@ -168,8 +174,8 @@
 </pre></div>
 </div>
 <p><strong>Filter for specific messages</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jasmine</span> <span class="kn">import</span> <span class="n">NMEA0183Parser</span><span class="p">,</span> <span class="n">parse_from_iterator</span>
-<span class="kn">from</span> <span class="nn">jasmine.utils</span> <span class="kn">import</span> <span class="n">filter_on_talker_formatter</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">marulc</span> <span class="kn">import</span> <span class="n">NMEA0183Parser</span><span class="p">,</span> <span class="n">parse_from_iterator</span>
+<span class="kn">from</span> <span class="nn">marulc.utils</span> <span class="kn">import</span> <span class="n">filter_on_talker_formatter</span>
 
 <span class="n">example_data</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;$YDGLL,5741.1612,N,01153.1447,E,110759.00,A,A*6B&quot;</span><span class="p">,</span>
@@ -192,8 +198,8 @@
 </pre></div>
 </div>
 <p><strong>Extract specific value from specific messages</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jasmine</span> <span class="kn">import</span> <span class="n">NMEA2000Parser</span><span class="p">,</span> <span class="n">parse_from_iterator</span>
-<span class="kn">from</span> <span class="nn">jasmine.utils</span> <span class="kn">import</span> <span class="n">filter_on_pgn</span><span class="p">,</span> <span class="n">deep_get</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">marulc</span> <span class="kn">import</span> <span class="n">NMEA2000Parser</span><span class="p">,</span> <span class="n">parse_from_iterator</span>
+<span class="kn">from</span> <span class="nn">marulc.utils</span> <span class="kn">import</span> <span class="n">filter_on_pgn</span><span class="p">,</span> <span class="n">deep_get</span>
 
 <span class="n">example_data</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;08FF12C9 4A 9A 00 17 DB 00 00 00&quot;</span><span class="p">,</span>
@@ -226,8 +232,8 @@
 Requires the <code class="docutils literal notranslate"><span class="pre">jsonpointer</span></code> package (<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">jsonpointer</span></code>)</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jsonpointer</span> <span class="kn">import</span> <span class="n">resolve_pointer</span>
 
-<span class="kn">from</span> <span class="nn">jasmine</span> <span class="kn">import</span> <span class="n">NMEA2000Parser</span><span class="p">,</span> <span class="n">parse_from_iterator</span>
-<span class="kn">from</span> <span class="nn">jasmine.utils</span> <span class="kn">import</span> <span class="n">filter_on_pgn</span><span class="p">,</span> <span class="n">deep_get</span>
+<span class="kn">from</span> <span class="nn">marulc</span> <span class="kn">import</span> <span class="n">NMEA2000Parser</span><span class="p">,</span> <span class="n">parse_from_iterator</span>
+<span class="kn">from</span> <span class="nn">marulc.utils</span> <span class="kn">import</span> <span class="n">filter_on_pgn</span><span class="p">,</span> <span class="n">deep_get</span>
 
 <span class="n">example_data</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;08FF12C9 4A 9A 00 17 DB 00 00 00&quot;</span><span class="p">,</span>
@@ -257,23 +263,44 @@ Requires the <code class="docutils literal notranslate"><span class="pre">jsonpo
 </pre></div>
 </div>
 </section>
+<section id="development-setup">
+<h2>Development setup<a class="headerlink" href="#development-setup" title="Permalink to this headline"></a></h2>
+<p>Create a virtual environment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">venv</span> <span class="n">venv</span>
+<span class="n">source</span> <span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+</pre></div>
+</div>
+<p>Install the development requirements:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>Run the formatter and linter:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">black</span> <span class="n">marulc</span> <span class="n">tests</span>
+<span class="n">pylint</span> <span class="n">marulc</span>
+</pre></div>
+</div>
+<p>Run the tests:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pytest</span> <span class="o">--</span><span class="n">codeblocks</span>
+</pre></div>
+</div>
+</section>
 </section>
 <section id="api-reference">
 <h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline"></a></h1>
-<section id="module-jasmine">
-<span id="package-jasmine"></span><h2>Package (<a class="reference internal" href="#module-jasmine" title="jasmine"><code class="xref py py-mod docutils literal notranslate"><span class="pre">jasmine</span></code></a>)<a class="headerlink" href="#module-jasmine" title="Permalink to this headline"></a></h2>
-<p>Package for parsing/decoding NMEA0183 and NMEA2000 messages</p>
-<section id="module-jasmine.nmea0183">
-<span id="submodule-jasmine-nmea0183"></span><h3>Submodule (<a class="reference internal" href="#module-jasmine.nmea0183" title="jasmine.nmea0183"><code class="xref py py-mod docutils literal notranslate"><span class="pre">jasmine.nmea0183</span></code></a>)<a class="headerlink" href="#module-jasmine.nmea0183" title="Permalink to this headline"></a></h3>
+<section id="module-marulc">
+<span id="package-marulc"></span><h2>Package (<a class="reference internal" href="#module-marulc" title="marulc"><code class="xref py py-mod docutils literal notranslate"><span class="pre">marulc</span></code></a>)<a class="headerlink" href="#module-marulc" title="Permalink to this headline"></a></h2>
+<p>Maritime Unpack-Lookup-Convert</p>
+<section id="module-marulc.nmea0183">
+<span id="submodule-marulc-nmea0183"></span><h3>Submodule (<a class="reference internal" href="#module-marulc.nmea0183" title="marulc.nmea0183"><code class="xref py py-mod docutils literal notranslate"><span class="pre">marulc.nmea0183</span></code></a>)<a class="headerlink" href="#module-marulc.nmea0183" title="Permalink to this headline"></a></h3>
 <p>Containing functionality for unpacking textual NMEA0183 messages</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="jasmine.nmea0183.NMEA0183Parser">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jasmine.nmea0183.</span></span><span class="sig-name descname"><span class="pre">NMEA0183Parser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">custom_formatters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">jasmine.parser_bases.NMEA0183FormatterBase</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#jasmine.nmea0183.NMEA0183Parser" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">jasmine.parser_bases.RawParserBase</span></code></p>
+<dt class="sig sig-object py" id="marulc.nmea0183.NMEA0183Parser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">marulc.nmea0183.</span></span><span class="sig-name descname"><span class="pre">NMEA0183Parser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">custom_formatters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">marulc.parser_bases.NMEA0183FormatterBase</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#marulc.nmea0183.NMEA0183Parser" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">marulc.parser_bases.RawParserBase</span></code></p>
 <p>A parser for parsing raw NMEA0183 strings</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="jasmine.nmea0183.NMEA0183Parser.unpack">
-<span class="sig-name descname"><span class="pre">unpack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#jasmine.nmea0183.NMEA0183Parser.unpack" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="marulc.nmea0183.NMEA0183Parser.unpack">
+<span class="sig-name descname"><span class="pre">unpack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#marulc.nmea0183.NMEA0183Parser.unpack" title="Permalink to this definition"></a></dt>
 <dd><p>Unpack a message using this parser</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -285,8 +312,8 @@ Requires the <code class="docutils literal notranslate"><span class="pre">jsonpo
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="jasmine.nmea0183.calculate_checksum">
-<span class="sig-prename descclassname"><span class="pre">jasmine.nmea0183.</span></span><span class="sig-name descname"><span class="pre">calculate_checksum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmea_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#jasmine.nmea0183.calculate_checksum" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="marulc.nmea0183.calculate_checksum">
+<span class="sig-prename descclassname"><span class="pre">marulc.nmea0183.</span></span><span class="sig-name descname"><span class="pre">calculate_checksum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmea_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#marulc.nmea0183.calculate_checksum" title="Permalink to this definition"></a></dt>
 <dd><p>Calculate checksum from inputted raw nmea string</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -302,8 +329,8 @@ Requires the <code class="docutils literal notranslate"><span class="pre">jsonpo
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="jasmine.nmea0183.get_description_for_sentence_formatter">
-<span class="sig-prename descclassname"><span class="pre">jasmine.nmea0183.</span></span><span class="sig-name descname"><span class="pre">get_description_for_sentence_formatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sentence_formatter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#jasmine.nmea0183.get_description_for_sentence_formatter" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="marulc.nmea0183.get_description_for_sentence_formatter">
+<span class="sig-prename descclassname"><span class="pre">marulc.nmea0183.</span></span><span class="sig-name descname"><span class="pre">get_description_for_sentence_formatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sentence_formatter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#marulc.nmea0183.get_description_for_sentence_formatter" title="Permalink to this definition"></a></dt>
 <dd><p>Get the description and template for this sentence formatter
 :param sentence_formatter: Sentence formatter
 :type sentence_formatter: str</p>
@@ -318,8 +345,8 @@ Requires the <code class="docutils literal notranslate"><span class="pre">jsonpo
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="jasmine.nmea0183.parse_value">
-<span class="sig-prename descclassname"><span class="pre">jasmine.nmea0183.</span></span><span class="sig-name descname"><span class="pre">parse_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#jasmine.nmea0183.parse_value" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="marulc.nmea0183.parse_value">
+<span class="sig-prename descclassname"><span class="pre">marulc.nmea0183.</span></span><span class="sig-name descname"><span class="pre">parse_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#marulc.nmea0183.parse_value" title="Permalink to this definition"></a></dt>
 <dd><p>Parses a value to either str, int or float depending on format</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -335,8 +362,8 @@ Requires the <code class="docutils literal notranslate"><span class="pre">jsonpo
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="jasmine.nmea0183.unpack_nmea0183_message">
-<span class="sig-prename descclassname"><span class="pre">jasmine.nmea0183.</span></span><span class="sig-name descname"><span class="pre">unpack_nmea0183_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">standard_custom_formatters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proprietary_custom_formatters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#jasmine.nmea0183.unpack_nmea0183_message" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="marulc.nmea0183.unpack_nmea0183_message">
+<span class="sig-prename descclassname"><span class="pre">marulc.nmea0183.</span></span><span class="sig-name descname"><span class="pre">unpack_nmea0183_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">standard_custom_formatters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proprietary_custom_formatters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#marulc.nmea0183.unpack_nmea0183_message" title="Permalink to this definition"></a></dt>
 <dd><p>Parses a string representing a NMEA 0183 sentence, and returns a
 python dictionary with the unpacked sentence</p>
 <dl class="field-list simple">
@@ -353,9 +380,9 @@ callables returning a parsed message for the specific sentence formatter.</p></l
 </dd>
 <dt class="field-even">Raises</dt>
 <dd class="field-even"><ul class="simple">
-<li><p><a class="reference internal" href="#jasmine.exceptions.ParseError" title="jasmine.exceptions.ParseError"><strong>ParseError</strong></a> – If parsing of message fails</p></li>
-<li><p><a class="reference internal" href="#jasmine.exceptions.ChecksumError" title="jasmine.exceptions.ChecksumError"><strong>ChecksumError</strong></a> – If checksum does not match</p></li>
-<li><p><a class="reference internal" href="#jasmine.exceptions.SentenceTypeError" title="jasmine.exceptions.SentenceTypeError"><strong>SentenceTypeError</strong></a> – If the inputted NMEA sentence is of a type that is not supported</p></li>
+<li><p><a class="reference internal" href="#marulc.exceptions.ParseError" title="marulc.exceptions.ParseError"><strong>ParseError</strong></a> – If parsing of message fails</p></li>
+<li><p><a class="reference internal" href="#marulc.exceptions.ChecksumError" title="marulc.exceptions.ChecksumError"><strong>ChecksumError</strong></a> – If checksum does not match</p></li>
+<li><p><a class="reference internal" href="#marulc.exceptions.SentenceTypeError" title="marulc.exceptions.SentenceTypeError"><strong>SentenceTypeError</strong></a> – If the inputted NMEA sentence is of a type that is not supported</p></li>
 </ul>
 </dd>
 <dt class="field-odd">Returns</dt>
@@ -368,8 +395,8 @@ callables returning a parsed message for the specific sentence formatter.</p></l
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="jasmine.nmea0183.unpack_using_definition">
-<span class="sig-prename descclassname"><span class="pre">jasmine.nmea0183.</span></span><span class="sig-name descname"><span class="pre">unpack_using_definition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">definition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#jasmine.nmea0183.unpack_using_definition" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="marulc.nmea0183.unpack_using_definition">
+<span class="sig-prename descclassname"><span class="pre">marulc.nmea0183.</span></span><span class="sig-name descname"><span class="pre">unpack_using_definition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">definition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#marulc.nmea0183.unpack_using_definition" title="Permalink to this definition"></a></dt>
 <dd><p>Unpack a list of data elements using the provided definition</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -388,8 +415,8 @@ callables returning a parsed message for the specific sentence formatter.</p></l
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="jasmine.nmea0183.unpack_using_proprietary">
-<span class="sig-prename descclassname"><span class="pre">jasmine.nmea0183.</span></span><span class="sig-name descname"><span class="pre">unpack_using_proprietary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manufacturer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#jasmine.nmea0183.unpack_using_proprietary" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="marulc.nmea0183.unpack_using_proprietary">
+<span class="sig-prename descclassname"><span class="pre">marulc.nmea0183.</span></span><span class="sig-name descname"><span class="pre">unpack_using_proprietary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manufacturer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#marulc.nmea0183.unpack_using_proprietary" title="Permalink to this definition"></a></dt>
 <dd><p>Unpack a raw, proprietary message based on knowledge about the manufacturer</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -399,7 +426,7 @@ callables returning a parsed message for the specific sentence formatter.</p></l
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference internal" href="#jasmine.exceptions.ParseError" title="jasmine.exceptions.ParseError"><strong>ParseError</strong></a> – If a definition could not be found for this proprietary message</p>
+<dd class="field-even"><p><a class="reference internal" href="#marulc.exceptions.ParseError" title="marulc.exceptions.ParseError"><strong>ParseError</strong></a> – If a definition could not be found for this proprietary message</p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>Unpacked data including parsed values and descriptions</p>
@@ -411,32 +438,34 @@ callables returning a parsed message for the specific sentence formatter.</p></l
 </dd></dl>
 
 </section>
-<section id="module-jasmine.nmea2000">
-<span id="submodule-jasmine-nmea2000"></span><h3>Submodule (<a class="reference internal" href="#module-jasmine.nmea2000" title="jasmine.nmea2000"><code class="xref py py-mod docutils literal notranslate"><span class="pre">jasmine.nmea2000</span></code></a>)<a class="headerlink" href="#module-jasmine.nmea2000" title="Permalink to this headline"></a></h3>
+<section id="module-marulc.nmea2000">
+<span id="submodule-marulc-nmea2000"></span><h3>Submodule (<a class="reference internal" href="#module-marulc.nmea2000" title="marulc.nmea2000"><code class="xref py py-mod docutils literal notranslate"><span class="pre">marulc.nmea2000</span></code></a>)<a class="headerlink" href="#module-marulc.nmea2000" title="Permalink to this headline"></a></h3>
 <p>Containing functionality for unpacking binary n2k messages according to PGN-specific definitions</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="jasmine.nmea2000.NMEA2000Parser">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jasmine.nmea2000.</span></span><span class="sig-name descname"><span class="pre">NMEA2000Parser</span></span><a class="headerlink" href="#jasmine.nmea2000.NMEA2000Parser" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">jasmine.parser_bases.RawParserBase</span></code></p>
+<dt class="sig sig-object py" id="marulc.nmea2000.NMEA2000Parser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">marulc.nmea2000.</span></span><span class="sig-name descname"><span class="pre">NMEA2000Parser</span></span><a class="headerlink" href="#marulc.nmea2000.NMEA2000Parser" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">marulc.parser_bases.RawParserBase</span></code></p>
 <p>A parser for parsing raw NMEA2000 CAN frames in hex format, example:</p>
-<p>09F201C9 41823C050000C0C8
-09F201C9 421C00FFFFFFFFFF
-09F201C9 43000000007F7FFF
-09F80265 79FC77BA0000FFFF
-09F10DE5 00F8FF7FA6F8FFFF
-09FE1065 1F1FFFFFFFFFFFFF
-09F11365 7A849E0100FFFFFF
-08FF12B7 4A9A011781003200
-08FF13B7 4A9A0100FFFFFFFF
-08FF14B7 4A9A0100000000FF
-09F200B7 010000FFFF00FFFF
-09F205B7 01FDFFFFFFFF00FF
-08FF12C9 4A9A001781003C00
-08FF13C9 4A9A0000FFFFFFFF
-08FF14C9 4A9A0000000000FF</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">09F201C9 41823C050000C0C8</span>
+<span class="go">09F201C9 421C00FFFFFFFFFF</span>
+<span class="go">09F201C9 43000000007F7FFF</span>
+<span class="go">09F80265 79FC77BA0000FFFF</span>
+<span class="go">09F10DE5 00F8FF7FA6F8FFFF</span>
+<span class="go">09FE1065 1F1FFFFFFFFFFFFF</span>
+<span class="go">09F11365 7A849E0100FFFFFF</span>
+<span class="go">08FF12B7 4A9A011781003200</span>
+<span class="go">08FF13B7 4A9A0100FFFFFFFF</span>
+<span class="go">08FF14B7 4A9A0100000000FF</span>
+<span class="go">09F200B7 010000FFFF00FFFF</span>
+<span class="go">09F205B7 01FDFFFFFFFF00FF</span>
+<span class="go">08FF12C9 4A9A001781003C00</span>
+<span class="go">08FF13C9 4A9A0000FFFFFFFF</span>
+<span class="go">08FF14C9 4A9A0000000000FF</span>
+</pre></div>
+</div>
 <dl class="py method">
-<dt class="sig sig-object py" id="jasmine.nmea2000.NMEA2000Parser.unpack">
-<span class="sig-name descname"><span class="pre">unpack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#jasmine.nmea2000.NMEA2000Parser.unpack" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="marulc.nmea2000.NMEA2000Parser.unpack">
+<span class="sig-name descname"><span class="pre">unpack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#marulc.nmea2000.NMEA2000Parser.unpack" title="Permalink to this definition"></a></dt>
 <dd><p>Unpack a message using this parser</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -448,8 +477,8 @@ callables returning a parsed message for the specific sentence formatter.</p></l
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="jasmine.nmea2000.get_description_for_pgn">
-<span class="sig-prename descclassname"><span class="pre">jasmine.nmea2000.</span></span><span class="sig-name descname"><span class="pre">get_description_for_pgn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#jasmine.nmea2000.get_description_for_pgn" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="marulc.nmea2000.get_description_for_pgn">
+<span class="sig-prename descclassname"><span class="pre">marulc.nmea2000.</span></span><span class="sig-name descname"><span class="pre">get_description_for_pgn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#marulc.nmea2000.get_description_for_pgn" title="Permalink to this definition"></a></dt>
 <dd><p>Get the description and template for this pgn in the format of a python
 dictionary</p>
 <dl class="field-list simple">
@@ -466,8 +495,8 @@ dictionary</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="jasmine.nmea2000.packet_field_decoder">
-<span class="sig-prename descclassname"><span class="pre">jasmine.nmea2000.</span></span><span class="sig-name descname"><span class="pre">packet_field_decoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bitstruct.CompiledFormat</span></span></span><a class="headerlink" href="#jasmine.nmea2000.packet_field_decoder" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="marulc.nmea2000.packet_field_decoder">
+<span class="sig-prename descclassname"><span class="pre">marulc.nmea2000.</span></span><span class="sig-name descname"><span class="pre">packet_field_decoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bitstruct.CompiledFormat</span></span></span><a class="headerlink" href="#marulc.nmea2000.packet_field_decoder" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a pre-compiled bit field decoder for the message definition
 associated with this PGn number</p>
 <dl class="field-list simple">
@@ -484,8 +513,8 @@ associated with this PGn number</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="jasmine.nmea2000.packet_total_length">
-<span class="sig-prename descclassname"><span class="pre">jasmine.nmea2000.</span></span><span class="sig-name descname"><span class="pre">packet_total_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#jasmine.nmea2000.packet_total_length" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="marulc.nmea2000.packet_total_length">
+<span class="sig-prename descclassname"><span class="pre">marulc.nmea2000.</span></span><span class="sig-name descname"><span class="pre">packet_total_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#marulc.nmea2000.packet_total_length" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the total length of the binary message associated with this PGN number</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -501,8 +530,8 @@ associated with this PGn number</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="jasmine.nmea2000.packet_type">
-<span class="sig-prename descclassname"><span class="pre">jasmine.nmea2000.</span></span><span class="sig-name descname"><span class="pre">packet_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#jasmine.nmea2000.packet_type" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="marulc.nmea2000.packet_type">
+<span class="sig-prename descclassname"><span class="pre">marulc.nmea2000.</span></span><span class="sig-name descname"><span class="pre">packet_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#marulc.nmea2000.packet_type" title="Permalink to this definition"></a></dt>
 <dd><p>Return the packet type associated with this PGN number</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -518,8 +547,8 @@ associated with this PGn number</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="jasmine.nmea2000.process_sub_packet">
-<span class="sig-prename descclassname"><span class="pre">jasmine.nmea2000.</span></span><span class="sig-name descname"><span class="pre">process_sub_packet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytearray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bucket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#jasmine.nmea2000.process_sub_packet" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="marulc.nmea2000.process_sub_packet">
+<span class="sig-prename descclassname"><span class="pre">marulc.nmea2000.</span></span><span class="sig-name descname"><span class="pre">process_sub_packet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytearray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bucket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#marulc.nmea2000.process_sub_packet" title="Permalink to this definition"></a></dt>
 <dd><p>Process a single subpacket part of a multi-packet n2k message. The following
 description of the protocol is taken from CANBOAT:</p>
 <p>NMEA 2000 uses the 8 ‘data’ bytes as follows for fast packet type:
@@ -542,9 +571,9 @@ bytes and 7 for remaining. Since the max index is 31, the maximal payload is
 </dd>
 <dt class="field-even">Raises</dt>
 <dd class="field-even"><ul class="simple">
-<li><p><a class="reference internal" href="#jasmine.exceptions.MultiPacketDiscardedError" title="jasmine.exceptions.MultiPacketDiscardedError"><strong>MultiPacketDiscardedError</strong></a> – If this subpacket is discarded due to missing
+<li><p><a class="reference internal" href="#marulc.exceptions.MultiPacketDiscardedError" title="marulc.exceptions.MultiPacketDiscardedError"><strong>MultiPacketDiscardedError</strong></a> – If this subpacket is discarded due to missing
     messages</p></li>
-<li><p><a class="reference internal" href="#jasmine.exceptions.MultiPacketInProcessError" title="jasmine.exceptions.MultiPacketInProcessError"><strong>MultiPacketInProcessError</strong></a> – If this subpacket has been processed successfully
+<li><p><a class="reference internal" href="#marulc.exceptions.MultiPacketInProcessError" title="marulc.exceptions.MultiPacketInProcessError"><strong>MultiPacketInProcessError</strong></a> – If this subpacket has been processed successfully
     but we require more subpackets to be able to decode the full message</p></li>
 </ul>
 </dd>
@@ -558,8 +587,8 @@ bytes and 7 for remaining. Since the max index is 31, the maximal payload is
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="jasmine.nmea2000.unpack_complete_message">
-<span class="sig-prename descclassname"><span class="pre">jasmine.nmea2000.</span></span><span class="sig-name descname"><span class="pre">unpack_complete_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytearray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#jasmine.nmea2000.unpack_complete_message" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="marulc.nmea2000.unpack_complete_message">
+<span class="sig-prename descclassname"><span class="pre">marulc.nmea2000.</span></span><span class="sig-name descname"><span class="pre">unpack_complete_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytearray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#marulc.nmea2000.unpack_complete_message" title="Permalink to this definition"></a></dt>
 <dd><p>Unpack a complete n2k message associated with this PGN number</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -578,8 +607,8 @@ bytes and 7 for remaining. Since the max index is 31, the maximal payload is
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="jasmine.nmea2000.unpack_fields">
-<span class="sig-prename descclassname"><span class="pre">jasmine.nmea2000.</span></span><span class="sig-name descname"><span class="pre">unpack_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytearray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#jasmine.nmea2000.unpack_fields" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="marulc.nmea2000.unpack_fields">
+<span class="sig-prename descclassname"><span class="pre">marulc.nmea2000.</span></span><span class="sig-name descname"><span class="pre">unpack_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytearray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#marulc.nmea2000.unpack_fields" title="Permalink to this definition"></a></dt>
 <dd><p>Unpack all fields of a complete binary message into a python dictionary</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -598,8 +627,8 @@ bytes and 7 for remaining. Since the max index is 31, the maximal payload is
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="jasmine.nmea2000.unpack_header">
-<span class="sig-prename descclassname"><span class="pre">jasmine.nmea2000.</span></span><span class="sig-name descname"><span class="pre">unpack_header</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytearray</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#jasmine.nmea2000.unpack_header" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="marulc.nmea2000.unpack_header">
+<span class="sig-prename descclassname"><span class="pre">marulc.nmea2000.</span></span><span class="sig-name descname"><span class="pre">unpack_header</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytearray</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#marulc.nmea2000.unpack_header" title="Permalink to this definition"></a></dt>
 <dd><p>Unpack the N2K header into priority, PGN number and source address.
 See <a class="reference external" href="https://www.kvaser.com/about-can/higher-layer-protocols/j1939-introduction/">https://www.kvaser.com/about-can/higher-layer-protocols/j1939-introduction/</a>
 for more details.</p>
@@ -617,14 +646,14 @@ for more details.</p>
 </dd></dl>
 
 </section>
-<section id="module-jasmine.utils">
-<span id="submodule-jasmine-utils"></span><h3>Submodule (<a class="reference internal" href="#module-jasmine.utils" title="jasmine.utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">jasmine.utils</span></code></a>)<a class="headerlink" href="#module-jasmine.utils" title="Permalink to this headline"></a></h3>
+<section id="module-marulc.utils">
+<span id="submodule-marulc-utils"></span><h3>Submodule (<a class="reference internal" href="#module-marulc.utils" title="marulc.utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">marulc.utils</span></code></a>)<a class="headerlink" href="#module-marulc.utils" title="Permalink to this headline"></a></h3>
 <p>Utility functions</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="jasmine.utils.deep_get">
-<span class="sig-prename descclassname"><span class="pre">jasmine.utils.</span></span><span class="sig-name descname"><span class="pre">deep_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dikt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#jasmine.utils.deep_get" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="marulc.utils.deep_get">
+<span class="sig-prename descclassname"><span class="pre">marulc.utils.</span></span><span class="sig-name descname"><span class="pre">deep_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dikt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#marulc.utils.deep_get" title="Permalink to this definition"></a></dt>
 <dd><p>A “deep getter” for nested dictionaries</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jasmine.utils</span> <span class="kn">import</span> <span class="n">deep_get</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">marulc.utils</span> <span class="kn">import</span> <span class="n">deep_get</span>
 
 <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;B&quot;</span><span class="p">:{</span><span class="s2">&quot;C&quot;</span><span class="p">:</span><span class="s2">&quot;3}}}</span>
 <span class="n">deep_get</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">)</span> <span class="c1"># Returns 3</span>
@@ -651,11 +680,11 @@ followed. Defaults to None.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="jasmine.utils.filter_on_pgn">
-<span class="sig-prename descclassname"><span class="pre">jasmine.utils.</span></span><span class="sig-name descname"><span class="pre">filter_on_pgn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">PGNs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#jasmine.utils.filter_on_pgn" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="marulc.utils.filter_on_pgn">
+<span class="sig-prename descclassname"><span class="pre">marulc.utils.</span></span><span class="sig-name descname"><span class="pre">filter_on_pgn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">PGNs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#marulc.utils.filter_on_pgn" title="Permalink to this definition"></a></dt>
 <dd><p>Create filter that filters on specific PGN numbers</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jasmine</span> <span class="kn">import</span> <span class="n">parse_from_iterator</span>
-<span class="kn">from</span> <span class="nn">jasmine.utils</span> <span class="kn">import</span> <span class="n">filter_on_pgn</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">marulc</span> <span class="kn">import</span> <span class="n">parse_from_iterator</span>
+<span class="kn">from</span> <span class="nn">marulc.utils</span> <span class="kn">import</span> <span class="n">filter_on_pgn</span>
 
 <span class="n">source</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;nmea_log.txt&quot;</span><span class="p">)</span>
 <span class="n">filtered</span> <span class="o">=</span> <span class="n">filter_on_pgn</span><span class="p">(</span><span class="mi">127488</span><span class="p">)(</span><span class="n">parse_from_iterator</span><span class="p">(</span><span class="n">source</span><span class="p">))</span>
@@ -676,11 +705,11 @@ followed. Defaults to None.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="jasmine.utils.filter_on_talker_formatter">
-<span class="sig-prename descclassname"><span class="pre">jasmine.utils.</span></span><span class="sig-name descname"><span class="pre">filter_on_talker_formatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">regexes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#jasmine.utils.filter_on_talker_formatter" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="marulc.utils.filter_on_talker_formatter">
+<span class="sig-prename descclassname"><span class="pre">marulc.utils.</span></span><span class="sig-name descname"><span class="pre">filter_on_talker_formatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">regexes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#marulc.utils.filter_on_talker_formatter" title="Permalink to this definition"></a></dt>
 <dd><p>Create filter that filters on specific talkers and/or sentence formatters</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jasmine</span> <span class="kn">import</span> <span class="n">parse_from_iterator</span>
-<span class="kn">from</span> <span class="nn">jasmine.utils</span> <span class="kn">import</span> <span class="n">filter_on_talker_formatter</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">marulc</span> <span class="kn">import</span> <span class="n">parse_from_iterator</span>
+<span class="kn">from</span> <span class="nn">marulc.utils</span> <span class="kn">import</span> <span class="n">filter_on_talker_formatter</span>
 
 <span class="n">source</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;nmea_log.txt&quot;</span><span class="p">)</span>
 <span class="n">filtered</span> <span class="o">=</span> <span class="n">filter_on_talker_formatter</span><span class="p">(</span><span class="s2">&quot;..GGA&quot;</span><span class="p">,</span> <span class="s2">&quot;PASHR&quot;</span><span class="p">)(</span><span class="n">parse_from_iterator</span><span class="p">(</span><span class="n">source</span><span class="p">))</span>
@@ -701,8 +730,8 @@ will be matched against a “Talker” and “Formatter” key combination.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="jasmine.utils.parse_from_iterator">
-<span class="sig-prename descclassname"><span class="pre">jasmine.utils.</span></span><span class="sig-name descname"><span class="pre">parse_from_iterator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">jasmine.parser_bases.RawParserBase</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#jasmine.utils.parse_from_iterator" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="marulc.utils.parse_from_iterator">
+<span class="sig-prename descclassname"><span class="pre">marulc.utils.</span></span><span class="sig-name descname"><span class="pre">parse_from_iterator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">marulc.parser_bases.RawParserBase</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#marulc.utils.parse_from_iterator" title="Permalink to this definition"></a></dt>
 <dd><p>Helper function for unpacking NMEA sentences from an iterable source</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
@@ -724,49 +753,49 @@ silenced. Defaults to False.</p></li>
 </dd></dl>
 
 </section>
-<section id="module-jasmine.exceptions">
-<span id="submodule-jasmine-exceptions"></span><h3>Submodule (<a class="reference internal" href="#module-jasmine.exceptions" title="jasmine.exceptions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">jasmine.exceptions</span></code></a>)<a class="headerlink" href="#module-jasmine.exceptions" title="Permalink to this headline"></a></h3>
+<section id="module-marulc.exceptions">
+<span id="submodule-marulc-exceptions"></span><h3>Submodule (<a class="reference internal" href="#module-marulc.exceptions" title="marulc.exceptions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">marulc.exceptions</span></code></a>)<a class="headerlink" href="#module-marulc.exceptions" title="Permalink to this headline"></a></h3>
 <p>Custom exceptions</p>
 <dl class="py exception">
-<dt class="sig sig-object py" id="jasmine.exceptions.ChecksumError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jasmine.exceptions.</span></span><span class="sig-name descname"><span class="pre">ChecksumError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#jasmine.exceptions.ChecksumError" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#jasmine.exceptions.ParseError" title="jasmine.exceptions.ParseError"><code class="xref py py-class docutils literal notranslate"><span class="pre">jasmine.exceptions.ParseError</span></code></a></p>
+<dt class="sig sig-object py" id="marulc.exceptions.ChecksumError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">marulc.exceptions.</span></span><span class="sig-name descname"><span class="pre">ChecksumError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#marulc.exceptions.ChecksumError" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#marulc.exceptions.ParseError" title="marulc.exceptions.ParseError"><code class="xref py py-class docutils literal notranslate"><span class="pre">marulc.exceptions.ParseError</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
-<dt class="sig sig-object py" id="jasmine.exceptions.MultiPacketDiscardedError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jasmine.exceptions.</span></span><span class="sig-name descname"><span class="pre">MultiPacketDiscardedError</span></span><a class="headerlink" href="#jasmine.exceptions.MultiPacketDiscardedError" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#jasmine.exceptions.MultiPacketError" title="jasmine.exceptions.MultiPacketError"><code class="xref py py-class docutils literal notranslate"><span class="pre">jasmine.exceptions.MultiPacketError</span></code></a></p>
+<dt class="sig sig-object py" id="marulc.exceptions.MultiPacketDiscardedError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">marulc.exceptions.</span></span><span class="sig-name descname"><span class="pre">MultiPacketDiscardedError</span></span><a class="headerlink" href="#marulc.exceptions.MultiPacketDiscardedError" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#marulc.exceptions.MultiPacketError" title="marulc.exceptions.MultiPacketError"><code class="xref py py-class docutils literal notranslate"><span class="pre">marulc.exceptions.MultiPacketError</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
-<dt class="sig sig-object py" id="jasmine.exceptions.MultiPacketError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jasmine.exceptions.</span></span><span class="sig-name descname"><span class="pre">MultiPacketError</span></span><a class="headerlink" href="#jasmine.exceptions.MultiPacketError" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="marulc.exceptions.MultiPacketError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">marulc.exceptions.</span></span><span class="sig-name descname"><span class="pre">MultiPacketError</span></span><a class="headerlink" href="#marulc.exceptions.MultiPacketError" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeError</span></code></p>
 </dd></dl>
 
 <dl class="py exception">
-<dt class="sig sig-object py" id="jasmine.exceptions.MultiPacketInProcessError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jasmine.exceptions.</span></span><span class="sig-name descname"><span class="pre">MultiPacketInProcessError</span></span><a class="headerlink" href="#jasmine.exceptions.MultiPacketInProcessError" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#jasmine.exceptions.MultiPacketError" title="jasmine.exceptions.MultiPacketError"><code class="xref py py-class docutils literal notranslate"><span class="pre">jasmine.exceptions.MultiPacketError</span></code></a></p>
+<dt class="sig sig-object py" id="marulc.exceptions.MultiPacketInProcessError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">marulc.exceptions.</span></span><span class="sig-name descname"><span class="pre">MultiPacketInProcessError</span></span><a class="headerlink" href="#marulc.exceptions.MultiPacketInProcessError" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#marulc.exceptions.MultiPacketError" title="marulc.exceptions.MultiPacketError"><code class="xref py py-class docutils literal notranslate"><span class="pre">marulc.exceptions.MultiPacketError</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
-<dt class="sig sig-object py" id="jasmine.exceptions.PGNError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jasmine.exceptions.</span></span><span class="sig-name descname"><span class="pre">PGNError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#jasmine.exceptions.PGNError" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#jasmine.exceptions.ParseError" title="jasmine.exceptions.ParseError"><code class="xref py py-class docutils literal notranslate"><span class="pre">jasmine.exceptions.ParseError</span></code></a></p>
+<dt class="sig sig-object py" id="marulc.exceptions.PGNError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">marulc.exceptions.</span></span><span class="sig-name descname"><span class="pre">PGNError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#marulc.exceptions.PGNError" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#marulc.exceptions.ParseError" title="marulc.exceptions.ParseError"><code class="xref py py-class docutils literal notranslate"><span class="pre">marulc.exceptions.ParseError</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
-<dt class="sig sig-object py" id="jasmine.exceptions.ParseError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jasmine.exceptions.</span></span><span class="sig-name descname"><span class="pre">ParseError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#jasmine.exceptions.ParseError" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="marulc.exceptions.ParseError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">marulc.exceptions.</span></span><span class="sig-name descname"><span class="pre">ParseError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#marulc.exceptions.ParseError" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></p>
 </dd></dl>
 
 <dl class="py exception">
-<dt class="sig sig-object py" id="jasmine.exceptions.SentenceTypeError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jasmine.exceptions.</span></span><span class="sig-name descname"><span class="pre">SentenceTypeError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#jasmine.exceptions.SentenceTypeError" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#jasmine.exceptions.ParseError" title="jasmine.exceptions.ParseError"><code class="xref py py-class docutils literal notranslate"><span class="pre">jasmine.exceptions.ParseError</span></code></a></p>
+<dt class="sig sig-object py" id="marulc.exceptions.SentenceTypeError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">marulc.exceptions.</span></span><span class="sig-name descname"><span class="pre">SentenceTypeError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#marulc.exceptions.SentenceTypeError" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#marulc.exceptions.ParseError" title="marulc.exceptions.ParseError"><code class="xref py py-class docutils literal notranslate"><span class="pre">marulc.exceptions.ParseError</span></code></a></p>
 </dd></dl>
 
 </section>
