@@ -3,7 +3,7 @@ import json
 from pynmea2.nmea import TalkerSentence, ProprietarySentence
 
 out = {
-    "Talkers": {},
+    "Standard": {},
     "Proprietary": {},
 }
 
@@ -20,7 +20,7 @@ for subclass in TalkerSentence.__subclasses__():
                     "Description": field[0],
                 }
             )
-        out["Talkers"][name] = {
+        out["Standard"][name] = {
             "Fields": fields,
             "Description": descr,
         }
