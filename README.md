@@ -17,6 +17,8 @@ Main features:
 
 Since everything is parsed and decoded into regular python dictionaries, serialization to JSON format is very simple.
 
+Documentation: https://mo-rise.github.io/marulc/
+
 ## Definitions for parsing and decoding
 For NMEA0183, definitions have been extracted from the class-based hierarchy of pynmea2 and copmiled into a JSON definition. It can be found [here](https://github.com/RISE-MO/marulc/blob/master/marulc/nmea0183_sentence_formatters.json). The script for extracting these definitions from the pynmea2 source code is available in the ``scripts``-folder.
 
