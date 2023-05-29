@@ -29,7 +29,6 @@ def test_unpack_PGN_message_correct():
 
 
 def test_reversal_of_byte_ordering():
-
     textual1 = ["01F200", "2838", "FFFF7F00000CB201"]
     textual2 = ["01F200", "2838", "01B20C00007FFFFF"]
 

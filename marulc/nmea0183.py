@@ -242,7 +242,6 @@ def unpack_nmea0183_message(  # pylint: disable=too-many-locals, too-many-statem
     # Is this a proprietary sentence?
     proprietary_match = PROPRIETARY_REGEX.match(sentence_type)
     if proprietary_match:
-
         manufacturer = proprietary_match.group("manufacturer")
 
         # Try to figure out the identifier of the message type

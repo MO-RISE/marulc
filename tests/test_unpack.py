@@ -17,7 +17,6 @@ THIS_DIR = Path(__file__).parent
 
 
 def test_unpack_known_regular_nmea_message(pinned):
-
     assert (
         unpack_nmea0183_message(
             "$GNGGA,122203.19,5741.1549,N,01153.1748,E,4,37,0.5,4.03,M,35.78,M,,*72"
@@ -27,14 +26,12 @@ def test_unpack_known_regular_nmea_message(pinned):
 
 
 def test_unpack_MXPGN_single_packet_nmea2k_message(pinned):
-
     parser = NMEA0183Parser([MXPGNFormatter()])
 
     assert parser.unpack("$MXPGN,01F200,2856,01B20C00007FFFFF*6F") == pinned
 
 
 def test_unpack_MXPGN_multi_packet_nmea2k_message(pinned):
-
     parser = NMEA0183Parser([MXPGNFormatter()])
 
     multi_packet_message = [
@@ -59,7 +56,6 @@ def test_unpack_MXPGN_multi_packet_nmea2k_message(pinned):
 
 
 def test_unpack_PCDIN_packet_nmea2k_message(pinned):
-
     parser = NMEA0183Parser([PCDINFormatter()])
 
     msg = parser.unpack(
@@ -70,7 +66,6 @@ def test_unpack_PCDIN_packet_nmea2k_message(pinned):
 
 
 def test_parse_from_iterator(pinned):
-
     parser = NMEA0183Parser([MXPGNFormatter(), PCDINFormatter()])
 
     with (THIS_DIR / "nmea_test_log.txt").open() as f_handle:
@@ -93,7 +88,6 @@ def test_parse_from_iterator(pinned):
 
 
 def test_unpack_N2K_single_frame_message(pinned):
-
     parser = NMEA2000Parser()
 
     single_frame_message = "09F10D0A FF 00 00 00 FF 7F FF FF"
@@ -104,7 +98,6 @@ def test_unpack_N2K_single_frame_message(pinned):
 
 
 def test_unpack_N2K_multi_frame_message(pinned):
-
     parser = NMEA2000Parser()
 
     multi_packet_message = [

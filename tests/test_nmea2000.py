@@ -19,7 +19,6 @@ from marulc.exceptions import (
 
 
 def test_unpack_header():
-
     ## Rudder message
     sa, pgn, prio = unpack_header(unhexlify("09F10DE5"))
     assert sa == 229
