@@ -1005,6 +1005,14 @@
                 {
                     "Id": "mag_var_dir",
                     "Description": "Magnetic Variation Direction"
+                },
+                {
+                    "Id": "mode_indicator",
+                    "Description": "Mode Indicator"
+                },
+                {
+                    "Id": "nav_status",
+                    "Description": "Navigational Status"
                 }
             ],
             "Description": "Recommended Minimum Specific GPS/TRANSIT Data"
@@ -2104,17 +2112,13 @@
                 }
             ],
             "Description": ""
-        },
-        "PGN": {
-            "Fields": [],
-            "Description": "PGN messages"
         }
     },
     "Proprietary": {
         "ASH": {
             "Decription": "Generic Ashtech Response Message",
             "Sentences": {
-                "R": {
+                "RATT": {
                     "Fields": [
                         {
                             "Id": "_r",
@@ -2141,7 +2145,7 @@
                             "Description": "Pitch Angle"
                         },
                         {
-                            "Id": "heading",
+                            "Id": "heave",
                             "Description": "Heave"
                         },
                         {
@@ -3380,30 +3384,590 @@
                 }
             }
         },
-        "FEC": {
+        "NOR": {
             "Decription": "",
             "Sentences": {
-                "GPatt": {
+                "BT0": {
                     "Fields": [
                         {
-                            "Id": "_r",
-                            "Description": "R"
+                            "Id": "beam",
+                            "Description": "Beam number"
                         },
                         {
-                            "Id": "subtype",
-                            "Description": "Subtype"
+                            "Id": "datestamp",
+                            "Description": "Date"
+                        },
+                        {
+                            "Id": "timestamp",
+                            "Description": "Time"
+                        },
+                        {
+                            "Id": "dt1",
+                            "Description": "Time (Trigger)"
+                        },
+                        {
+                            "Id": "dt2",
+                            "Description": "Time (NMEA)"
+                        },
+                        {
+                            "Id": "bv",
+                            "Description": "Beam Velocity"
+                        },
+                        {
+                            "Id": "fom",
+                            "Description": "Figure of Merit"
+                        },
+                        {
+                            "Id": "dist",
+                            "Description": "Vertical Distance"
+                        },
+                        {
+                            "Id": "stat",
+                            "Description": "Status "
+                        }
+                    ],
+                    "Description": ""
+                },
+                "BT4": {
+                    "Fields": [
+                        {
+                            "Id": "dt1",
+                            "Description": "Time (Trigger)"
+                        },
+                        {
+                            "Id": "dt2",
+                            "Description": "Time (NMEA)"
+                        },
+                        {
+                            "Id": "sound_speed",
+                            "Description": "Speed of Sound"
+                        },
+                        {
+                            "Id": "dir",
+                            "Description": "Direction"
+                        },
+                        {
+                            "Id": "fom",
+                            "Description": "Figure of Merit"
+                        },
+                        {
+                            "Id": "dist",
+                            "Description": "Vertical Distance"
+                        }
+                    ],
+                    "Description": ""
+                },
+                "BT7": {
+                    "Fields": [
+                        {
+                            "Id": "timestamp",
+                            "Description": "Ping Time"
+                        },
+                        {
+                            "Id": "dt1",
+                            "Description": "Time (Trigger)"
+                        },
+                        {
+                            "Id": "dt2",
+                            "Description": "Time (NMEA)"
+                        },
+                        {
+                            "Id": "vx",
+                            "Description": "Velocity X"
+                        },
+                        {
+                            "Id": "vy",
+                            "Description": "Velocity Y"
+                        },
+                        {
+                            "Id": "vz",
+                            "Description": "Velocity Z"
+                        },
+                        {
+                            "Id": "fom",
+                            "Description": "Figure of Merit"
+                        },
+                        {
+                            "Id": "d1",
+                            "Description": "Vertical Distance Beam 1"
+                        },
+                        {
+                            "Id": "d2",
+                            "Description": "Vertical Distance Beam 2"
+                        },
+                        {
+                            "Id": "d3",
+                            "Description": "Vertical Distance Beam 3"
+                        },
+                        {
+                            "Id": "d4",
+                            "Description": "Vertical Distance Beam 4"
+                        }
+                    ],
+                    "Description": ""
+                },
+                "BT9": {
+                    "Fields": [
+                        {
+                            "Id": "timestamp",
+                            "Description": "Ping Time"
+                        },
+                        {
+                            "Id": "dt1",
+                            "Description": "Time (Trigger)"
+                        },
+                        {
+                            "Id": "dt2",
+                            "Description": "Time (NMEA)"
+                        },
+                        {
+                            "Id": "vx",
+                            "Description": "Velocity X"
+                        },
+                        {
+                            "Id": "vy",
+                            "Description": "Velocity Y"
+                        },
+                        {
+                            "Id": "vz",
+                            "Description": "Velocity Z"
+                        },
+                        {
+                            "Id": "fom",
+                            "Description": "Figure of Merit"
+                        },
+                        {
+                            "Id": "d1",
+                            "Description": "Vertical Distance Beam 1"
+                        },
+                        {
+                            "Id": "d2",
+                            "Description": "Vertical Distance Beam 2"
+                        },
+                        {
+                            "Id": "d3",
+                            "Description": "Vertical Distance Beam 3"
+                        },
+                        {
+                            "Id": "d4",
+                            "Description": "Vertical Distance Beam 4"
+                        },
+                        {
+                            "Id": "battery_voltage",
+                            "Description": "Battery Voltage"
+                        },
+                        {
+                            "Id": "sound_speed",
+                            "Description": "Speed of Sound"
+                        },
+                        {
+                            "Id": "pressure",
+                            "Description": "Pressure"
+                        },
+                        {
+                            "Id": "temp",
+                            "Description": "Temperature"
+                        },
+                        {
+                            "Id": "stat",
+                            "Description": "Status "
+                        }
+                    ],
+                    "Description": ""
+                },
+                "WT4": {
+                    "Fields": [
+                        {
+                            "Id": "dt1",
+                            "Description": "Time Trigger "
+                        },
+                        {
+                            "Id": "dt2",
+                            "Description": "Time NMEA"
+                        },
+                        {
+                            "Id": "sound_speed",
+                            "Description": "Speed of sound"
+                        },
+                        {
+                            "Id": "dir",
+                            "Description": "Direction"
+                        },
+                        {
+                            "Id": "fom",
+                            "Description": "Figure of Merit"
+                        },
+                        {
+                            "Id": "dist",
+                            "Description": "Vertical Distance"
+                        }
+                    ],
+                    "Description": ""
+                },
+                "WT7": {
+                    "Fields": [
+                        {
+                            "Id": "timestamp",
+                            "Description": "Ping Time"
+                        },
+                        {
+                            "Id": "dt1",
+                            "Description": "Time (Trigger)"
+                        },
+                        {
+                            "Id": "dt2",
+                            "Description": "Time (NMEA)"
+                        },
+                        {
+                            "Id": "vx",
+                            "Description": "Velocity X"
+                        },
+                        {
+                            "Id": "vy",
+                            "Description": "Velocity Y"
+                        },
+                        {
+                            "Id": "vz",
+                            "Description": "Velocity Z"
+                        },
+                        {
+                            "Id": "fom",
+                            "Description": "Figure of Merit"
+                        },
+                        {
+                            "Id": "d1",
+                            "Description": "Vertical Distance Beam 1"
+                        },
+                        {
+                            "Id": "d2",
+                            "Description": "Vertical Distance Beam 2"
+                        },
+                        {
+                            "Id": "d3",
+                            "Description": "Vertical Distance Beam 3"
+                        },
+                        {
+                            "Id": "d4",
+                            "Description": "Vertical Distance Beam 4"
+                        }
+                    ],
+                    "Description": ""
+                },
+                "WT9": {
+                    "Fields": [
+                        {
+                            "Id": "timestamp",
+                            "Description": "Ping Time"
+                        },
+                        {
+                            "Id": "dt1",
+                            "Description": "Time (Trigger)"
+                        },
+                        {
+                            "Id": "dt2",
+                            "Description": "Time (NMEA)"
+                        },
+                        {
+                            "Id": "vx",
+                            "Description": "Velocity X"
+                        },
+                        {
+                            "Id": "vy",
+                            "Description": "Velocity Y"
+                        },
+                        {
+                            "Id": "vz",
+                            "Description": "Velocity Z"
+                        },
+                        {
+                            "Id": "fom",
+                            "Description": "Figure of Merit"
+                        },
+                        {
+                            "Id": "d1",
+                            "Description": "Vertical Distance Beam 1"
+                        },
+                        {
+                            "Id": "d2",
+                            "Description": "Vertical Distance Beam 2"
+                        },
+                        {
+                            "Id": "d3",
+                            "Description": "Vertical Distance Beam 3"
+                        },
+                        {
+                            "Id": "d4",
+                            "Description": "Vertical Distance Beam 4"
+                        },
+                        {
+                            "Id": "battery_voltage",
+                            "Description": "Battery Voltage"
+                        },
+                        {
+                            "Id": "sound_speed",
+                            "Description": "Speed of Sound"
+                        },
+                        {
+                            "Id": "pressure",
+                            "Description": "Pressure"
+                        },
+                        {
+                            "Id": "temp",
+                            "Description": "Temperature"
+                        },
+                        {
+                            "Id": "stat",
+                            "Description": "Status "
+                        }
+                    ],
+                    "Description": ""
+                },
+                "I1": {
+                    "Fields": [
+                        {
+                            "Id": "it",
+                            "Description": "Instrument type"
+                        },
+                        {
+                            "Id": "sn",
+                            "Description": "Head ID"
+                        },
+                        {
+                            "Id": "nb",
+                            "Description": "Number of Beams"
+                        },
+                        {
+                            "Id": "nc",
+                            "Description": "Number of Cells"
+                        },
+                        {
+                            "Id": "bd",
+                            "Description": "Blanking Distance"
+                        },
+                        {
+                            "Id": "cs",
+                            "Description": "Cell Size"
+                        },
+                        {
+                            "Id": "cy",
+                            "Description": "Coordinate System"
+                        }
+                    ],
+                    "Description": ""
+                },
+                "S1": {
+                    "Fields": [
+                        {
+                            "Id": "datestamp",
+                            "Description": "Date"
+                        },
+                        {
+                            "Id": "timestamp",
+                            "Description": "Time"
+                        },
+                        {
+                            "Id": "ec",
+                            "Description": "Error Code"
+                        },
+                        {
+                            "Id": "sc",
+                            "Description": "Status Code"
+                        },
+                        {
+                            "Id": "battery_voltage",
+                            "Description": "Battery Voltage"
+                        },
+                        {
+                            "Id": "sound_speed",
+                            "Description": "Speed of Sound"
                         },
                         {
                             "Id": "heading",
-                            "Description": "Heading data"
+                            "Description": "Heading"
+                        },
+                        {
+                            "Id": "heading_std",
+                            "Description": "Heading Std. Dev."
                         },
                         {
                             "Id": "pitch",
-                            "Description": "Pitching data"
+                            "Description": "Pitch"
+                        },
+                        {
+                            "Id": "pitch_std",
+                            "Description": "Pitch Std. Dev."
                         },
                         {
                             "Id": "roll",
-                            "Description": "Rolling data"
+                            "Description": "Roll"
+                        },
+                        {
+                            "Id": "roll_std",
+                            "Description": "Roll Std. Dev."
+                        },
+                        {
+                            "Id": "pressure",
+                            "Description": "Pressure"
+                        },
+                        {
+                            "Id": "pressure_std",
+                            "Description": "Pressure Std. Dev."
+                        },
+                        {
+                            "Id": "temp",
+                            "Description": "Temperature"
+                        }
+                    ],
+                    "Description": ""
+                },
+                "S4": {
+                    "Fields": [
+                        {
+                            "Id": "battery_voltage",
+                            "Description": "Battery Voltage"
+                        },
+                        {
+                            "Id": "sound_speed",
+                            "Description": "Speed of Sound"
+                        },
+                        {
+                            "Id": "heading",
+                            "Description": "Heading"
+                        },
+                        {
+                            "Id": "pitch",
+                            "Description": "Pitch"
+                        },
+                        {
+                            "Id": "roll",
+                            "Description": "Roll"
+                        },
+                        {
+                            "Id": "pressure",
+                            "Description": "Pressure"
+                        },
+                        {
+                            "Id": "temp",
+                            "Description": "Temperature"
+                        }
+                    ],
+                    "Description": ""
+                },
+                "C1": {
+                    "Fields": [
+                        {
+                            "Id": "datestamp",
+                            "Description": "Date"
+                        },
+                        {
+                            "Id": "timestamp",
+                            "Description": "Time"
+                        },
+                        {
+                            "Id": "cn",
+                            "Description": "Cell Number"
+                        },
+                        {
+                            "Id": "cp",
+                            "Description": "Cell Position"
+                        },
+                        {
+                            "Id": "vx",
+                            "Description": "Velocity X"
+                        },
+                        {
+                            "Id": "vy",
+                            "Description": "Velocity Y"
+                        },
+                        {
+                            "Id": "vz",
+                            "Description": "Velocity Z"
+                        },
+                        {
+                            "Id": "vz2",
+                            "Description": "Velocity Z2"
+                        },
+                        {
+                            "Id": "amp1",
+                            "Description": "Amplitude Beam 1"
+                        },
+                        {
+                            "Id": "amp2",
+                            "Description": "Amplitude Beam 2"
+                        },
+                        {
+                            "Id": "amp3",
+                            "Description": "Amplitude Beam 3"
+                        },
+                        {
+                            "Id": "amp4",
+                            "Description": "Amplitude Beam 4"
+                        },
+                        {
+                            "Id": "r1",
+                            "Description": "Correlation Beam 1"
+                        },
+                        {
+                            "Id": "r2",
+                            "Description": "Correlation Beam 2"
+                        },
+                        {
+                            "Id": "r3",
+                            "Description": "Correlation Beam 3"
+                        },
+                        {
+                            "Id": "r4",
+                            "Description": "Correlation Beam 4"
+                        },
+                        {
+                            "Id": "r5",
+                            "Description": "Correlation Beam 4"
+                        }
+                    ],
+                    "Description": ""
+                },
+                "C4": {
+                    "Fields": [
+                        {
+                            "Id": "cp",
+                            "Description": "Cell Position"
+                        },
+                        {
+                            "Id": "sp",
+                            "Description": "Speed"
+                        },
+                        {
+                            "Id": "dir",
+                            "Description": "Direction"
+                        },
+                        {
+                            "Id": "r",
+                            "Description": "Correlation"
+                        },
+                        {
+                            "Id": "amp",
+                            "Description": "Amplitude"
+                        }
+                    ],
+                    "Description": ""
+                },
+                "H4": {
+                    "Fields": [
+                        {
+                            "Id": "datestamp",
+                            "Description": "Date"
+                        },
+                        {
+                            "Id": "timestamp",
+                            "Description": "Time"
+                        },
+                        {
+                            "Id": "ec",
+                            "Description": "Error Code"
+                        },
+                        {
+                            "Id": "sc",
+                            "Description": "Status Code"
                         }
                     ],
                     "Description": ""
