@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>marulc &mdash; marulc  documentation</title>
@@ -11,10 +11,11 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
@@ -25,11 +26,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="#" class="icon icon-home"> marulc
+
+          
+          
+          <a href="#" class="icon icon-home">
+            marulc
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -42,14 +47,56 @@
 <li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#example-usage">Example usage</a></li>
 <li><a class="reference internal" href="#development-setup">Development setup</a></li>
+<li><a class="reference internal" href="#license">License</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#api-reference">API Reference</a><ul>
 <li><a class="reference internal" href="#module-marulc">Package (<code class="xref py py-mod docutils literal notranslate"><span class="pre">marulc</span></code>)</a><ul>
-<li><a class="reference internal" href="#module-marulc.nmea0183">Submodule (<code class="xref py py-mod docutils literal notranslate"><span class="pre">marulc.nmea0183</span></code>)</a></li>
-<li><a class="reference internal" href="#module-marulc.nmea2000">Submodule (<code class="xref py py-mod docutils literal notranslate"><span class="pre">marulc.nmea2000</span></code>)</a></li>
-<li><a class="reference internal" href="#module-marulc.utils">Submodule (<code class="xref py py-mod docutils literal notranslate"><span class="pre">marulc.utils</span></code>)</a></li>
-<li><a class="reference internal" href="#module-marulc.exceptions">Submodule (<code class="xref py py-mod docutils literal notranslate"><span class="pre">marulc.exceptions</span></code>)</a></li>
+<li><a class="reference internal" href="#module-marulc.nmea0183">Submodule (<code class="xref py py-mod docutils literal notranslate"><span class="pre">marulc.nmea0183</span></code>)</a><ul>
+<li><a class="reference internal" href="#marulc.nmea0183.NMEA0183Parser"><code class="docutils literal notranslate"><span class="pre">NMEA0183Parser</span></code></a><ul>
+<li><a class="reference internal" href="#marulc.nmea0183.NMEA0183Parser.unpack"><code class="docutils literal notranslate"><span class="pre">NMEA0183Parser.unpack()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#marulc.nmea0183.calculate_checksum"><code class="docutils literal notranslate"><span class="pre">calculate_checksum()</span></code></a></li>
+<li><a class="reference internal" href="#marulc.nmea0183.get_description_for_sentence_formatter"><code class="docutils literal notranslate"><span class="pre">get_description_for_sentence_formatter()</span></code></a></li>
+<li><a class="reference internal" href="#marulc.nmea0183.parse_value"><code class="docutils literal notranslate"><span class="pre">parse_value()</span></code></a></li>
+<li><a class="reference internal" href="#marulc.nmea0183.unpack_nmea0183_message"><code class="docutils literal notranslate"><span class="pre">unpack_nmea0183_message()</span></code></a></li>
+<li><a class="reference internal" href="#marulc.nmea0183.unpack_using_definition"><code class="docutils literal notranslate"><span class="pre">unpack_using_definition()</span></code></a></li>
+<li><a class="reference internal" href="#marulc.nmea0183.unpack_using_proprietary"><code class="docutils literal notranslate"><span class="pre">unpack_using_proprietary()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-marulc.nmea2000">Submodule (<code class="xref py py-mod docutils literal notranslate"><span class="pre">marulc.nmea2000</span></code>)</a><ul>
+<li><a class="reference internal" href="#marulc.nmea2000.NMEA2000Parser"><code class="docutils literal notranslate"><span class="pre">NMEA2000Parser</span></code></a><ul>
+<li><a class="reference internal" href="#marulc.nmea2000.NMEA2000Parser.unpack"><code class="docutils literal notranslate"><span class="pre">NMEA2000Parser.unpack()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#marulc.nmea2000.get_description_for_pgn"><code class="docutils literal notranslate"><span class="pre">get_description_for_pgn()</span></code></a></li>
+<li><a class="reference internal" href="#marulc.nmea2000.packet_field_decoder"><code class="docutils literal notranslate"><span class="pre">packet_field_decoder()</span></code></a></li>
+<li><a class="reference internal" href="#marulc.nmea2000.packet_total_length"><code class="docutils literal notranslate"><span class="pre">packet_total_length()</span></code></a></li>
+<li><a class="reference internal" href="#marulc.nmea2000.packet_type"><code class="docutils literal notranslate"><span class="pre">packet_type()</span></code></a></li>
+<li><a class="reference internal" href="#marulc.nmea2000.process_sub_packet"><code class="docutils literal notranslate"><span class="pre">process_sub_packet()</span></code></a></li>
+<li><a class="reference internal" href="#marulc.nmea2000.unpack_complete_message"><code class="docutils literal notranslate"><span class="pre">unpack_complete_message()</span></code></a></li>
+<li><a class="reference internal" href="#marulc.nmea2000.unpack_fields"><code class="docutils literal notranslate"><span class="pre">unpack_fields()</span></code></a></li>
+<li><a class="reference internal" href="#marulc.nmea2000.unpack_header"><code class="docutils literal notranslate"><span class="pre">unpack_header()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-marulc.utils">Submodule (<code class="xref py py-mod docutils literal notranslate"><span class="pre">marulc.utils</span></code>)</a><ul>
+<li><a class="reference internal" href="#marulc.utils.deep_get"><code class="docutils literal notranslate"><span class="pre">deep_get()</span></code></a></li>
+<li><a class="reference internal" href="#marulc.utils.filter_on_pgn"><code class="docutils literal notranslate"><span class="pre">filter_on_pgn()</span></code></a></li>
+<li><a class="reference internal" href="#marulc.utils.filter_on_talker_formatter"><code class="docutils literal notranslate"><span class="pre">filter_on_talker_formatter()</span></code></a></li>
+<li><a class="reference internal" href="#marulc.utils.parse_from_iterator"><code class="docutils literal notranslate"><span class="pre">parse_from_iterator()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-marulc.exceptions">Submodule (<code class="xref py py-mod docutils literal notranslate"><span class="pre">marulc.exceptions</span></code>)</a><ul>
+<li><a class="reference internal" href="#marulc.exceptions.ChecksumError"><code class="docutils literal notranslate"><span class="pre">ChecksumError</span></code></a></li>
+<li><a class="reference internal" href="#marulc.exceptions.MultiPacketDiscardedError"><code class="docutils literal notranslate"><span class="pre">MultiPacketDiscardedError</span></code></a></li>
+<li><a class="reference internal" href="#marulc.exceptions.MultiPacketError"><code class="docutils literal notranslate"><span class="pre">MultiPacketError</span></code></a></li>
+<li><a class="reference internal" href="#marulc.exceptions.MultiPacketInProcessError"><code class="docutils literal notranslate"><span class="pre">MultiPacketInProcessError</span></code></a></li>
+<li><a class="reference internal" href="#marulc.exceptions.PGNError"><code class="docutils literal notranslate"><span class="pre">PGNError</span></code></a></li>
+<li><a class="reference internal" href="#marulc.exceptions.ParseError"><code class="docutils literal notranslate"><span class="pre">ParseError</span></code></a></li>
+<li><a class="reference internal" href="#marulc.exceptions.SentenceTypeError"><code class="docutils literal notranslate"><span class="pre">SentenceTypeError</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -70,8 +117,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
-      <li>marulc</li>
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">marulc</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -82,7 +129,7 @@
            <div itemprop="articleBody">
              
   <section id="marulc">
-<h1>marulc<a class="headerlink" href="#marulc" title="Permalink to this headline"></a></h1>
+<h1>marulc<a class="headerlink" href="#marulc" title="Permalink to this heading"></a></h1>
 <p><strong>M</strong>aritime <strong>U</strong>npack-<strong>L</strong>ookup-<strong>C</strong>onvert</p>
 <p>A library for parsing and unparsing (future feature) of maritime message formats. Currently supports:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">NMEA0183</span>
@@ -98,19 +145,19 @@
 </div>
 <p>Since everything is parsed and decoded into regular python dictionaries, serialization to JSON format is very simple.</p>
 <section id="definitions-for-parsing-and-decoding">
-<h2>Definitions for parsing and decoding<a class="headerlink" href="#definitions-for-parsing-and-decoding" title="Permalink to this headline"></a></h2>
+<h2>Definitions for parsing and decoding<a class="headerlink" href="#definitions-for-parsing-and-decoding" title="Permalink to this heading"></a></h2>
 <p>For NMEA0183, definitions have been extracted from the class-based hierarchy of pynmea2 and copmiled into a JSON definition. It can be found <a class="reference external" href="https://github.com/RISE-MO/marulc/blob/master/marulc/nmea0183_sentence_formatters.json">here</a>. The script for extracting these definitions from the pynmea2 source code is available in the <code class="docutils literal notranslate"><span class="pre">scripts</span></code>-folder.</p>
 <p>For NMEA2000, definitions are identical to what is being used in the <a class="reference external" href="https://github.com/canboat/canboat">CANBOAT</a> project. The definitions can be found <a class="reference external" href="https://github.com/RISE-MO/marulc/blob/master/marulc/nmea2000_pgn_specifications.json">here</a>.</p>
 </section>
 <section id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h2>
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h2>
 <p>From pypi:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">marulc</span>
 </pre></div>
 </div>
 </section>
 <section id="example-usage">
-<h2>Example usage<a class="headerlink" href="#example-usage" title="Permalink to this headline"></a></h2>
+<h2>Example usage<a class="headerlink" href="#example-usage" title="Permalink to this heading"></a></h2>
 <p><strong>Single NMEA0183 sentence using standard sentence library</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">marulc</span> <span class="kn">import</span> <span class="n">unpack_nmea0183_message</span>
 
@@ -264,16 +311,8 @@ Requires the <code class="docutils literal notranslate"><span class="pre">jsonpo
 </div>
 </section>
 <section id="development-setup">
-<h2>Development setup<a class="headerlink" href="#development-setup" title="Permalink to this headline"></a></h2>
-<p>Create a virtual environment:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">venv</span> <span class="n">venv</span>
-<span class="n">source</span> <span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
-</pre></div>
-</div>
-<p>Install the development requirements:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
-</pre></div>
-</div>
+<h2>Development setup<a class="headerlink" href="#development-setup" title="Permalink to this heading"></a></h2>
+<p>The repository includes a devcontainer setup which is the recommended way of creating a development environment. See <a class="reference external" href="https://code.visualstudio.com/docs/devcontainers/containers">here</a> for a generic get-started in VSCode.</p>
 <p>Run the formatter and linter:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">black</span> <span class="n">marulc</span> <span class="n">tests</span>
 <span class="n">pylint</span> <span class="n">marulc</span>
@@ -284,26 +323,30 @@ Requires the <code class="docutils literal notranslate"><span class="pre">jsonpo
 </pre></div>
 </div>
 </section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this heading"></a></h2>
+<p>See <a class="reference external" href="./LICENSE">LICENSE</a></p>
+</section>
 </section>
 <section id="api-reference">
-<h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline"></a></h1>
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this heading"></a></h1>
 <section id="module-marulc">
-<span id="package-marulc"></span><h2>Package (<a class="reference internal" href="#module-marulc" title="marulc"><code class="xref py py-mod docutils literal notranslate"><span class="pre">marulc</span></code></a>)<a class="headerlink" href="#module-marulc" title="Permalink to this headline"></a></h2>
+<span id="package-marulc"></span><h2>Package (<a class="reference internal" href="#module-marulc" title="marulc"><code class="xref py py-mod docutils literal notranslate"><span class="pre">marulc</span></code></a>)<a class="headerlink" href="#module-marulc" title="Permalink to this heading"></a></h2>
 <p>Maritime Unpack-Lookup-Convert</p>
 <section id="module-marulc.nmea0183">
-<span id="submodule-marulc-nmea0183"></span><h3>Submodule (<a class="reference internal" href="#module-marulc.nmea0183" title="marulc.nmea0183"><code class="xref py py-mod docutils literal notranslate"><span class="pre">marulc.nmea0183</span></code></a>)<a class="headerlink" href="#module-marulc.nmea0183" title="Permalink to this headline"></a></h3>
+<span id="submodule-marulc-nmea0183"></span><h3>Submodule (<a class="reference internal" href="#module-marulc.nmea0183" title="marulc.nmea0183"><code class="xref py py-mod docutils literal notranslate"><span class="pre">marulc.nmea0183</span></code></a>)<a class="headerlink" href="#module-marulc.nmea0183" title="Permalink to this heading"></a></h3>
 <p>Containing functionality for unpacking textual NMEA0183 messages</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="marulc.nmea0183.NMEA0183Parser">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">marulc.nmea0183.</span></span><span class="sig-name descname"><span class="pre">NMEA0183Parser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">custom_formatters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">marulc.parser_bases.NMEA0183FormatterBase</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#marulc.nmea0183.NMEA0183Parser" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">marulc.parser_bases.RawParserBase</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">marulc.nmea0183.</span></span><span class="sig-name descname"><span class="pre">NMEA0183Parser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">custom_formatters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">NMEA0183FormatterBase</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#marulc.nmea0183.NMEA0183Parser" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RawParserBase</span></code></p>
 <p>A parser for parsing raw NMEA0183 strings</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="marulc.nmea0183.NMEA0183Parser.unpack">
 <span class="sig-name descname"><span class="pre">unpack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#marulc.nmea0183.NMEA0183Parser.unpack" title="Permalink to this definition"></a></dt>
 <dd><p>Unpack a message using this parser</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>msg</strong> (<em>Any</em>) – Message to be unpacked</p>
 </dd>
 </dl>
@@ -316,13 +359,13 @@ Requires the <code class="docutils literal notranslate"><span class="pre">jsonpo
 <span class="sig-prename descclassname"><span class="pre">marulc.nmea0183.</span></span><span class="sig-name descname"><span class="pre">calculate_checksum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmea_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#marulc.nmea0183.calculate_checksum" title="Permalink to this definition"></a></dt>
 <dd><p>Calculate checksum from inputted raw nmea string</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>nmea_str</strong> (<em>str</em>) – Raw received nmea string</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Calculated checksum</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>int</p>
 </dd>
 </dl>
@@ -335,10 +378,10 @@ Requires the <code class="docutils literal notranslate"><span class="pre">jsonpo
 :param sentence_formatter: Sentence formatter
 :type sentence_formatter: str</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Description</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>dict</p>
 </dd>
 </dl>
@@ -346,16 +389,16 @@ Requires the <code class="docutils literal notranslate"><span class="pre">jsonpo
 
 <dl class="py function">
 <dt class="sig sig-object py" id="marulc.nmea0183.parse_value">
-<span class="sig-prename descclassname"><span class="pre">marulc.nmea0183.</span></span><span class="sig-name descname"><span class="pre">parse_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#marulc.nmea0183.parse_value" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">marulc.nmea0183.</span></span><span class="sig-name descname"><span class="pre">parse_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></span><a class="headerlink" href="#marulc.nmea0183.parse_value" title="Permalink to this definition"></a></dt>
 <dd><p>Parses a value to either str, int or float depending on format</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>value</strong> (<em>str</em>) – Inputted raw string</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Parsed output</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Union[str, int, float]</p>
 </dd>
 </dl>
@@ -363,11 +406,11 @@ Requires the <code class="docutils literal notranslate"><span class="pre">jsonpo
 
 <dl class="py function">
 <dt class="sig sig-object py" id="marulc.nmea0183.unpack_nmea0183_message">
-<span class="sig-prename descclassname"><span class="pre">marulc.nmea0183.</span></span><span class="sig-name descname"><span class="pre">unpack_nmea0183_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">standard_custom_formatters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proprietary_custom_formatters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#marulc.nmea0183.unpack_nmea0183_message" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">marulc.nmea0183.</span></span><span class="sig-name descname"><span class="pre">unpack_nmea0183_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">standard_custom_formatters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proprietary_custom_formatters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#marulc.nmea0183.unpack_nmea0183_message" title="Permalink to this definition"></a></dt>
 <dd><p>Parses a string representing a NMEA 0183 sentence, and returns a
 python dictionary with the unpacked sentence</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>line</strong> (<em>str</em>) – Raw NMEA0183 sentence</p></li>
 <li><p><strong>standard_custom_formatters</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>Callable</em><em>]</em><em>]</em>) – Dict with custom sentence
@@ -378,17 +421,17 @@ formatters. Keys are sentence formatter strings (ex. ‘PGN’) and values are
 callables returning a parsed message for the specific sentence formatter.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Raises</dt>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
 <li><p><a class="reference internal" href="#marulc.exceptions.ParseError" title="marulc.exceptions.ParseError"><strong>ParseError</strong></a> – If parsing of message fails</p></li>
 <li><p><a class="reference internal" href="#marulc.exceptions.ChecksumError" title="marulc.exceptions.ChecksumError"><strong>ChecksumError</strong></a> – If checksum does not match</p></li>
 <li><p><a class="reference internal" href="#marulc.exceptions.SentenceTypeError" title="marulc.exceptions.SentenceTypeError"><strong>SentenceTypeError</strong></a> – If the inputted NMEA sentence is of a type that is not supported</p></li>
 </ul>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Complete unpacked message</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>dict</p>
 </dd>
 </dl>
@@ -399,16 +442,16 @@ callables returning a parsed message for the specific sentence formatter.</p></l
 <span class="sig-prename descclassname"><span class="pre">marulc.nmea0183.</span></span><span class="sig-name descname"><span class="pre">unpack_using_definition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">definition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#marulc.nmea0183.unpack_using_definition" title="Permalink to this definition"></a></dt>
 <dd><p>Unpack a list of data elements using the provided definition</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>definition</strong> (<em>dict</em>) – Definition describing how the data should be interpreted</p></li>
 <li><p><strong>data</strong> (<em>list</em>) – Raw data elements</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Unpacked data including parsed values and descriptions</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
@@ -419,19 +462,19 @@ callables returning a parsed message for the specific sentence formatter.</p></l
 <span class="sig-prename descclassname"><span class="pre">marulc.nmea0183.</span></span><span class="sig-name descname"><span class="pre">unpack_using_proprietary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manufacturer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#marulc.nmea0183.unpack_using_proprietary" title="Permalink to this definition"></a></dt>
 <dd><p>Unpack a raw, proprietary message based on knowledge about the manufacturer</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>manufacturer</strong> (<em>str</em>) – Manufacturer acronym</p></li>
 <li><p><strong>data</strong> (<em>str</em>) – Raw data elements</p></li>
 </ul>
 </dd>
-<dt class="field-even">Raises</dt>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#marulc.exceptions.ParseError" title="marulc.exceptions.ParseError"><strong>ParseError</strong></a> – If a definition could not be found for this proprietary message</p>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Unpacked data including parsed values and descriptions</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>dict</p>
 </dd>
 </dl>
@@ -439,12 +482,12 @@ callables returning a parsed message for the specific sentence formatter.</p></l
 
 </section>
 <section id="module-marulc.nmea2000">
-<span id="submodule-marulc-nmea2000"></span><h3>Submodule (<a class="reference internal" href="#module-marulc.nmea2000" title="marulc.nmea2000"><code class="xref py py-mod docutils literal notranslate"><span class="pre">marulc.nmea2000</span></code></a>)<a class="headerlink" href="#module-marulc.nmea2000" title="Permalink to this headline"></a></h3>
+<span id="submodule-marulc-nmea2000"></span><h3>Submodule (<a class="reference internal" href="#module-marulc.nmea2000" title="marulc.nmea2000"><code class="xref py py-mod docutils literal notranslate"><span class="pre">marulc.nmea2000</span></code></a>)<a class="headerlink" href="#module-marulc.nmea2000" title="Permalink to this heading"></a></h3>
 <p>Containing functionality for unpacking binary n2k messages according to PGN-specific definitions</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="marulc.nmea2000.NMEA2000Parser">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">marulc.nmea2000.</span></span><span class="sig-name descname"><span class="pre">NMEA2000Parser</span></span><a class="headerlink" href="#marulc.nmea2000.NMEA2000Parser" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">marulc.parser_bases.RawParserBase</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RawParserBase</span></code></p>
 <p>A parser for parsing raw NMEA2000 CAN frames in hex format, example:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">09F201C9 41823C050000C0C8</span>
 <span class="go">09F201C9 421C00FFFFFFFFFF</span>
@@ -468,7 +511,7 @@ callables returning a parsed message for the specific sentence formatter.</p></l
 <span class="sig-name descname"><span class="pre">unpack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#marulc.nmea2000.NMEA2000Parser.unpack" title="Permalink to this definition"></a></dt>
 <dd><p>Unpack a message using this parser</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>msg</strong> (<em>Any</em>) – Message to be unpacked</p>
 </dd>
 </dl>
@@ -482,13 +525,13 @@ callables returning a parsed message for the specific sentence formatter.</p></l
 <dd><p>Get the description and template for this pgn in the format of a python
 dictionary</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>pgn</strong> (<em>int</em>) – PGN number</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Description</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
@@ -496,17 +539,17 @@ dictionary</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="marulc.nmea2000.packet_field_decoder">
-<span class="sig-prename descclassname"><span class="pre">marulc.nmea2000.</span></span><span class="sig-name descname"><span class="pre">packet_field_decoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bitstruct.CompiledFormat</span></span></span><a class="headerlink" href="#marulc.nmea2000.packet_field_decoder" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">marulc.nmea2000.</span></span><span class="sig-name descname"><span class="pre">packet_field_decoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">CompiledFormat</span></span></span><a class="headerlink" href="#marulc.nmea2000.packet_field_decoder" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a pre-compiled bit field decoder for the message definition
 associated with this PGn number</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>pgn</strong> (<em>int</em>) – PGN number</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Pre-compiled bit field decoder</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>bitstruct.CompiledFormat</p>
 </dd>
 </dl>
@@ -517,13 +560,13 @@ associated with this PGn number</p>
 <span class="sig-prename descclassname"><span class="pre">marulc.nmea2000.</span></span><span class="sig-name descname"><span class="pre">packet_total_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#marulc.nmea2000.packet_total_length" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the total length of the binary message associated with this PGN number</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>pgn</strong> (<em>int</em>) – PGN number</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Total length (number of bytes)</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>int</p>
 </dd>
 </dl>
@@ -534,13 +577,13 @@ associated with this PGn number</p>
 <span class="sig-prename descclassname"><span class="pre">marulc.nmea2000.</span></span><span class="sig-name descname"><span class="pre">packet_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#marulc.nmea2000.packet_type" title="Permalink to this definition"></a></dt>
 <dd><p>Return the packet type associated with this PGN number</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>pgn</strong> (<em>int</em>) – PGN number</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Packet type</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -561,7 +604,7 @@ This means that for ‘fast packets’ the first bucket (sub-packet) contains 6 
 bytes and 7 for remaining. Since the max index is 31, the maximal payload is
 6 + 31 * 7 = 223 bytes</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>pgn</strong> (<em>int</em>) – PGN number</p></li>
 <li><p><strong>address</strong> (<em>int</em>) – Source address of message</p></li>
@@ -569,7 +612,7 @@ bytes and 7 for remaining. Since the max index is 31, the maximal payload is
 <li><p><strong>bucket</strong> (<em>dict</em>) – Reference to temporary storage for partly parsed messages</p></li>
 </ul>
 </dd>
-<dt class="field-even">Raises</dt>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
 <li><p><a class="reference internal" href="#marulc.exceptions.MultiPacketDiscardedError" title="marulc.exceptions.MultiPacketDiscardedError"><strong>MultiPacketDiscardedError</strong></a> – If this subpacket is discarded due to missing
     messages</p></li>
@@ -577,10 +620,10 @@ bytes and 7 for remaining. Since the max index is 31, the maximal payload is
     but we require more subpackets to be able to decode the full message</p></li>
 </ul>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Complete, raw binary message stitched together from multiple subpackets</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>bytearray</p>
 </dd>
 </dl>
@@ -591,16 +634,16 @@ bytes and 7 for remaining. Since the max index is 31, the maximal payload is
 <span class="sig-prename descclassname"><span class="pre">marulc.nmea2000.</span></span><span class="sig-name descname"><span class="pre">unpack_complete_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytearray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#marulc.nmea2000.unpack_complete_message" title="Permalink to this definition"></a></dt>
 <dd><p>Unpack a complete n2k message associated with this PGN number</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>pgn</strong> (<em>int</em>) – PGN number</p></li>
 <li><p><strong>data</strong> (<em>bytearray</em>) – Complete, raw binary message as a bytearray</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Unpacked message as a python dictionary</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
@@ -611,16 +654,16 @@ bytes and 7 for remaining. Since the max index is 31, the maximal payload is
 <span class="sig-prename descclassname"><span class="pre">marulc.nmea2000.</span></span><span class="sig-name descname"><span class="pre">unpack_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pgn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytearray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#marulc.nmea2000.unpack_fields" title="Permalink to this definition"></a></dt>
 <dd><p>Unpack all fields of a complete binary message into a python dictionary</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>pgn</strong> (<em>int</em>) – PGN number</p></li>
 <li><p><strong>data</strong> (<em>bytearray</em>) – Complete, raw binary message as a bytearray</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Unpacked fields as a python dictionary</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
@@ -633,13 +676,13 @@ bytes and 7 for remaining. Since the max index is 31, the maximal payload is
 See <a class="reference external" href="https://www.kvaser.com/about-can/higher-layer-protocols/j1939-introduction/">https://www.kvaser.com/about-can/higher-layer-protocols/j1939-introduction/</a>
 for more details.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>header</strong> (<em>bytearray</em>) – The N2K header as a bytearray</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>(Source address, PGN, priority)</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>tuple (int, int, int)</p>
 </dd>
 </dl>
@@ -647,11 +690,11 @@ for more details.</p>
 
 </section>
 <section id="module-marulc.utils">
-<span id="submodule-marulc-utils"></span><h3>Submodule (<a class="reference internal" href="#module-marulc.utils" title="marulc.utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">marulc.utils</span></code></a>)<a class="headerlink" href="#module-marulc.utils" title="Permalink to this headline"></a></h3>
+<span id="submodule-marulc-utils"></span><h3>Submodule (<a class="reference internal" href="#module-marulc.utils" title="marulc.utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">marulc.utils</span></code></a>)<a class="headerlink" href="#module-marulc.utils" title="Permalink to this heading"></a></h3>
 <p>Utility functions</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="marulc.utils.deep_get">
-<span class="sig-prename descclassname"><span class="pre">marulc.utils.</span></span><span class="sig-name descname"><span class="pre">deep_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dikt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#marulc.utils.deep_get" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">marulc.utils.</span></span><span class="sig-name descname"><span class="pre">deep_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dikt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#marulc.utils.deep_get" title="Permalink to this definition"></a></dt>
 <dd><p>A “deep getter” for nested dictionaries</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">marulc.utils</span> <span class="kn">import</span> <span class="n">deep_get</span>
 
@@ -662,7 +705,7 @@ for more details.</p>
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dikt</strong> (<em>dict</em>) – Nested dictionary to operate on</p></li>
 <li><p><strong>*keys</strong> (<em>str</em>) – Any number of keys in descending level in hte nested dictionary.</p></li>
@@ -670,10 +713,10 @@ for more details.</p>
 followed. Defaults to None.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The value found at the bottom of the keys or the default value.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Any</p>
 </dd>
 </dl>
@@ -691,14 +734,14 @@ followed. Defaults to None.</p></li>
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>*PGNs</strong> (<em>str</em>) – Any number of PGN numbers that will be matched against a
 “PGN” key.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A pre-loaded filter callable</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Callable[[dict], bool]</p>
 </dd>
 </dl>
@@ -716,14 +759,14 @@ followed. Defaults to None.</p></li>
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>*regexes</strong> (<em>str</em>) – Any number of strings or regex expressions that
 will be matched against a “Talker” and “Formatter” key combination.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A pre-loaded filter callable</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Callable[[dict], bool]</p>
 </dd>
 </dl>
@@ -731,10 +774,10 @@ will be matched against a “Talker” and “Formatter” key combination.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="marulc.utils.parse_from_iterator">
-<span class="sig-prename descclassname"><span class="pre">marulc.utils.</span></span><span class="sig-name descname"><span class="pre">parse_from_iterator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">marulc.parser_bases.RawParserBase</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#marulc.utils.parse_from_iterator" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">marulc.utils.</span></span><span class="sig-name descname"><span class="pre">parse_from_iterator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">RawParserBase</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#marulc.utils.parse_from_iterator" title="Permalink to this definition"></a></dt>
 <dd><p>Helper function for unpacking NMEA sentences from an iterable source</p>
 <dl class="field-list">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>parser</strong> (<em>Type</em><em>[</em><em>RawParserBase</em><em>]</em>) – Parser conforming to the RawParser interface.</p></li>
 <li><p><strong>source</strong> (<em>Iterable</em><em>[</em><em>str</em><em>]</em>) – Iterable source which yields NMEA 0183 sentences</p></li>
@@ -742,7 +785,7 @@ will be matched against a “Talker” and “Formatter” key combination.</p>
 silenced. Defaults to False.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Yields</dt>
+<dt class="field-even">Yields<span class="colon">:</span></dt>
 <dd class="field-even"><p><em>Iterator[Iterable[dict]]</em> –</p>
 <dl class="simple">
 <dt>The next, complete, unpacked message as a python</dt><dd><p>dictionary.</p>
@@ -754,18 +797,18 @@ silenced. Defaults to False.</p></li>
 
 </section>
 <section id="module-marulc.exceptions">
-<span id="submodule-marulc-exceptions"></span><h3>Submodule (<a class="reference internal" href="#module-marulc.exceptions" title="marulc.exceptions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">marulc.exceptions</span></code></a>)<a class="headerlink" href="#module-marulc.exceptions" title="Permalink to this headline"></a></h3>
+<span id="submodule-marulc-exceptions"></span><h3>Submodule (<a class="reference internal" href="#module-marulc.exceptions" title="marulc.exceptions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">marulc.exceptions</span></code></a>)<a class="headerlink" href="#module-marulc.exceptions" title="Permalink to this heading"></a></h3>
 <p>Custom exceptions</p>
 <dl class="py exception">
 <dt class="sig sig-object py" id="marulc.exceptions.ChecksumError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">marulc.exceptions.</span></span><span class="sig-name descname"><span class="pre">ChecksumError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#marulc.exceptions.ChecksumError" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#marulc.exceptions.ParseError" title="marulc.exceptions.ParseError"><code class="xref py py-class docutils literal notranslate"><span class="pre">marulc.exceptions.ParseError</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#marulc.exceptions.ParseError" title="marulc.exceptions.ParseError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParseError</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="marulc.exceptions.MultiPacketDiscardedError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">marulc.exceptions.</span></span><span class="sig-name descname"><span class="pre">MultiPacketDiscardedError</span></span><a class="headerlink" href="#marulc.exceptions.MultiPacketDiscardedError" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#marulc.exceptions.MultiPacketError" title="marulc.exceptions.MultiPacketError"><code class="xref py py-class docutils literal notranslate"><span class="pre">marulc.exceptions.MultiPacketError</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#marulc.exceptions.MultiPacketError" title="marulc.exceptions.MultiPacketError"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiPacketError</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
@@ -777,13 +820,13 @@ silenced. Defaults to False.</p></li>
 <dl class="py exception">
 <dt class="sig sig-object py" id="marulc.exceptions.MultiPacketInProcessError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">marulc.exceptions.</span></span><span class="sig-name descname"><span class="pre">MultiPacketInProcessError</span></span><a class="headerlink" href="#marulc.exceptions.MultiPacketInProcessError" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#marulc.exceptions.MultiPacketError" title="marulc.exceptions.MultiPacketError"><code class="xref py py-class docutils literal notranslate"><span class="pre">marulc.exceptions.MultiPacketError</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#marulc.exceptions.MultiPacketError" title="marulc.exceptions.MultiPacketError"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiPacketError</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="marulc.exceptions.PGNError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">marulc.exceptions.</span></span><span class="sig-name descname"><span class="pre">PGNError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#marulc.exceptions.PGNError" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#marulc.exceptions.ParseError" title="marulc.exceptions.ParseError"><code class="xref py py-class docutils literal notranslate"><span class="pre">marulc.exceptions.ParseError</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#marulc.exceptions.ParseError" title="marulc.exceptions.ParseError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParseError</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
@@ -795,14 +838,14 @@ silenced. Defaults to False.</p></li>
 <dl class="py exception">
 <dt class="sig sig-object py" id="marulc.exceptions.SentenceTypeError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">marulc.exceptions.</span></span><span class="sig-name descname"><span class="pre">SentenceTypeError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#marulc.exceptions.SentenceTypeError" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#marulc.exceptions.ParseError" title="marulc.exceptions.ParseError"><code class="xref py py-class docutils literal notranslate"><span class="pre">marulc.exceptions.ParseError</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#marulc.exceptions.ParseError" title="marulc.exceptions.ParseError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParseError</span></code></a></p>
 </dd></dl>
 
 </section>
 </section>
 </section>
 <section id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline"></a></h1>
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading"></a></h1>
 <ul class="simple">
 <li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
 <li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
