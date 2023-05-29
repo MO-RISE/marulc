@@ -189,14 +189,7 @@ assert len(speeds) == 2
 ```
 
 ## Development setup
-Create a virtual environment:
-
-    python3 -m venv venv
-    source venv/bin/activate
-
-Install the development requirements:
-
-    pip install -r requirements.txt
+The repository includes a devcontainer setup which is the recommended way of creating a development environment. See [here](https://code.visualstudio.com/docs/devcontainers/containers) for a generic get-started in VSCode.
 
 Run the formatter and linter:
 
@@ -206,3 +199,6 @@ Run the formatter and linter:
 Run the tests:
 
     pytest --codeblocks
+
+## License
+See [LICENSE](./LICENSE)
