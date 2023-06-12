@@ -7,7 +7,7 @@ jsonpointer==2.3
 streamz==0.6.4
 sphinx==6.2.1
 sphinx-rtd-theme==1.2.2
-m2r2==0.3.2
+m2r2==0.3.3.post2
 build
 twine
 -e .
