@@ -3,7 +3,7 @@ pylint==2.17.4
 pytest==7.3.2
 pytest-pinned==0.4.2
 pytest-codeblocks==0.16.1
-jsonpointer==2.3
+jsonpointer==2.4
 streamz==0.6.4
 sphinx==6.2.1
 sphinx-rtd-theme==1.2.2
